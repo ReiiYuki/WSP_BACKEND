@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from .models import Address
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,3 +18,8 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+class AddressSerializer(serializers.ModelSerializer) :
+    class Meta :
+        model = Address
+        fields = ('user','address','village','road','sub_district','district','province','country','zipcode')
