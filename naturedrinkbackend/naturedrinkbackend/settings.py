@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'product.apps.ProductConfig',
     'corsheaders',
     'rest_framework.authtoken',
     'member.apps.MemberConfig',

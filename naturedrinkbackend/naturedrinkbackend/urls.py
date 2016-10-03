@@ -17,6 +17,7 @@ from django.conf.urls import url,include
 from django.contrib import admin
 
 urlpatterns = [
+    url(r'^api/v1/product/',include('product.urls')),
     url(r'^api/v1/member/',include('member.urls')),
     url(r'^admin/', admin.site.urls),
 ]
