@@ -6,24 +6,25 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import list_route
 
+def anonymous(req) :
+    if req.user.is_anonymous :
+        content = {'ERROR_MESSEGE': 'User is unauthorized.'}
+        return Response(content,status=status.HTTP_401_UNAUTHORIZED)
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
     def retrieve(self, request, pk=None):
-        if request.user.is_anonymous :
-            content = {'ERROR_MESSEGE': 'User is unauthorized.'}
-            return Response(content,status=status.HTTP_401_UNAUTHORIZED)
+        anonymous(request)
         if pk=='0':
             return Response(UserSerializer(request.user,
                 context={'request':request}).data)
         return super(UserViewSet, self).retrieve(request, pk)
 
-    @list_route(methods=['post'],renderer_classes=[renderers.JSONRenderer])
+    @list_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
     def change_password(self,request) :
-        if request.user.is_anonymous :
-            content = {'ERROR_MESSEGE': 'User is unauthorized.'}
-            return Response(content,status=status.HTTP_401_UNAUTHORIZED)
+        anonymous(request)
         password = request.data['password']
         new_password = request.data['new_password']
         user = authenticate(username=request.user.username,password=password)
@@ -34,3 +35,16 @@ class UserViewSet(viewsets.ModelViewSet):
                 context={'request':request}).data)
         content = {'ERROR_MESSEGE': 'Password is wrong.'}
         return Response(content,status=status.HTTP_401_UNAUTHORIZED)
+
+    @list_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
+    def edit_info(self,request) :
+        anonymous(request)
+        first_name = request.data['first_name']
+        last_name = request.data['last_name']
+        email = request.data['email']
+        request.user.first_name = first_name
+        request.user.last_name = last_name
+        request.user.email = email
+        request.user.save()
+        return Response(UserSerializer(request.user,
+            context={'request':request}).data)
