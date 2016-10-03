@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 03, 2016 at 06:43 PM
+-- Generation Time: Oct 03, 2016 at 08:00 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -242,7 +242,8 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (13, 'sessions', '0001_initial', '2016-10-03 09:05:21.396634'),
 (14, 'authtoken', '0001_initial', '2016-10-03 10:22:06.132555'),
 (15, 'authtoken', '0002_auto_20160226_1747', '2016-10-03 10:22:06.221838'),
-(16, 'member', '0001_initial', '2016-10-03 16:42:46.318420');
+(16, 'member', '0001_initial', '2016-10-03 16:42:46.318420'),
+(17, 'member', '0002_address_country', '2016-10-03 16:57:49.392960');
 
 -- --------------------------------------------------------
 
@@ -278,8 +279,16 @@ CREATE TABLE `member_address` (
   `district` varchar(100) COLLATE utf8_bin NOT NULL,
   `province` varchar(100) COLLATE utf8_bin NOT NULL,
   `zipcode` int(10) UNSIGNED NOT NULL,
-  `user_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL,
+  `country` varchar(100) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `member_address`
+--
+
+INSERT INTO `member_address` (`id`, `address`, `village`, `road`, `sub_district`, `district`, `province`, `zipcode`, `user_id`, `country`) VALUES
+(2, '57/1320', '-', 'Latphrao Rd.', 'Chankasem', 'Chutujak', 'Bangkok', 10900, 1, 'Thailand');
 
 --
 -- Indexes for dumped tables
@@ -420,12 +429,12 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `member_address`
 --
 ALTER TABLE `member_address`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- Constraints for dumped tables
 --
