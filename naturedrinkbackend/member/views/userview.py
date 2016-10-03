@@ -3,7 +3,6 @@ from rest_framework import viewsets,status,renderers
 from ..serializers import UserSerializer
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import list_route
 from utility.utility import anonymous
 

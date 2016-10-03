@@ -12,4 +12,4 @@ class Address(models.Model) :
     district = models.CharField(max_length=100)
     province = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
-    zipcode = models.PositiveIntegerField(max_length=5,validators=[MinLengthValidator(5)])
+    zipcode = models.PositiveIntegerField()
