@@ -17,7 +17,7 @@
 
   Method | URL | Header | Body | Description
   --- | --- | --- | --- | ---
-  POST | login/ |  | username , password | Login user
+  POST | login/ |  | username , password | Login user and Get Token
   GET | member/ | Authorization : Token `authenticate token` |  | Get list of member
   POST | member/ |  | username , password , email , first_name , last_name | Create user
   GET | member/`pk` | Authorization : Token `authenticate token` |  | Get user id `pk` info
