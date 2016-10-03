@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 03, 2016 at 11:06 AM
+-- Generation Time: Oct 03, 2016 at 06:43 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -19,6 +19,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `naturedrink`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `authtoken_token`
+--
+
+CREATE TABLE `authtoken_token` (
+  `key` varchar(40) COLLATE utf8_bin NOT NULL,
+  `created` datetime(6) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `authtoken_token`
+--
+
+INSERT INTO `authtoken_token` (`key`, `created`, `user_id`) VALUES
+('2175e602da057ba0ff173c9fd6f03bf75ec40ed7', '2016-10-03 11:29:33.436790', 2),
+('d47ccf96c5170d1ef0e0536ae46aa3c9f7a0cfbc', '2016-10-03 11:16:07.859057', 1),
+('e05123a69bb67d0ee61f818f1369fcd53a08fdcd', '2016-10-03 15:29:57.980221', 3),
+('fc06514c74f32dbefe3442ef5d0cd62fb45acc75', '2016-10-03 15:30:24.262287', 4);
 
 -- --------------------------------------------------------
 
@@ -78,7 +100,16 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (15, 'Can delete content type', 5, 'delete_contenttype'),
 (16, 'Can add session', 6, 'add_session'),
 (17, 'Can change session', 6, 'change_session'),
-(18, 'Can delete session', 6, 'delete_session');
+(18, 'Can delete session', 6, 'delete_session'),
+(19, 'Can add Token', 7, 'add_token'),
+(20, 'Can change Token', 7, 'change_token'),
+(21, 'Can delete Token', 7, 'delete_token'),
+(22, 'Can add cors model', 8, 'add_corsmodel'),
+(23, 'Can change cors model', 8, 'change_corsmodel'),
+(24, 'Can delete cors model', 8, 'delete_corsmodel'),
+(25, 'Can add address', 9, 'add_address'),
+(26, 'Can change address', 9, 'change_address'),
+(27, 'Can delete address', 9, 'delete_address');
 
 -- --------------------------------------------------------
 
@@ -99,6 +130,16 @@ CREATE TABLE `auth_user` (
   `is_active` tinyint(1) NOT NULL,
   `date_joined` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `auth_user`
+--
+
+INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
+(1, 'pbkdf2_sha256$30000$NAbXAANXZWEc$DPJWgt/zsWYAdbUR5szOeIfsRHX/QCxFhZrXzGC8hIE=', NULL, 0, 'a', '', '', 'a@b', 0, 1, '2016-10-03 11:16:07.827855'),
+(2, 'pbkdf2_sha256$30000$t9gbuLtFOQs3$5ocEuYoL8qQoZAUh4v+6Vi4NNiv/R7KBuaDxfaCrb8s=', NULL, 0, 'yukireii', 'Reii', 'Yuki', 'iguru.shou.5410070@@gmail.com', 0, 1, '2016-10-03 11:29:33.421143'),
+(3, 'pbkdf2_sha256$30000$lncDG7ac4jWb$KjKjDGm3lpXUIJqU2UfmxPFv/6F1TWonP55xYdS21w8=', NULL, 0, 'gunhappy', 'Phasin', 'lastname', 'phasin.s@ku.th', 0, 1, '2016-10-03 15:29:57.933392'),
+(4, 'pbkdf2_sha256$30000$jeEFFFsYoqh8$G77ZoZJjs5qdR7eO5MweDlHP/2prLDcWWfl4w/Bg+0A=', NULL, 0, 'aaaaaaaaaa', 'Phasin', 'lastname', 'phasin.s@ku.th', 0, 1, '2016-10-03 15:30:24.227980');
 
 -- --------------------------------------------------------
 
@@ -162,7 +203,10 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (3, 'auth', 'group'),
 (2, 'auth', 'permission'),
 (4, 'auth', 'user'),
+(7, 'authtoken', 'token'),
 (5, 'contenttypes', 'contenttype'),
+(8, 'corsheaders', 'corsmodel'),
+(9, 'member', 'address'),
 (6, 'sessions', 'session');
 
 -- --------------------------------------------------------
@@ -195,7 +239,10 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (10, 'auth', '0006_require_contenttypes_0002', '2016-10-03 09:05:21.239694'),
 (11, 'auth', '0007_alter_validators_add_error_messages', '2016-10-03 09:05:21.255318'),
 (12, 'auth', '0008_alter_user_username_max_length', '2016-10-03 09:05:21.333410'),
-(13, 'sessions', '0001_initial', '2016-10-03 09:05:21.396634');
+(13, 'sessions', '0001_initial', '2016-10-03 09:05:21.396634'),
+(14, 'authtoken', '0001_initial', '2016-10-03 10:22:06.132555'),
+(15, 'authtoken', '0002_auto_20160226_1747', '2016-10-03 10:22:06.221838'),
+(16, 'member', '0001_initial', '2016-10-03 16:42:46.318420');
 
 -- --------------------------------------------------------
 
@@ -210,8 +257,40 @@ CREATE TABLE `django_session` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
+-- Dumping data for table `django_session`
+--
+
+INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
+('sxoj95r859wy5xmqsmv9exsd5vby1eod', 'YTQwMDM0NjVkODFiN2ZmMTQ4ODY3ODhkNDFjYTZkZGNmYTgxYzJhNTp7ImFhYSI6ImFhYSJ9', '2016-10-17 11:26:46.092553');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `member_address`
+--
+
+CREATE TABLE `member_address` (
+  `id` int(11) NOT NULL,
+  `address` varchar(100) COLLATE utf8_bin NOT NULL,
+  `village` varchar(100) COLLATE utf8_bin NOT NULL,
+  `road` varchar(100) COLLATE utf8_bin NOT NULL,
+  `sub_district` varchar(100) COLLATE utf8_bin NOT NULL,
+  `district` varchar(100) COLLATE utf8_bin NOT NULL,
+  `province` varchar(100) COLLATE utf8_bin NOT NULL,
+  `zipcode` int(10) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `authtoken_token`
+--
+ALTER TABLE `authtoken_token`
+  ADD PRIMARY KEY (`key`),
+  ADD UNIQUE KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `auth_group`
@@ -287,6 +366,13 @@ ALTER TABLE `django_session`
   ADD KEY `django_session_de54fa62` (`expire_date`);
 
 --
+-- Indexes for table `member_address`
+--
+ALTER TABLE `member_address`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `member_address_user_id_5870f5a8_fk_auth_user_id` (`user_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -304,12 +390,12 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT for table `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `auth_user`
 --
 ALTER TABLE `auth_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `auth_user_groups`
 --
@@ -329,15 +415,26 @@ ALTER TABLE `django_admin_log`
 -- AUTO_INCREMENT for table `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT for table `member_address`
+--
+ALTER TABLE `member_address`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `authtoken_token`
+--
+ALTER TABLE `authtoken_token`
+  ADD CONSTRAINT `authtoken_token_user_id_35299eff_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
 
 --
 -- Constraints for table `auth_group_permissions`
@@ -372,6 +469,12 @@ ALTER TABLE `auth_user_user_permissions`
 ALTER TABLE `django_admin_log`
   ADD CONSTRAINT `django_admin__content_type_id_c4bce8eb_fk_django_content_type_id` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   ADD CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `member_address`
+--
+ALTER TABLE `member_address`
+  ADD CONSTRAINT `member_address_user_id_5870f5a8_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
