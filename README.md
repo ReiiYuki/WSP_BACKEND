@@ -23,3 +23,4 @@
   POST | member/detail/ |  | username , password , email , first_name , last_name | Create user
   GET | member/detail/`pk`/ | Authorization : Token `authenticate token` |  | Get user id `pk` info
   GET | member/detail/0/ | Authorization : Token `authenticate token` |  | Get current user
+  POST | member/detail/change_password/ : Authorization : Token `authenticate token` | password , new_password | Change password
