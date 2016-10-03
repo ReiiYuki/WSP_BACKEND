@@ -5,7 +5,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 from django.views.decorators.csrf import csrf_exempt
 
 router = DefaultRouter()
-router.register(r'.', views.UserViewSet)
+router.register(r'detail', views.UserViewSet)
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^login/$', csrf_exempt(obtain_auth_token))
