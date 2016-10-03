@@ -28,3 +28,10 @@ class AddressViewSet(viewsets.ModelViewSet):
             return super(AddressViewSet, self).retrieve(request, pk)
         content = {'ERROR_MESSEGE': 'User is unauthorized.'}
         return Response(content,status=status.HTTP_401_UNAUTHORIZED)
+
+    def destroy(self,request,pk=None) :
+        anonymous(request)
+        if self.get_object().user == request.user :
+            return super(AddressViewSet, self).destroy(request, pk)
+        content = {'ERROR_MESSEGE': 'User is unauthorized.'}
+        return Response(content,status=status.HTTP_401_UNAUTHORIZED)
