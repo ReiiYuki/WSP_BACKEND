@@ -26,7 +26,8 @@
   PUT | member/detail/change_password/ | Authorization : Token `authenticate token` | password , new_password | Change password
   PUT | member/detail/edit_info/ | Authorization : Token `authenticate token` | first_name , email , last_name | Edit user info
 
-  `address` - address system
+  `address` - address system.
+  
   Method | URL | Header | Body | Description
   --- | --- | --- | --- | ---
   GET | address/`pk` | Authorization : Token `authenticate token` |  | Get address id `pk` info
