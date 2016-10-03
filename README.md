@@ -10,3 +10,7 @@
   ```
 
   Please always import `naturedrink.sql` every time after pull.
+
+##API information
+
+  `member` - member system.
