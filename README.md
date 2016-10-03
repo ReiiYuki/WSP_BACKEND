@@ -8,3 +8,5 @@
   'HOST' : 'localhost',
   'PORT' : '3306'
   ```
+
+  Please always import `naturedrink.sql` every time after pull.
