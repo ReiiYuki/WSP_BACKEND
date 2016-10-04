@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 03, 2016 at 08:00 PM
+-- Generation Time: Oct 04, 2016 at 02:51 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -109,7 +109,13 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (24, 'Can delete cors model', 8, 'delete_corsmodel'),
 (25, 'Can add address', 9, 'add_address'),
 (26, 'Can change address', 9, 'change_address'),
-(27, 'Can delete address', 9, 'delete_address');
+(27, 'Can delete address', 9, 'delete_address'),
+(28, 'Can add catagory', 10, 'add_catagory'),
+(29, 'Can change catagory', 10, 'change_catagory'),
+(30, 'Can delete catagory', 10, 'delete_catagory'),
+(31, 'Can add product', 11, 'add_product'),
+(32, 'Can change product', 11, 'change_product'),
+(33, 'Can delete product', 11, 'delete_product');
 
 -- --------------------------------------------------------
 
@@ -207,6 +213,8 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (5, 'contenttypes', 'contenttype'),
 (8, 'corsheaders', 'corsmodel'),
 (9, 'member', 'address'),
+(10, 'product', 'catagory'),
+(11, 'product', 'product'),
 (6, 'sessions', 'session');
 
 -- --------------------------------------------------------
@@ -243,7 +251,8 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (14, 'authtoken', '0001_initial', '2016-10-03 10:22:06.132555'),
 (15, 'authtoken', '0002_auto_20160226_1747', '2016-10-03 10:22:06.221838'),
 (16, 'member', '0001_initial', '2016-10-03 16:42:46.318420'),
-(17, 'member', '0002_address_country', '2016-10-03 16:57:49.392960');
+(17, 'member', '0002_address_country', '2016-10-03 16:57:49.392960'),
+(18, 'product', '0001_initial', '2016-10-04 00:50:48.517687');
 
 -- --------------------------------------------------------
 
@@ -289,6 +298,32 @@ CREATE TABLE `member_address` (
 
 INSERT INTO `member_address` (`id`, `address`, `village`, `road`, `sub_district`, `district`, `province`, `zipcode`, `user_id`, `country`) VALUES
 (2, '57/1320', '-', 'Latphrao Rd.', 'Chankasem', 'Chutujak', 'Bangkok', 10900, 1, 'Thailand');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_catagory`
+--
+
+CREATE TABLE `product_catagory` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) COLLATE utf8_bin NOT NULL,
+  `detail` longtext COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_product`
+--
+
+CREATE TABLE `product_product` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) COLLATE utf8_bin NOT NULL,
+  `detail` longtext COLLATE utf8_bin NOT NULL,
+  `price` double NOT NULL,
+  `catagory_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Indexes for dumped tables
@@ -382,6 +417,19 @@ ALTER TABLE `member_address`
   ADD KEY `member_address_user_id_5870f5a8_fk_auth_user_id` (`user_id`);
 
 --
+-- Indexes for table `product_catagory`
+--
+ALTER TABLE `product_catagory`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `product_product`
+--
+ALTER TABLE `product_product`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_product_catagory_id_8df4c91f_fk_product_catagory_id` (`catagory_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -399,7 +447,7 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT for table `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT for table `auth_user`
 --
@@ -424,17 +472,27 @@ ALTER TABLE `django_admin_log`
 -- AUTO_INCREMENT for table `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `member_address`
 --
 ALTER TABLE `member_address`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `product_catagory`
+--
+ALTER TABLE `product_catagory`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `product_product`
+--
+ALTER TABLE `product_product`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
@@ -484,6 +542,12 @@ ALTER TABLE `django_admin_log`
 --
 ALTER TABLE `member_address`
   ADD CONSTRAINT `member_address_user_id_5870f5a8_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `product_product`
+--
+ALTER TABLE `product_product`
+  ADD CONSTRAINT `product_product_catagory_id_8df4c91f_fk_product_catagory_id` FOREIGN KEY (`catagory_id`) REFERENCES `product_catagory` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
