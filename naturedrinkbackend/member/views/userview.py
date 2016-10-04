@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import viewsets,status,renderers
 from ..serializers import UserSerializer
+from ..permissions import AuthorizedOrAdmin
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from rest_framework.decorators import list_route
@@ -9,9 +10,9 @@ from utility.utility import anonymous
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes  = (AuthorizedOrAdmin,)
 
     def retrieve(self, request, pk=None):
-        anonymous(request)
         if pk=='0':
             return Response(UserSerializer(request.user,
                 context={'request':request}).data)
@@ -19,7 +20,6 @@ class UserViewSet(viewsets.ModelViewSet):
 
     @list_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
     def change_password(self,request) :
-        anonymous(request)
         password = request.data['password']
         new_password = request.data['new_password']
         user = authenticate(username=request.user.username,password=password)
@@ -28,12 +28,11 @@ class UserViewSet(viewsets.ModelViewSet):
             user.save()
             return Response(UserSerializer(request.user,
                 context={'request':request}).data)
-        content = {'ERROR_MESSEGE': 'Password is wrong.'}
+        content = {'detail': 'Password is wrong.'}
         return Response(content,status=status.HTTP_401_UNAUTHORIZED)
 
     @list_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
     def edit_info(self,request) :
-        anonymous(request)
         first_name = request.data['first_name']
         last_name = request.data['last_name']
         email = request.data['email']
