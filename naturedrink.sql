@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 04, 2016 at 02:51 AM
+-- Generation Time: Oct 04, 2016 at 03:12 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -38,6 +38,7 @@ CREATE TABLE `authtoken_token` (
 
 INSERT INTO `authtoken_token` (`key`, `created`, `user_id`) VALUES
 ('2175e602da057ba0ff173c9fd6f03bf75ec40ed7', '2016-10-03 11:29:33.436790', 2),
+('2d9ac0f8ab537472d017742bce5a797a1ccfa04f', '2016-10-04 01:01:48.534836', 5),
 ('d47ccf96c5170d1ef0e0536ae46aa3c9f7a0cfbc', '2016-10-03 11:16:07.859057', 1),
 ('e05123a69bb67d0ee61f818f1369fcd53a08fdcd', '2016-10-03 15:29:57.980221', 3),
 ('fc06514c74f32dbefe3442ef5d0cd62fb45acc75', '2016-10-03 15:30:24.262287', 4);
@@ -115,7 +116,10 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (30, 'Can delete catagory', 10, 'delete_catagory'),
 (31, 'Can add product', 11, 'add_product'),
 (32, 'Can change product', 11, 'change_product'),
-(33, 'Can delete product', 11, 'delete_product');
+(33, 'Can delete product', 11, 'delete_product'),
+(34, 'Can add category', 10, 'add_category'),
+(35, 'Can change category', 10, 'change_category'),
+(36, 'Can delete category', 10, 'delete_category');
 
 -- --------------------------------------------------------
 
@@ -145,7 +149,8 @@ INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `userna
 (1, 'pbkdf2_sha256$30000$NAbXAANXZWEc$DPJWgt/zsWYAdbUR5szOeIfsRHX/QCxFhZrXzGC8hIE=', NULL, 0, 'a', '', '', 'a@b', 0, 1, '2016-10-03 11:16:07.827855'),
 (2, 'pbkdf2_sha256$30000$t9gbuLtFOQs3$5ocEuYoL8qQoZAUh4v+6Vi4NNiv/R7KBuaDxfaCrb8s=', NULL, 0, 'yukireii', 'Reii', 'Yuki', 'iguru.shou.5410070@@gmail.com', 0, 1, '2016-10-03 11:29:33.421143'),
 (3, 'pbkdf2_sha256$30000$lncDG7ac4jWb$KjKjDGm3lpXUIJqU2UfmxPFv/6F1TWonP55xYdS21w8=', NULL, 0, 'gunhappy', 'Phasin', 'lastname', 'phasin.s@ku.th', 0, 1, '2016-10-03 15:29:57.933392'),
-(4, 'pbkdf2_sha256$30000$jeEFFFsYoqh8$G77ZoZJjs5qdR7eO5MweDlHP/2prLDcWWfl4w/Bg+0A=', NULL, 0, 'aaaaaaaaaa', 'Phasin', 'lastname', 'phasin.s@ku.th', 0, 1, '2016-10-03 15:30:24.227980');
+(4, 'pbkdf2_sha256$30000$jeEFFFsYoqh8$G77ZoZJjs5qdR7eO5MweDlHP/2prLDcWWfl4w/Bg+0A=', NULL, 0, 'aaaaaaaaaa', 'Phasin', 'lastname', 'phasin.s@ku.th', 0, 1, '2016-10-03 15:30:24.227980'),
+(5, 'pbkdf2_sha256$30000$DLKWRt4kf53c$dJi7yF6Q7egnYY85Za04/LHmdJ3YG+mAhQ0TfXTpUUA=', NULL, 1, 'admin', '', '', 'admin@admin.admin', 1, 1, '2016-10-04 01:01:48.501859');
 
 -- --------------------------------------------------------
 
@@ -213,7 +218,7 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (5, 'contenttypes', 'contenttype'),
 (8, 'corsheaders', 'corsmodel'),
 (9, 'member', 'address'),
-(10, 'product', 'catagory'),
+(10, 'product', 'category'),
 (11, 'product', 'product'),
 (6, 'sessions', 'session');
 
@@ -252,7 +257,8 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (15, 'authtoken', '0002_auto_20160226_1747', '2016-10-03 10:22:06.221838'),
 (16, 'member', '0001_initial', '2016-10-03 16:42:46.318420'),
 (17, 'member', '0002_address_country', '2016-10-03 16:57:49.392960'),
-(18, 'product', '0001_initial', '2016-10-04 00:50:48.517687');
+(18, 'product', '0001_initial', '2016-10-04 00:50:48.517687'),
+(19, 'product', '0002_auto_20161004_0811', '2016-10-04 01:11:42.974609');
 
 -- --------------------------------------------------------
 
@@ -302,10 +308,10 @@ INSERT INTO `member_address` (`id`, `address`, `village`, `road`, `sub_district`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_catagory`
+-- Table structure for table `product_category`
 --
 
-CREATE TABLE `product_catagory` (
+CREATE TABLE `product_category` (
   `id` int(11) NOT NULL,
   `name` varchar(100) COLLATE utf8_bin NOT NULL,
   `detail` longtext COLLATE utf8_bin NOT NULL
@@ -322,7 +328,7 @@ CREATE TABLE `product_product` (
   `name` varchar(100) COLLATE utf8_bin NOT NULL,
   `detail` longtext COLLATE utf8_bin NOT NULL,
   `price` double NOT NULL,
-  `catagory_id` int(11) NOT NULL
+  `category_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
@@ -417,9 +423,9 @@ ALTER TABLE `member_address`
   ADD KEY `member_address_user_id_5870f5a8_fk_auth_user_id` (`user_id`);
 
 --
--- Indexes for table `product_catagory`
+-- Indexes for table `product_category`
 --
-ALTER TABLE `product_catagory`
+ALTER TABLE `product_category`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -427,7 +433,7 @@ ALTER TABLE `product_catagory`
 --
 ALTER TABLE `product_product`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `product_product_catagory_id_8df4c91f_fk_product_catagory_id` (`catagory_id`);
+  ADD KEY `product_product_category_id_0c725779_fk_product_category_id` (`category_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -447,12 +453,12 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT for table `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `auth_user`
 --
 ALTER TABLE `auth_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `auth_user_groups`
 --
@@ -477,16 +483,16 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `member_address`
 --
 ALTER TABLE `member_address`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT for table `product_catagory`
+-- AUTO_INCREMENT for table `product_category`
 --
-ALTER TABLE `product_catagory`
+ALTER TABLE `product_category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `product_product`
@@ -547,7 +553,7 @@ ALTER TABLE `member_address`
 -- Constraints for table `product_product`
 --
 ALTER TABLE `product_product`
-  ADD CONSTRAINT `product_product_catagory_id_8df4c91f_fk_product_catagory_id` FOREIGN KEY (`catagory_id`) REFERENCES `product_catagory` (`id`);
+  ADD CONSTRAINT `product_product_category_id_0c725779_fk_product_category_id` FOREIGN KEY (`category_id`) REFERENCES `product_category` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
