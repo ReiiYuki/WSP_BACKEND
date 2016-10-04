@@ -44,3 +44,4 @@
   POST | container/category/ | Authorization : Token `authenticate token` | name , detail | Create category [Admin]
   GET | container/category/`pk` |  |  | Get category id `pk`
   GET | container/category/`pk`/product/ |  |  | Get list of product at category
+  PUT | container/category/`pk`/ | Authorization : Token `authenticate token` | name , detail | Edit category [Admin]
