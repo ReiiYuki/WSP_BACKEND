@@ -39,6 +39,7 @@
   `category` - category system.     
 
   Method | URL | Header | Body | Description
+  --- | --- | --- | --- | ---
   GET | container/category/ |  |   |  Get list of category
   POST | container/category/ | Authorization : Token `authenticate token` | name , detail | Create category [Admin]
   GET | container/category/`pk` |  |  | Get category id `pk`

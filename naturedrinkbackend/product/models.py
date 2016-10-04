@@ -11,3 +11,11 @@ class Product (models.Model) :
     detail = models.TextField()
     price = models.FloatField()
     category = models.ForeignKey(Category)
+
+class ProductOption(models.Model) :
+    name = models.CharField(max_length=100)
+    product = models.ForeignKey(Product)
+
+class ProductChoice(models.Model) :
+    name = models.CharField(max_length=100)
+    option = models.ForeignKey(ProductOption)
