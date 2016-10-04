@@ -1,9 +1,8 @@
 from rest_framework.response import Response
-from rest_framework import viewsets,status
+from rest_framework import viewsets
 from ..serializers import AddressSerializer
 from ..models import Address
 from ..permissions import IsOwnerOrIsAdmin
-from utility.utility import anonymous
 
 class AddressViewSet(viewsets.ModelViewSet):
     queryset = Address.objects.all()

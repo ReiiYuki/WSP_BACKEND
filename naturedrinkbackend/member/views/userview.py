@@ -5,8 +5,7 @@ from ..permissions import AuthorizedOrAdmin
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from rest_framework.decorators import list_route
-from utility.utility import anonymous
-
+\
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer

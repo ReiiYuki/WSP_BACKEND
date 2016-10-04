@@ -30,8 +30,15 @@
 
   Method | URL | Header | Body | Description
   --- | --- | --- | --- | ---
-  GET | address/`pk` | Authorization : Token `authenticate token` |  | Get address id `pk` info [OwnerOrAdmin]
+  GET | member/address/`pk` | Authorization : Token `authenticate token` |  | Get address id `pk` info [OwnerOrAdmin]
   POST | address/ | Authorization : Token `authenticate token` | address , village , road , sub_district , district , province , country , zipcode | Create address [OwnerOrAdmin]
   PUT | address/ | Authorization : Token `authenticate token` | address , village , road , sub_district , district , province , country , zipcode | Update address [OwnerOrAdmin]
   DELETE | address/`pk` | Authorization : Token `authenticate token` |  | Delete Address id `pk` [OwnerOrAdmin]
   GET | address/ | Authorization : Token `authenticate token` |  | Get list of address [OwnerOrAdmin]
+
+  `category`
+  Method | URL | Header | Body | Description
+  GET | container/category |  |   |  Get list of category
+  POST | container/category | Authorization : Token `authenticate token` | name , detail | Create category [Admin]
+  GET | container/category/`pk` |  |  | Get category id `pk`
+  
