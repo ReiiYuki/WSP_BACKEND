@@ -11,3 +11,8 @@ class ItemPropertySerializer(serializers.ModelSerializer) :
     class Meta :
         model = ItemProperty
         field = ('item','option','choice')
+
+class OrderSerializer(serializers.ModelSerializer) :
+    class Meta :
+        model = Order
+        field = ('user','status')
