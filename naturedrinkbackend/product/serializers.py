@@ -4,19 +4,19 @@ from .models import Category,Product,ProductOption,ProductChoice
 class CategorySerializer(serializers.ModelSerializer) :
     class Meta :
         model = Category
-        field = ('name','detail')
+        field = ('id','name','detail')
 
 class ProductSerializer(serializers.ModelSerializer) :
     class Meta :
         model = Product
-        field = ('name','detail','catagory','price')
+        field = ('id','name','detail','catagory','price')
 
 class ProductOptionSerializer(serializers.ModelSerializer) :
     class Meta :
         model = ProductOption
-        field = ('name')
+        field = ('id','name','product')
 
 class ProductChoiceSerializer(serializers.ModelSerializer) :
     class Meta :
         model = ProductChoice
-        field = ('name')
+        field = ('id','name','product')

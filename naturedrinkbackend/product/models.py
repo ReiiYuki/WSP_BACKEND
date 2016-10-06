@@ -10,12 +10,12 @@ class Product (models.Model) :
     name = models.CharField(max_length=100)
     detail = models.TextField()
     price = models.FloatField()
-    category = models.ForeignKey(Category)
+    category = models.ForeignKey(Category,on_delete=models.CASCADE)
 
 class ProductOption(models.Model) :
     name = models.CharField(max_length=100)
-    product = models.ForeignKey(Product)
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
 
 class ProductChoice(models.Model) :
     name = models.CharField(max_length=100)
-    option = models.ForeignKey(ProductOption)
+    option = models.ForeignKey(ProductOption,on_delete=models.CASCADE)
