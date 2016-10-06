@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -35,6 +36,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework.authtoken',
     'member.apps.MemberConfig',
+    'rest_framework_expiring_authtoken',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -137,3 +139,5 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+EXPIRING_TOKEN_LIFESPAN = datetime.timedelta(days=25)
