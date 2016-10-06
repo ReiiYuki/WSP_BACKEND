@@ -60,4 +60,15 @@
   Method | URL | Header | Body | Description
   --- | --- | --- | --- | ---
   GET | container/option/ |  |  | Get list of product option
-  POST | container/option/ | Authorization : Token `authenticate token` |
+  POST | container/option/ | Authorization : Token `authenticate token` | name , product | Create new product option
+  GET | container/option/`pk`/ |  |  | Get product option
+  PUT | container/option/`pk`/ | Authorization : Token `authenticate token` | name , product | Edit product option
+
+  `productchoice` - product choice system
+
+  Method | URL | Header | Body | Description
+  --- | --- | --- | --- | ---
+  GET | container/choice/ |  |  | Get list of product choice
+  POST | container/choice/ | Authorization : Token `authenticate token` | name , option | Create new product choice
+  GET | container/choice/`pk`/ |  |  | Get product choice
+  PUT | container/choice/`pk`/ | Authorization : Token `authenticate token` | name , option | Edit product choice
