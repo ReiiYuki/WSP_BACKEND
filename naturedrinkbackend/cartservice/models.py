@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Order(models.Model) :
+    user = models.ForeignKey(User)
     status = models.CharField(max_length=1)
 
 class ItemLine(models.Model) :
