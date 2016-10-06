@@ -87,4 +87,4 @@
   GET | action/cart/ | Authorization : Token `authenticate token` |  | View item in cart
   POST | action/cart/ | Authorization : Token `authenticate token` | product , quantity , option[ id , choice ] | Add product to cart
   GET | action/cart/`pk`/ | Authorization : Token `authenticate token` |  | Get product in cart
-  DELETE | action/cart/`pk` | Authorization : Token `authenticate token` |  | Delete product from cart   
+  DELETE | action/cart/`pk`/ | Authorization : Token `authenticate token` |  | Delete product from cart   

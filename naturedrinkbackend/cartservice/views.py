@@ -7,7 +7,6 @@ from product.models import Product,ProductOption,ProductChoice
 
 # Create your views here.
 
-''' WARNING THIS SYSTEM STILL UNTEST!!!! '''
 class CartViewSet(viewsets.ModelViewSet) :
     queryset = ItemLine.objects.filter(order=None)
     serializer_class = CartItemLineSerializer
