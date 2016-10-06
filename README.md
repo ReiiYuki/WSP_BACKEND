@@ -42,6 +42,22 @@
   --- | --- | --- | --- | ---
   GET | container/category/ |  |   |  Get list of category
   POST | container/category/ | Authorization : Token `authenticate token` | name , detail | Create category [Admin]
-  GET | container/category/`pk` |  |  | Get category id `pk`
-  GET | container/category/`pk`/product/ |  |  | Get list of product at category
+  GET | container/category/`pk`/ |  |  | Get category id `pk` with product
   PUT | container/category/`pk`/ | Authorization : Token `authenticate token` | name , detail | Edit category [Admin]
+  DELETE | container/category/`pk`/ | Authorization : Token `authenticate token` |  | Delete category [Admin]
+
+  `product` - product system
+
+  Method | URL | Header | Body | Description
+  --- | --- | --- | --- | ---
+  GET | container/product/ |  |  | Get list of product
+  POST | container/product/ | Authorization : Token `authenticate token` | name , detail , price , category , options[ { name , choices[ { name } ] } ] | Create product with options and choices [Admin]
+  GET | container/product/`pk`/ |  |  | Get product with options and choices
+  PUT | container/product/`pk`/ | Authorization : Token `authenticate token` | name , detail , price , category | Edit product detail [Admin]
+
+  `productoption` - product option system
+
+  Method | URL | Header | Body | Description
+  --- | --- | --- | --- | ---
+  GET | container/option/ |  |  | Get list of product option
+  POST | container/option/ | Authorization : Token `authenticate token` |

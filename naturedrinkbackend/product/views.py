@@ -11,10 +11,11 @@ class CategoryViewSet(viewsets.ModelViewSet) :
     serializer_class = CategorySerializer
     permission_classes  = (AdminOrReadOnly,)
 
-    @detail_route(renderer_classes=[renderers.JSONRenderer])
-    def product(self,request,pk=None) :
+    def retrieve(self,request,pk=None) :
         category = Category.objects.get(id=pk)
-        return Response(ProductSerializer(Product.objects.filter(category=category),many=True).data)
+        content = CategorySerializer(category).data
+        content['products'] = ProductSerializer(Product.objects.filter(category=category),many=True).data
+        return Response(content)
 
 class ProductViewSet(viewsets.ModelViewSet) :
     queryset = Product.objects.all()
