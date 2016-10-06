@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'cartservice.apps.CartserviceConfig',
     'product.apps.ProductConfig',
     'corsheaders',
     'rest_framework.authtoken',
