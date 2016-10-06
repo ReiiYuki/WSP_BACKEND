@@ -77,3 +77,14 @@
   POST | container/choice/ | Authorization : Token `authenticate token` | name , option | Create new product choice
   GET | container/choice/`pk`/ |  |  | Get product choice
   PUT | container/choice/`pk`/ | Authorization : Token `authenticate token` | name , option | Edit product choice
+
+###Cart Service
+
+  `cart` - cart service system
+
+  Method | URL | Header | Body | Description
+  --- | --- | --- | --- | ---
+  GET | action/cart/ | Authorization : Token `authenticate token` |  | View item in cart
+  POST | action/cart/ | Authorization : Token `authenticate token` | product , quantity , option[ id , choice ] | Add product to cart
+  GET | action/cart/`pk`/ | Authorization : Token `authenticate token` |  | Get product in cart
+  DELETE | action/cart/`pk` | Authorization : Token `authenticate token` |  | Delete product from cart   

@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from .serializers import CartItemLineSerializer, ItemPropertySerializer
 from .models import ItemLine , ItemProperty, Order
 from rest_framework.decorators import list_route
+from product.models import Product,ProductOption,ProductChoice
 
 # Create your views here.
 
@@ -15,23 +16,24 @@ class CartViewSet(viewsets.ModelViewSet) :
         itemLines = ItemLine.objects.filter(order=None,user=request.user)
         content = CartItemLineSerializer(itemLines,many=True).data
         for i in range(0,len(content)) :
-            content[i]['property'] = ItemPropertySerializer(ItemProperty.objects.filter(item=itemLines[i]),many=True)
+            content[i]['property'] = ItemPropertySerializer(ItemProperty.objects.filter(item=itemLines[i]),many=True).data
         return Response(content)
 
     def create(self,request) :
-        product = request.data['product']
+        product = Product.objects.get(id=request.data['product'])
         quantity = request.data['quantity']
-        itemLine = ItemLine.objects.create(product=product,quantity=quantity,user=request.user)
+        itemLine = ItemLine.objects.create(product=product,quantity=quantity,user=request.user,order=None)
         options = request.data['options']
         for op in options :
-            choice = op['choice']
-            itemproperty = ItemProperty.objects.create(item=itemLine,option=op,choice=choice)
+            choice = ProductChoice.objects.get(id=op['choice'])
+            option = ProductOption.objects.get(id=op['id'])
+            itemproperty = ItemProperty.objects.create(item=itemLine,option=option,choice=choice)
         return self.retreive(request,itemLine.id)
 
     def retreive(self,request,pk=None) :
         item = ItemLine.objects.get(id=pk)
         content = CartItemLineSerializer(item).data
-        content['property'] = ItemPropertySerializer(ItemProperty.objects.filter(item=item),many=True)
+        content['property'] = ItemPropertySerializer(ItemProperty.objects.filter(item=item),many=True).data
         return Response(content)
 
     # @list_route
