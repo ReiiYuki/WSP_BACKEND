@@ -5,7 +5,7 @@ from .models import ItemLine,ItemProperty,Order
 class CartItemLineSerializer(serializers.ModelSerializer) :
     class Meta :
         model = ItemLine
-        field = ('user','product','quantity')
+        field = ('product','quantity')
 
 class ItemPropertySerializer(serializers.ModelSerializer) :
     class Meta :
