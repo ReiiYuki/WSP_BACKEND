@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework import viewsets,renderers
 from .models import Category,Product,ProductOption,ProductChoice
 from .serializers import CategorySerializer,ProductSerializer,ProductOptionSerializer,ProductChoiceSerializer
-from .permissions import AdminOrReadOnly
+from permissions.permissions import AdminOrReadOnly
 from rest_framework.decorators import detail_route
 
 # Create your views here.

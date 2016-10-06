@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework import viewsets
 from ..serializers import AddressSerializer
 from ..models import Address
-from ..permissions import IsOwnerOrIsAdmin
+from permissions.permissions import IsOwnerOrIsAdmin
 
 class AddressViewSet(viewsets.ModelViewSet):
     queryset = Address.objects.all()
