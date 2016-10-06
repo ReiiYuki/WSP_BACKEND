@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 04, 2016 at 09:08 AM
+-- Generation Time: Oct 06, 2016 at 09:32 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -126,7 +126,10 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (39, 'Can delete product option', 12, 'delete_productoption'),
 (40, 'Can add product choice', 13, 'add_productchoice'),
 (41, 'Can change product choice', 13, 'change_productchoice'),
-(42, 'Can delete product choice', 13, 'delete_productchoice');
+(42, 'Can delete product choice', 13, 'delete_productchoice'),
+(43, 'Can add expiring token', 7, 'add_expiringtoken'),
+(44, 'Can change expiring token', 7, 'change_expiringtoken'),
+(45, 'Can delete expiring token', 7, 'delete_expiringtoken');
 
 -- --------------------------------------------------------
 
@@ -230,6 +233,7 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (11, 'product', 'product'),
 (13, 'product', 'productchoice'),
 (12, 'product', 'productoption'),
+(14, 'rest_framework_expiring_authtoken', 'expiringtoken'),
 (6, 'sessions', 'session');
 
 -- --------------------------------------------------------
@@ -269,7 +273,8 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (17, 'member', '0002_address_country', '2016-10-03 16:57:49.392960'),
 (18, 'product', '0001_initial', '2016-10-04 00:50:48.517687'),
 (19, 'product', '0002_auto_20161004_0811', '2016-10-04 01:11:42.974609'),
-(20, 'product', '0003_auto_20161004_1404', '2016-10-04 07:04:25.145469');
+(20, 'product', '0003_auto_20161004_1404', '2016-10-04 07:04:25.145469'),
+(21, 'rest_framework_expiring_authtoken', '0001_initial', '2016-10-06 03:57:14.200806');
 
 -- --------------------------------------------------------
 
@@ -355,7 +360,29 @@ CREATE TABLE `product_product` (
 --
 
 INSERT INTO `product_product` (`id`, `name`, `detail`, `price`, `category_id`) VALUES
-(1, 'Bootle A', 'aaaaaaa', 5, 1);
+(1, 'Bootle A', 'aaaaaaa', 5, 1),
+(2, 'S Shape bottle', 'Plastic Bottle', 9, 1),
+(3, 'S Shape bottle', 'Plastic Bottle', 9, 1),
+(4, 'S Shape bottle', 'Plastic Bottle', 9, 1),
+(5, 'S Shape bottle', 'Plastic Bottle', 9, 1),
+(6, 'S Shape bottle', 'Plastic Bottle', 9, 1),
+(7, 'S Shape bottle', 'Plastic Bottle', 9, 1),
+(8, 'S Shape bottle', 'Plastic Bottle', 9, 1),
+(9, 'S Shape bottle', 'Plastic Bottle', 9, 1),
+(10, 'S Shape bottle', 'Plastic Bottle', 9, 1),
+(11, 'S Shape bottle', 'Plastic Bottle', 9, 1),
+(12, 'S Shape bottle', 'Plastic Bottle', 9, 1),
+(13, 'S Shape bottle', 'Plastic Bottle', 9, 1),
+(14, 'S Shape bottle', 'Plastic Bottle', 9, 1),
+(15, 'S Shape bottle', 'Plastic Bottle', 9, 1),
+(16, 'S Shape bottle', 'Plastic Bottle', 9, 1),
+(17, 'S Shape bottle', 'Plastic Bottle', 9, 1),
+(18, 'S Shape bottle', 'Plastic Bottle', 9, 1),
+(19, 'S Shape bottle', 'Plastic Bottle', 9, 1),
+(20, 'S Shape bottle', 'Plastic Bottle', 9, 1),
+(21, 'S Shape bottle', 'Plastic Bottle', 9, 1),
+(22, 'S Shape bottle', 'Plastic Bottle', 9, 1),
+(23, 'S Shape bottle', 'Plastic Bottle', 9, 1);
 
 -- --------------------------------------------------------
 
@@ -369,6 +396,77 @@ CREATE TABLE `product_productchoice` (
   `option_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Dumping data for table `product_productchoice`
+--
+
+INSERT INTO `product_productchoice` (`id`, `name`, `option_id`) VALUES
+(1, 'xl', 1),
+(2, 's', 1),
+(3, 'm', 1),
+(4, 'red', 2),
+(5, 'blue', 2),
+(6, 's', 9),
+(7, 'xl', 9),
+(8, 'red', 10),
+(9, 'green', 10),
+(10, 's', 11),
+(11, 'xl', 11),
+(12, 'red', 12),
+(13, 'green', 12),
+(14, 's', 13),
+(15, 'xl', 13),
+(16, 'red', 14),
+(17, 'green', 14),
+(18, 's', 15),
+(19, 'xl', 15),
+(20, 'red', 16),
+(21, 'green', 16),
+(22, 's', 17),
+(23, 'xl', 17),
+(24, 'red', 18),
+(25, 'green', 18),
+(26, 's', 19),
+(27, 'xl', 19),
+(28, 'red', 20),
+(29, 'green', 20),
+(30, 's', 21),
+(31, 'xl', 21),
+(32, 'red', 22),
+(33, 'green', 22),
+(34, 's', 23),
+(35, 'xl', 23),
+(36, 'red', 24),
+(37, 'green', 24),
+(38, 's', 25),
+(39, 'xl', 25),
+(40, 'red', 26),
+(41, 'green', 26),
+(42, 's', 27),
+(43, 'xl', 27),
+(44, 'red', 28),
+(45, 'green', 28),
+(46, 's', 29),
+(47, 'xl', 29),
+(48, 'red', 30),
+(49, 'green', 30),
+(50, 's', 31),
+(51, 'xl', 31),
+(52, 'red', 32),
+(53, 'green', 32),
+(54, 's', 33),
+(55, 'xl', 33),
+(56, 'red', 34),
+(57, 'green', 34),
+(58, 's', 35),
+(59, 'xl', 35),
+(60, 'red', 36),
+(61, 'green', 36),
+(62, 's', 37),
+(63, 'xl', 37),
+(64, 'red', 38),
+(65, 'green', 38);
+
 -- --------------------------------------------------------
 
 --
@@ -380,6 +478,50 @@ CREATE TABLE `product_productoption` (
   `name` varchar(100) COLLATE utf8_bin NOT NULL,
   `product_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `product_productoption`
+--
+
+INSERT INTO `product_productoption` (`id`, `name`, `product_id`) VALUES
+(1, 'size', 1),
+(2, 'color', 1),
+(3, 'size', 2),
+(4, 'size', 3),
+(5, 'size', 4),
+(6, 'size', 5),
+(7, 'size', 6),
+(8, 'size', 7),
+(9, 'size', 9),
+(10, 'color', 9),
+(11, 'size', 10),
+(12, 'color', 10),
+(13, 'size', 11),
+(14, 'color', 11),
+(15, 'size', 12),
+(16, 'color', 12),
+(17, 'size', 13),
+(18, 'color', 13),
+(19, 'size', 14),
+(20, 'color', 14),
+(21, 'size', 15),
+(22, 'color', 15),
+(23, 'size', 16),
+(24, 'color', 16),
+(25, 'size', 17),
+(26, 'color', 17),
+(27, 'size', 18),
+(28, 'color', 18),
+(29, 'size', 19),
+(30, 'color', 19),
+(31, 'size', 20),
+(32, 'color', 20),
+(33, 'size', 21),
+(34, 'color', 21),
+(35, 'size', 22),
+(36, 'color', 22),
+(37, 'size', 23),
+(38, 'color', 23);
 
 --
 -- Indexes for dumped tables
@@ -517,7 +659,7 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT for table `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT for table `auth_user`
 --
@@ -542,12 +684,12 @@ ALTER TABLE `django_admin_log`
 -- AUTO_INCREMENT for table `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `member_address`
 --
@@ -562,17 +704,17 @@ ALTER TABLE `product_category`
 -- AUTO_INCREMENT for table `product_product`
 --
 ALTER TABLE `product_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `product_productchoice`
 --
 ALTER TABLE `product_productchoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 --
 -- AUTO_INCREMENT for table `product_productoption`
 --
 ALTER TABLE `product_productoption`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 --
 -- Constraints for dumped tables
 --
