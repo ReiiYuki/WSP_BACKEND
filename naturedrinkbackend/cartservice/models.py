@@ -1,12 +1,19 @@
 from django.db import models
 from product.models import  Product,ProductOption,ProductChoice
+from member.models import Address
 from django.contrib.auth.models import User
 
 # Create your models here.
-
+class PaymentMethod(models.Model) :
+    type = models.CharField(max_length=10)
+    info = models.CharField(max_length=100)
+    status = models.BooleanField()
+    
 class Order(models.Model) :
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     status = models.CharField(max_length=1)
+    method = models.ForeignKey(PaymentMethod)
+    address = models.ForeignKey(Address)
 
 class ItemLine(models.Model) :
     user = models.ForeignKey(User,on_delete=models.CASCADE)
