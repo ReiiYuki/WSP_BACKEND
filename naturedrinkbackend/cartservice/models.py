@@ -11,7 +11,7 @@ class PaymentMethod(models.Model) :
 
 class Order(models.Model) :
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    status = models.CharField(max_length=1)
+    status = models.CharField(max_length=1,default='U')
     method = models.ForeignKey(PaymentMethod)
     address = models.ForeignKey(Address)
 

@@ -1,10 +1,11 @@
-from rest_framework import viewsets
+from rest_framework import viewsets,renderers
 from rest_framework.response import Response
-from .serializers import CartItemLineSerializer, ItemPropertySerializer
-from .models import ItemLine , ItemProperty, Order
+from .serializers import CartItemLineSerializer, ItemPropertySerializer,OrderSerializer,PaymentMethodSerializer
+from .models import ItemLine , ItemProperty, Order, PaymentMethod
 from rest_framework.decorators import list_route
 from product.models import Product,ProductOption,ProductChoice
-
+from member.models import Address
+from rest_framework.decorators import list_route
 # Create your views here.
 
 class CartViewSet(viewsets.ModelViewSet) :
@@ -22,11 +23,13 @@ class CartViewSet(viewsets.ModelViewSet) :
         product = Product.objects.get(id=request.data['product'])
         quantity = request.data['quantity']
         itemLine = ItemLine.objects.create(product=product,quantity=quantity,user=request.user,order=None)
+        itemLine.save()
         options = request.data['options']
         for op in options :
             choice = ProductChoice.objects.get(id=op['choice'])
             option = ProductOption.objects.get(id=op['id'])
             itemproperty = ItemProperty.objects.create(item=itemLine,option=option,choice=choice)
+            itemproperty.save()
         return self.retreive(request,itemLine.id)
 
     def retreive(self,request,pk=None) :
@@ -35,11 +38,17 @@ class CartViewSet(viewsets.ModelViewSet) :
         content['property'] = ItemPropertySerializer(ItemProperty.objects.filter(item=item),many=True).data
         return Response(content)
 
-    # @list_route
-    # def pay(self,request) :
-    #     items = ItemLine.objects.filter(user=request.user)
-    #     order = Order.objects.create(status="U",user=request.user)
-    #     content =
-    #     for item in items :
-    #         item.order = order
-    #     return Response()
+    ''' Haven't Test'''
+    @list_route(methods=['post'],renderer_classes=[renderers.JSONRenderer])
+    def pay(self,request) :
+        address = Address.objects.get(id=request.id['address'])
+        method = PaymentMethod.objects.get(id=request.id['method'])
+        order = Order.objects.create(address=address,method=method,user=request.user)
+        order.save()
+        content = OrderSerializer(order).data
+        count = 0
+        for i in ItemLine.objects.filter(user=request.user,order=None) :
+            i.order = order
+            i.save()
+            content["productlines"][count] = CartItemLineSerializer(i).data
+        return Response(content)

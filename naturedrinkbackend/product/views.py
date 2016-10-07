@@ -28,14 +28,17 @@ class ProductViewSet(viewsets.ModelViewSet) :
         category = Category.objects.get(id=request.data['category'])
         price = request.data['price']
         product = Product.objects.create(name=name,detail=detail,category=category,price=price)
+        product.save()
         options = request.data['options']
         for op in options :
             name = op['name']
             option = ProductOption.objects.create(name=name,product=product)
+            option.save()
             choices = op['choices']
             for choice in choices :
                 name = choice['name']
                 choice = ProductChoice.objects.create(name=name,option=option)
+                choice.save(0)
         return self.retrieve(request,pk=product.id)
 
     def retrieve(self,request,pk=None) :
