@@ -31,14 +31,14 @@ class CartViewSet(viewsets.ModelViewSet) :
             option = ProductOption.objects.get(id=op['id'])
             itemproperty = ItemProperty.objects.create(item=itemLine,option=option,choice=choice)
             itemproperty.save()
-        return self.retreive(request,itemLine.id)
+        return self.retrieve(request,itemLine.id)
 
-    def retreive(self,request,pk=None) :
+    def retrieve(self,request,pk=None) :
         item = ItemLine.objects.get(id=pk)
         content = CartItemLineSerializer(item).data
-        content['product'] = ProductSerializer(item.product)
+        content['product'] = ProductSerializer(item.product).data
         properties = ItemProperty.objects.filter(item=item)
-        content['property'] = ItemPropertySerializer(properties).data
+        content['property'] = ItemPropertySerializer(properties,many=True).data
         i = 0
         for prop in properties :
             option = prop.option
@@ -62,7 +62,7 @@ class CartViewSet(viewsets.ModelViewSet) :
         for i in ItemLine.objects.filter(user=request.user,order=None) :
             i.order = order
             i.save()
-            content["productlines"][count] = self.retreive(request,i.id)
+            content["productlines"][count] = self.retrieve(request,i.id)
         return Response(content)
 
     def update(self,request,pk=None) :
@@ -72,7 +72,7 @@ class CartViewSet(viewsets.ModelViewSet) :
         quantity = request.data['quantity']
         item.quantity = quantity
         item.save()
-        return self.retreive(request,item.id)
+        return self.retrieve(request,item.id)
 class PaymentMethodViewSet(viewsets.ModelViewSet) :
     queryset = PaymentMethod.objects.all()
     serializer_class = PaymentMethodSerializer
