@@ -52,3 +52,7 @@ class CartViewSet(viewsets.ModelViewSet) :
             i.save()
             content["productlines"][count] = CartItemLineSerializer(i).data
         return Response(content)
+
+class PaymentMethodViewSet(viewsets.ModelViewSet) :
+    queryset = PaymentMethod.objects.all()
+    serializer_class = PaymentMethodSerializer
