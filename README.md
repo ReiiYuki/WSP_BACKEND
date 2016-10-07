@@ -91,3 +91,18 @@
   DELETE | action/cart/`pk`/ | Authorization : Token `authenticate token` |  | Delete product from cart   
   POST | action/cart/pay/ | Authorization : Token `authenticate token` |  | Pay all product in cart
   PUT | action/cart/`pk`/ | Authorization : Token `authenticate token` | product , quantity , option[ id , choice ] | Edit product in cart  
+
+  `paymentmethod` - payment method for pay
+
+  Method | URL | Header | Body | Description
+  --- | --- | --- | --- | ---
+  GET | action/paymentmethod/ | Authorization : Token `authenticate token` |  | View list of payment method
+  POST | action/paymentmethod/ | Authorization : Token `authenticate token` | type , info , status | Add payment method
+  GET | action/cart/`pk`/ | Authorization : Token `authenticate token` |  | Get payment method
+
+  `order` - order system
+
+  Method | URL | Header | Body | Description
+  --- | --- | --- | --- | ---
+  GET | action/order/ | Authorization : Token `authenticate token` |  | View list of order
+  GET | action/order/`pk`/ | Authorization : Token `authenticate token` |  | Get order

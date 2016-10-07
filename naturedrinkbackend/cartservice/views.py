@@ -81,16 +81,16 @@ class PaymentMethodViewSet(viewsets.ModelViewSet) :
     serializer_class = PaymentMethodSerializer
     permission_classes  = (AdminOrReadOnly,)
 
-class OrderViewSet(viewsets.ModelViewSet) :
+class OrderViewSet(viewsets.ReadOnlyModelViewSet) :
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     permission_classes  = (IsOwnerOrIsAdmin,)
 
     def list(self,request) :
         orders = Order.objects.filter(user=request.user)
-        content = OrderSerializer(orders,many=True)
+        content = OrderSerializer(orders,many=True).data
         for i in range(0,len(orders)) :
-            content[i] = self.retrieve(request,orders[i].id).data
+            content[i]['order'] = self.retrieve(request,orders[i].id).data
         return Response(content)
     def retrieve(self,request,pk=None) :
         order = Order.objects.get(id=pk)
@@ -103,10 +103,10 @@ class OrderViewSet(viewsets.ModelViewSet) :
             item = items[i]
             content['items'][i]['product'] = ProductSerializer(item.product).data
             property = ItemProperty.objects.filter(item=item)
-            content['items'][i]['property'] = ItemPropertySerializer(property,many=True)
+            content['items'][i]['property'] = ItemPropertySerializer(property,many=True).data
             for j in range(0,len(property)) :
                 option = property[j].option
                 choice = property[j].choice
-                content['items'][i]['property'][j]['option'] = ProductOptionSerializer(option)
-                content['items'][i]['property'][j]['choice'] = ProductChoiceSerializer(choice)
+                content['items'][i]['property'][j]['option'] = ProductOptionSerializer(option).data
+                content['items'][i]['property'][j]['choice'] = ProductChoiceSerializer(choice).data
         return Response(content)

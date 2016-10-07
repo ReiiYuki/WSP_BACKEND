@@ -22,7 +22,5 @@ class UserSerializer(serializers.ModelSerializer):
 class AddressSerializer(serializers.ModelSerializer) :
     class Meta :
         model = Address
-        fields = ('id','user','address','village','road','sub_district','district','province','country','zipcode')
-        user = serializers.ReadOnlyField(source='user')
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        fields = ('id','address','village','road','sub_district','district','province','country','zipcode')
+        user = serializers.ReadOnlyField(source='id')
