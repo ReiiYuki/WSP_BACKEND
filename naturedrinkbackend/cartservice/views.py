@@ -48,21 +48,22 @@ class CartViewSet(viewsets.ModelViewSet) :
             i+=1
         return Response(content)
 
+        '''BUG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'''''''''''''''''''''''''''''''''''''''''''''''''''''
     @list_route(methods=['post'],renderer_classes=[renderers.JSONRenderer])
     def pay(self,request) :
         if len(ItemLine.objects.filter(user=request.user,order=None)) == 0 :
-            return Response({"detail":"Empty Cart..."},status=status.HTTP_400_BAD_REQUEST)
+            return Response({'detail':'Empty Cart...'},status=status.HTTP_400_BAD_REQUEST)
         address = Address.objects.get(id=request.data['address'])
         method = PaymentMethod.objects.get(id=request.data['method'])
         order = Order.objects.create(address=address,method=method,user=request.user)
         order.save()
         content = OrderSerializer(order).data
-        count = 0
-        content["productlines"] = []
-        for i in ItemLine.objects.filter(user=request.user,order=None) :
-            i.order = order
-            i.save()
-            content["productlines"][count] = self.retrieve(request,i.id)
+        itemLines = ItemLine.objects.filter(user=request.user,order=None)
+        content['itemlist'] = CartItemLineSerializer(itemLines,many=True).data
+        for i in range(0,len(itemLines)) :
+            itemLines[i].order = order
+            itemLines[i].save()
+            content['itemlist'][i]["property"] = self.retrieve(request,itemLines[i].id).data
         return Response(content)
 
     def update(self,request,pk=None) :
