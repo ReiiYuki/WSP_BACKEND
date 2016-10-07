@@ -15,7 +15,7 @@ class ItemPropertySerializer(serializers.ModelSerializer) :
 class OrderSerializer(serializers.ModelSerializer) :
     class Meta :
         model = Order
-        field = ('user','status')
+        field = ('user','status','method')
 
 class PaymentMethodSerializer(serializers.ModelSerializer) :
     class Meta :

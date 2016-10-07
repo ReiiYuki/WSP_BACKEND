@@ -5,6 +5,7 @@ from .models import ItemLine , ItemProperty, Order, PaymentMethod
 from rest_framework.decorators import list_route
 from product.models import Product,ProductOption,ProductChoice
 from member.models import Address
+from member.serializers import AddressSerializer
 from rest_framework.decorators import list_route
 from product.serializers import ProductSerializer,ProductOptionSerializer,ProductChoiceSerializer
 from permissions.permissions import IsOwnerOrIsAdmin,AdminOrReadOnly
@@ -18,7 +19,7 @@ class CartViewSet(viewsets.ModelViewSet) :
         itemLines = ItemLine.objects.filter(order=None,user=request.user)
         content = []
         for i in range(0,len(itemLines)) :
-            content[i] = self.retreive(request,itemLines[i].id)
+            content[i] = self.retreive(request,itemLines[i].id).data
         return Response(content)
 
     def create(self,request) :
@@ -83,3 +84,29 @@ class PaymentMethodViewSet(viewsets.ModelViewSet) :
 class OrderViewSet(viewsets.ModelViewSet) :
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+    permission_classes  = (IsOwnerOrIsAdmin,)
+
+    def list(self,request) :
+        orders = Order.objects.filter(user=request.user)
+        content = OrderSerializer(orders,many=True)
+        for i in range(0,len(orders)) :
+            content[i] = self.retrieve(request,orders[i].id).data
+        return Response(content)
+    def retrieve(self,request,pk=None) :
+        order = Order.objects.get(id=pk)
+        content = OrderSerializer(order).data
+        address = AddressSerializer(order.address)
+        content['address'] = address.data
+        items = ItemLine.objects.filter(order=order)
+        content['items'] = CartItemLineSerializer(items,many=True).data
+        for i in range(0,len(items)) :
+            item = items[i]
+            content['items'][i]['product'] = ProductSerializer(item.product).data
+            property = ItemProperty.objects.filter(item=item)
+            content['items'][i]['property'] = ItemPropertySerializer(property,many=True)
+            for j in range(0,len(property)) :
+                option = property[j].option
+                choice = property[j].choice
+                content['items'][i]['property'][j]['option'] = ProductOptionSerializer(option)
+                content['items'][i]['property'][j]['choice'] = ProductChoiceSerializer(choice)
+        return Response(content)
