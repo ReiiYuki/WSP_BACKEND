@@ -7,12 +7,13 @@ from product.models import Product,ProductOption,ProductChoice
 from member.models import Address
 from rest_framework.decorators import list_route
 from product.serializers import ProductSerializer,ProductOptionSerializer,ProductChoiceSerializer
+from permissions.permissions import IsOwnerOrIsAdmin,AdminOrReadOnly
 # Create your views here.
 
 class CartViewSet(viewsets.ModelViewSet) :
     queryset = ItemLine.objects.filter(order=None)
     serializer_class = CartItemLineSerializer
-
+    permission_classes  = (IsOwnerOrIsAdmin,)
     def list(self,request) :
         itemLines = ItemLine.objects.filter(order=None,user=request.user)
         content = []
@@ -48,7 +49,6 @@ class CartViewSet(viewsets.ModelViewSet) :
             i+=1
         return Response(content)
 
-        '''BUG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'''''''''''''''''''''''''''''''''''''''''''''''''''''
     @list_route(methods=['post'],renderer_classes=[renderers.JSONRenderer])
     def pay(self,request) :
         if len(ItemLine.objects.filter(user=request.user,order=None)) == 0 :
@@ -74,7 +74,8 @@ class CartViewSet(viewsets.ModelViewSet) :
         item.quantity = quantity
         item.save()
         return self.retrieve(request,item.id)
-        
+
 class PaymentMethodViewSet(viewsets.ModelViewSet) :
     queryset = PaymentMethod.objects.all()
     serializer_class = PaymentMethodSerializer
+    permission_classes  = (AdminOrReadOnly,)
