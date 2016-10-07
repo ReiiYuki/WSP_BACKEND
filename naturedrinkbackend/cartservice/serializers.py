@@ -16,6 +16,7 @@ class OrderSerializer(serializers.ModelSerializer) :
     class Meta :
         model = Order
         field = ('user','status')
+
 class PaymentMethodSerializer(serializers.ModelSerializer) :
     class Meta :
         model = PaymentMethod
