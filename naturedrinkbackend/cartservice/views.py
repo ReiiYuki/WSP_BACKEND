@@ -1,4 +1,4 @@
-from rest_framework import viewsets,renderers
+from rest_framework import viewsets,renderers,status
 from rest_framework.response import Response
 from .serializers import CartItemLineSerializer, ItemPropertySerializer,OrderSerializer,PaymentMethodSerializer
 from .models import ItemLine , ItemProperty, Order, PaymentMethod
@@ -38,15 +38,17 @@ class CartViewSet(viewsets.ModelViewSet) :
         content['property'] = ItemPropertySerializer(ItemProperty.objects.filter(item=item),many=True).data
         return Response(content)
 
-    ''' Haven't Test'''
     @list_route(methods=['post'],renderer_classes=[renderers.JSONRenderer])
     def pay(self,request) :
-        address = Address.objects.get(id=request.id['address'])
-        method = PaymentMethod.objects.get(id=request.id['method'])
+        if len(ItemLine.objects.filter(user=request.user,order=None)) == 0 :
+            return Response({"detail":"Empty Cart..."},status=status.HTTP_400_BAD_REQUEST)
+        address = Address.objects.get(id=request.data['address'])
+        method = PaymentMethod.objects.get(id=request.data['method'])
         order = Order.objects.create(address=address,method=method,user=request.user)
         order.save()
         content = OrderSerializer(order).data
         count = 0
+        content["productlines"] = []
         for i in ItemLine.objects.filter(user=request.user,order=None) :
             i.order = order
             i.save()
