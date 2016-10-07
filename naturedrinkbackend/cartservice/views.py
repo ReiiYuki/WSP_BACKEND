@@ -79,3 +79,7 @@ class PaymentMethodViewSet(viewsets.ModelViewSet) :
     queryset = PaymentMethod.objects.all()
     serializer_class = PaymentMethodSerializer
     permission_classes  = (AdminOrReadOnly,)
+
+class OrderViewSet(viewsets.ModelViewSet) :
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer

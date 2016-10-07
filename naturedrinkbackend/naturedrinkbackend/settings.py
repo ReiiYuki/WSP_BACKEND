@@ -84,11 +84,12 @@ WSGI_APPLICATION = 'naturedrinkbackend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'naturedrink',
-        'USER' : 'root',
+        'USER' : 'postgres',
+        'PASSWORD' : 'root1234',
         'HOST' : 'localhost',
-        'PORT' : '3306'
+        'PORT' : '5432'
     }
 }
 
