@@ -14,6 +14,8 @@ class Order(models.Model) :
     status = models.CharField(max_length=1,default='U')
     method = models.ForeignKey(PaymentMethod)
     address = models.ForeignKey(Address)
+    slip = models.ImageField()
+    upload_date = models.DateField()
 
 class ItemLine(models.Model) :
     user = models.ForeignKey(User,on_delete=models.CASCADE)

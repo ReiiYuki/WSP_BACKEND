@@ -9,7 +9,7 @@ from member.serializers import AddressSerializer
 from rest_framework.decorators import list_route
 from product.serializers import ProductSerializer,ProductOptionSerializer,ProductChoiceSerializer
 from permissions.permissions import IsOwnerOrIsAdmin,AdminOrReadOnly
-# Create your views here.
+from django.contrib.auth.models import User
 
 class CartViewSet(viewsets.ModelViewSet) :
     queryset = ItemLine.objects.filter(order=None)
@@ -85,7 +85,6 @@ class OrderViewSet(viewsets.ReadOnlyModelViewSet) :
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     permission_classes  = (IsOwnerOrIsAdmin,)
-
     def list(self,request) :
         orders = Order.objects.filter(user=request.user)
         content = OrderSerializer(orders,many=True).data
@@ -110,3 +109,10 @@ class OrderViewSet(viewsets.ReadOnlyModelViewSet) :
                 content['items'][i]['property'][j]['option'] = ProductOptionSerializer(option).data
                 content['items'][i]['property'][j]['choice'] = ProductChoiceSerializer(choice).data
         return Response(content)
+
+    @list_route(methods=['post'],renderer_classes=[renderers.JSONRenderer])
+    def get_order(self,request) :
+        if request.user.is_superuser :
+            orders = Order.objects.filter(user=User.objects.get(id=request.data['user']))
+            return Response(OrderSerializer(orders,many=True).data)
+        return Response({"detail" : "Bad Request"},status=status.HTTP_400_BAD_REQUEST)
