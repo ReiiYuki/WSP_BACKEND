@@ -32,11 +32,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'cartservice.apps.CartserviceConfig',
-    'product.apps.ProductConfig',
     'corsheaders',
     'rest_framework.authtoken',
-    'member.apps.MemberConfig',
     'rest_framework_expiring_authtoken',
     'rest_framework',
     'django.contrib.admin',
@@ -55,7 +52,6 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'naturedrinkbackend.urls'
