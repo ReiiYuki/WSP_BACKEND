@@ -1,0 +1,90 @@
+﻿User
+-create
+POST api/v1/u/user/
+-login
+POST api/v1/u/login/
+-get
+GET api/v1/u/user/pk/
+-inactive
+DELETE api/v1/u/user/pk/
+-update detail
+PUT api/v1/u/user/pk/
+-change password
+PUT api/v1/u/user/change_password/
+-logout
+POST api/v1/u/logout/
+-get list of user
+GET api/v1/u/user/
+
+Address
+-create
+POST api/v1/u/address/
+-update
+PUT api/v1/u/address/pk/
+-get
+GET api/v1/u/address/pk/
+-delete
+DELETE api/v1/u/address/pk/
+-list
+GET api/v1/u/address/
+
+Category
+-create
+POST api/v1/p/category/
+-get category with product list
+GET api/v1/p/category/pk/
+-get list
+GET api/v1/p/category/
+-update
+PUT api/v1/p/category/pk/
+-delete
+DELETE api/v1/p/category/pk/
+
+Product
+-create
+POST api/v1/p/product/
+-list
+GET api/v1/p/product/
+-get
+GET api/v1/p/product/pk/
+-update
+PUT api/v1/p/product/pk/
+-delete
+DELETE api/v1/product/pk/
+-add option
+POST api/v1/product/pk/option/
+-edit option
+PUT api/v1/product/pk/option/pk/
+
+Cart
+-list item in cart
+GET api/v1/s/cart/
+-add to cart
+POST api/v1/s/cart/
+-edit quantity
+PUT api/v1/s/cart/pk/
+-remove from cart
+DELETE api/v1/s/cart/pk/
+
+Payment
+-pay
+POST api/v1/s/cart/pay/
+-list
+GET api/v1/s/order
+-remove order
+DELETE api/v1/s/order/pk/
+-upload payment slip
+POST api/v1/s/order/pk/upload/
+-edit payment slip
+POST api/v1/s/order/pk/upload/
+-submit postal track
+POST api/v1/s/order/pk/tracking/
+-edit postal track
+PUT api/v1/s/order/pk/tracking/
+
+Design
+-upload design
+-accept request
+-reject request
+-delete design
+-submit design request
