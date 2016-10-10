@@ -11,4 +11,4 @@ class Address(models.Model) :
     distinct = models.CharField(max_length=100)
     province = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
-    zipcode=  models.CharField(max_length=4)
+    zipcode=  models.CharField(max_length=6)
