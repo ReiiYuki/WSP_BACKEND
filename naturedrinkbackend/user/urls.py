@@ -1,5 +1,5 @@
 from django.conf.urls import url,include
-from .views import views
+from . import views
 from rest_framework.routers import DefaultRouter
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework_expiring_authtoken.views import obtain_expiring_auth_token
