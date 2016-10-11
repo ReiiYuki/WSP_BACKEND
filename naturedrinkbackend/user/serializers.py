@@ -3,14 +3,13 @@ from django.contrib.auth.models import User
 from .models import Address
 
 class AddressSerializer(serializers.HyperlinkedModelSerializer) :
-    user = serializers.ReadOnlyField(source='user.username')
+    user = serializers.ReadOnlyField(source='user.id')
     class Meta :
         model = Address
-        fields = ('id','address_number','village','road','sub_distinct','distinct','province','country','zipcode')
-
+        fields = ('pk','address_number','village','road','sub_distinct','distinct','province','country','zipcode','user')
 
 class UserSerializer(serializers.HyperlinkedModelSerializer) :
-    addresses=AddressSerializer(many=True)
+    addresses = AddressSerializer(many=True,read_only=True)
     class Meta:
         model = User
         fields = ('email', 'username', 'password','first_name','last_name','addresses')

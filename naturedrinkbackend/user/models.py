@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Address(models.Model) :
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User,related_name='addresses')
     address_number = models.CharField(max_length=10)
     village = models.CharField(max_length=100)
     road = models.CharField(max_length=100)
