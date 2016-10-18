@@ -7,6 +7,7 @@ from rest_framework_expiring_authtoken.views import obtain_expiring_auth_token
 router = DefaultRouter()
 router.register(r'user',views.UserViewSet)
 router.register(r'address',views.AddressViewSet)
+
 '''Login OK '''
 urlpatterns = [
     url(r'^', include(router.urls)),
