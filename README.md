@@ -45,4 +45,5 @@ Method | URL | Token | JSON | Description
 --- | --- | --- | --- | --- | ---
 POST | api/v1/p/category/ | Yes | { name,description} | Add new Category
 GET | api/v1/p/category/ | No | No | List category
-GET | api/v1/p/category/ | No | No | Get category
+GET | api/v1/p/category/pk/ | No | No | Get category
+PUT | api/v1/p/category/pk/ | Yes | { name,description } | Edit Category

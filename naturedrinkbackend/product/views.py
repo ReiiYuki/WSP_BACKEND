@@ -18,3 +18,9 @@ class CategoryViewSet(viewsets.ModelViewSet) :
         if request.user.is_staff :
             return super(CategoryViewSet,self).create(request)
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+
+    ''' Edit (update) OK '''
+    def update(self,request,pk=None) :
+        if request.user.is_staff :
+            return super(CategoryViewSet,self).update(request,pk)
+        return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
