@@ -38,3 +38,9 @@ GET | api/v1/u/address/ | Yes | No | Get list of address [Owner(Limit),Staff]
 GET | api/v1/u/address/pk/ | Yes | No | Get address [Owner(limit),Staff]
 PUT | api/v1/u/address/pk/ | Yes | {address_number,village,road,sub_distinct,distinct,province,country,zipcode} |  Edit address [Owner(limit),Staff]
 DELETE | api/v1/u/address/pk/ | Yes | No | Deactive address
+
+Category
+
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+POST | api/v1/u/category | Yes | { name,description} | Add new Category

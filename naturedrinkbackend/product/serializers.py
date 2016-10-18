@@ -6,4 +6,3 @@ class CategorySerializer(serializers.ModelSerializer) :
         model = Category
         fields = ('id','name','description','is_active')
         extra_kwargs = {'id':{'read_only':True},'is_active':{'read_only':True}}
-        
