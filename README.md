@@ -30,6 +30,8 @@ PUT | api/v1/u/user/change_password/ | Yes | { password,new_password } | Change 
 PUT | api/v1/u/user/pk/edit/ | Yes | { first_name,last_name,email } | Edit User [Owner(Limit),Staff[Only Not staff],Admin]
 
 Address
+
 Method | URL | Token | JSON | Description  
 --- | --- | --- | --- | --- | ---
-POST | api/v1/u/address/ | Yes | {address_number,village,road,sub_distinct,distinct,province,country,zipcode} | Create Address 
+POST | api/v1/u/address/ | Yes | {address_number,village,road,sub_distinct,distinct,province,country,zipcode} | Create Address
+GET | api/v1/u/address/ | Yes | No | Get list of address [Owner(Limit),Staff]

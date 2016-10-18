@@ -80,6 +80,7 @@ class AddressViewSet(viewsets.ModelViewSet) :
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
 
+    ''' List OK '''
     def list(self,request) :
         if request.user.is_anonymous :
             return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
