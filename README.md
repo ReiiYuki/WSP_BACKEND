@@ -52,3 +52,4 @@ Product
 Method | URL | Token | JSON | Description  
 --- | --- | --- | --- | --- | ---
 POST | api/v1/p/product/ | Yes | {name,description,price,category} | Add new Product [Staff]
+GET | api/v1/p/product/ | No | No | List category [All(limit),Staff]

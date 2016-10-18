@@ -49,3 +49,11 @@ class ProductViewSet(viewsets.ModelViewSet) :
         if request.user.is_staff :
             return super(ProductViewSet,self).create(request)
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+
+    ''' List OK '''
+    def list(self,request) :
+        if request.user.is_staff :
+            return super(ProductViewSet,self).list(request)
+        return Response(ProductSerializer(Product.objects.filter(is_active=True),many=True).data)
+
+    
