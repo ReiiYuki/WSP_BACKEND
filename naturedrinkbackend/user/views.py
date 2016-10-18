@@ -97,19 +97,23 @@ class AddressViewSet(viewsets.ModelViewSet) :
     ''' Get OK '''
     def retrieve(self,request,pk=None) :
         address = Address.objects.filter(id=pk)
-        if len(address)==0 :
-            return super(AddressViewSet,self).retrieve(request,pk)
-        if request.user.is_staff or address[0].user == request.user :
+        if len(address)==0 or request.user.is_staff or address[0].user == request.user :
             return super(AddressViewSet,self).retrieve(request,pk)
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
     ''' Update OK '''
     def update(self,request,pk=None) :
         address = Address.objects.filter(id=pk)
-        if len(address)==0 :
-            return super(AddressViewSet,self).retrieve(request,pk)
-        if request.user.is_staff or address[0].user == request.user :
+        if len(address)==0 or request.user.is_staff or address[0].user == request.user  :
             return super(AddressViewSet,self).update(request,pk)
+        return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+
+    ''' Deactive OK '''
+    def destroy(self,request,pk=None) :
+        address = Address.objects.filter(id=pk)
+        if len(address)==0 or request.user.is_staff or address[0].user == request.user :
+            address.is_active = False
+            return Response({"detail" : "Deactive successful"})
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
     def perform_create(self, serializer):
