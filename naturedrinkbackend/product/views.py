@@ -40,4 +40,12 @@ class CategoryViewSet(viewsets.ModelViewSet) :
             return Response({"detail" : "Deactive successful"})
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
-class ProductViewSet()
+class ProductViewSet(viewsets.ModelViewSet) :
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    ''' Create OK '''
+    def create(self,request) :
+        if request.user.is_staff :
+            return super(ProductViewSet,self).create(request)
+        return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)

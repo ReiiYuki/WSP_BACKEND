@@ -46,3 +46,9 @@ GET | api/v1/p/category/ | No | No | List category [All(limit),Staff]
 GET | api/v1/p/category/pk/ | No | No | Get category
 PUT | api/v1/p/category/pk/ | Yes | { name,description } | Edit Category [Staff]
 DELETE | api/v1/p/category/pk/ | Yes | No | Deactive Category [Staff]
+
+Product
+
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+POST | api/v1/p/product/ | Yes | {name,description,price,category} | Add new Product [Staff]
