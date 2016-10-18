@@ -13,4 +13,12 @@
   Please always import `naturedrink.sql` every time after pull.
 
 ##API information
+
   `api/v1/` - prefix API.
+  `Authorization` - `Token auth-token`
+
+User
+
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+POST | api/v1/u/login/ | No | { username,password} | Login user and get token  
