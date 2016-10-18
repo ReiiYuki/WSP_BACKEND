@@ -113,6 +113,7 @@ class AddressViewSet(viewsets.ModelViewSet) :
         address = Address.objects.filter(id=pk)
         if len(address)==0 or request.user.is_staff or address[0].user == request.user :
             address.is_active = False
+            address.save()
             return Response({"detail" : "Deactive successful"})
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
