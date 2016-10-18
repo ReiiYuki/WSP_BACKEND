@@ -10,8 +10,6 @@
   'PORT' : '5432'
   ```
 
-  Please always import `naturedrink.sql` every time after pull.
-
 ##API information
 
   `api/v1/` - prefix API.
