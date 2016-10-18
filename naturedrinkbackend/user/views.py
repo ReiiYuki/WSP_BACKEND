@@ -20,6 +20,7 @@ class UserViewSet(viewsets.ModelViewSet) :
             return super(UserViewSet, self).list(request)
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
+    '''User Detail OK'''
     def retrieve(self, request, pk=None):
         if not request.user.is_anonymous :
             if pk=='0':
@@ -41,13 +42,18 @@ class UserViewSet(viewsets.ModelViewSet) :
         content = {'detail': 'Password is wrong.'}
         return Response(content,status=status.HTTP_401_UNAUTHORIZED)
 
-    def delete(self,request,pk=None) :
-        if request.user.is_superuser:
+    ''' Delete (destroy) OK '''
+    def destroy(self,request,pk=None) :
+        print (request.user.username)
+        if request.user.is_staff:
             user = User.objects.get(id=pk)
+            if user.is_staff :
+                if not request.user.is_superuser :
+                    return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
             user.is_active = False
             user.save()
-            return super(UserViewSet, self).delete(request,pk)
-        return Response(status=status.HTTP_401_UNAUTHORIZED)
+            return Response({})
+        return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
 class AddressViewSet(viewsets.ModelViewSet) :
     queryset = Address.objects.all()
