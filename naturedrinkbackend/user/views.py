@@ -7,10 +7,18 @@ from rest_framework.response import Response
 from rest_framework.decorators import list_route
 from .permissions import IsOwner
 
+PERMISSION_DENIED_CONTENT = { "detail" : "Permission denied."}
 # Create your views here.
+''' Register OK (create)'''
 class UserViewSet(viewsets.ModelViewSet) :
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    '''List Ok '''
+    def list(self,request) :
+        if request.user.is_staff :
+            return super(UserViewSet, self).list(request)
+        return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
     def retrieve(self, request, pk=None):
         if pk=='0':
@@ -36,7 +44,7 @@ class UserViewSet(viewsets.ModelViewSet) :
             user = User.objects.get(id=pk)
             user.is_active = False
             user.save()
-            return self.delete(request,pk)
+            return super(UserViewSet, self).delete(request,pk)
         return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 class AddressViewSet(viewsets.ModelViewSet) :

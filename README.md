@@ -23,3 +23,4 @@ Method | URL | Token | JSON | Description
 --- | --- | --- | --- | --- | ---
 POST | api/v1/u/login/ | No | { username,password } | Login user and get token  
 POST | api/v1/u/user/ | No | { username,password,email,first_name,last_name } | Register new user  
+GET | api/v1/u/user/ | Yes | No | Get list of user
