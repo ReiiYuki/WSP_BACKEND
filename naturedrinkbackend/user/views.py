@@ -4,7 +4,7 @@ from .serializers import UserSerializer,AddressSerializer
 from django.contrib.auth.models import User
 from rest_framework import viewsets,renderers,status
 from rest_framework.response import Response
-from rest_framework.decorators import list_route
+from rest_framework.decorators import list_route,detail_route
 from django.contrib.auth import authenticate
 
 PERMISSION_DENIED_CONTENT = { "detail" : "Permission denied."}
@@ -23,7 +23,7 @@ class UserViewSet(viewsets.ModelViewSet) :
     '''User Detail OK'''
     def retrieve(self, request, pk=None):
         if not request.user.is_anonymous :
-            if pk=='0':
+            if pk=='0' or pk==str(request.user.id):
                 return Response(UserSerializer(request.user).data)
             if request.user.is_staff :
                 return super(UserViewSet, self).retrieve(request, pk)
@@ -42,6 +42,27 @@ class UserViewSet(viewsets.ModelViewSet) :
         content = {'detail': 'Password is wrong.'}
         return Response(content,status=status.HTTP_401_UNAUTHORIZED)
 
+    '''Edit OK '''
+    @detail_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
+    def edit(self,request,pk=None) :
+        if not request.user.is_anonymous :
+            if pk==str(request.user.id):
+                request.user.first_name = request.data['first_name']
+                request.user.last_name = request.data['last_name']
+                request.user.email = request.data['email']
+                request.user.save()
+                return super(UserViewSet, self).retrieve(request,request.user.id)
+            if request.user.is_staff :
+                user = User.objects.get(id=pk)
+                if user.is_staff :
+                    if not request.user.is_superuser :
+                        return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+                user.first_name = request.data['first_name']
+                user.last_name = request.data['last_name']
+                user.email = request.data['email']
+                user.save()
+                return super(UserViewSet, self).retrieve(request,pk)
+        return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
     ''' Delete (destroy) OK '''
     def destroy(self,request,pk=None) :
@@ -52,7 +73,7 @@ class UserViewSet(viewsets.ModelViewSet) :
                     return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
             user.is_active = False
             user.save()
-            return Response({})
+            return Response({"detail" : "Deactive successful"})
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
 class AddressViewSet(viewsets.ModelViewSet) :
