@@ -31,7 +31,6 @@ class UserViewSet(viewsets.ModelViewSet) :
         content = {'detail': 'Password is wrong.'}
         return Response(content,status=status.HTTP_401_UNAUTHORIZED)
 
-    
     def delete(self,request,pk=None) :
         if request.user.is_superuser:
             user = User.objects.get(id=pk)
