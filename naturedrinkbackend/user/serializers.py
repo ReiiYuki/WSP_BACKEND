@@ -5,13 +5,14 @@ from .models import Address
 class AddressSerializer(serializers.HyperlinkedModelSerializer) :
     class Meta :
         model = Address
-        fields = ('pk','address_number','village','road','sub_distinct','distinct','province','country','zipcode')
+        fields = ('id','address_number','village','road','sub_distinct','distinct','province','country','zipcode','is_active')
+        extra_kwargs = {'id':{'read_only':True},'is_active':{'read_only':True}}
 
 class UserSerializer(serializers.HyperlinkedModelSerializer) :
     class Meta:
         model = User
-        fields = ('email', 'username', 'password','first_name','last_name','id')
-        extra_kwargs = {'password': {'write_only': True},'id':{'read_only':True}}
+        fields = ('email', 'username', 'password','first_name','last_name','id','is_active')
+        extra_kwargs = {'password': {'write_only': True},'id':{'read_only':True},'is_active':{'read_only':True}}
 
     def create(self, validated_data):
         user = User(

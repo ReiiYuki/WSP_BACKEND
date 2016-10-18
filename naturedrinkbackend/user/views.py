@@ -79,13 +79,19 @@ class UserViewSet(viewsets.ModelViewSet) :
 class AddressViewSet(viewsets.ModelViewSet) :
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
-    # permission_classes = (IsOwner,)
 
-    def delete(self,request,pk=None) :
-        address = Address.objects.get(id=pk)
-        address.is_active = False
-        address.save()
-        return self.delete(request,pk)
+    def list(self,request) :
+        if request.user.is_anonymous :
+            return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+        if request.user.is_staff :
+            return super(AddressViewSet,self).list(request)
+        return Response(AddressSerializer(Address.objects.filter(user=request.user,is_active=True),many=True).data)
+
+    ''' Create OK '''
+    def create(self,request) :
+        if request.user.is_anonymous :
+            return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+        return super(AddressViewSet,self).create(request)
 
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)

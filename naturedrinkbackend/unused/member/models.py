@@ -12,3 +12,4 @@ class Address(models.Model) :
     province = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
     zipcode = models.PositiveIntegerField()
+    is_active = models.BooleanField(default=True)
