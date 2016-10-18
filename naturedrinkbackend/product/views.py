@@ -40,6 +40,17 @@ class CategoryViewSet(viewsets.ModelViewSet) :
             return Response({"detail" : "Deactive successful"})
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
+    ''' Reactive OK '''
+    @detail_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
+    def reactive(self,request,pk=None) :
+        if request.user.is_staff :
+            category = Category.objects.get(id=pk)
+            category.is_active = True
+            category.save()
+            return super(CategoryViewSet,self).retrieve(request,pk)
+        return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+
+''' Get OK '''
 class ProductViewSet(viewsets.ModelViewSet) :
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -56,4 +67,27 @@ class ProductViewSet(viewsets.ModelViewSet) :
             return super(ProductViewSet,self).list(request)
         return Response(ProductSerializer(Product.objects.filter(is_active=True),many=True).data)
 
-    
+    ''' Edit (update) OK '''
+    def update(self,request,pk=None) :
+        if request.user.is_staff :
+            return super(ProductViewSet,self).update(request,pk)
+        return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+
+    ''' Deactive (destroy) OK '''
+    def destroy(self,request,pk=None) :
+        if request.user.is_staff :
+            product = Product.objects.get(id=pk)
+            product.is_active = False
+            product.save()
+            return Response({"detail" : "Deactive successful"})
+        return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+
+    ''' Reactive OK '''
+    @detail_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
+    def reactive(self,request,pk=None) :
+        if request.user.is_staff :
+            product = Product.objects.get(id=pk)
+            product.is_active = True
+            product.save()
+            return super(ProductViewSet,self).retrieve(request,pk)
+        return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
