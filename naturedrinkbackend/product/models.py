@@ -11,4 +11,4 @@ class Product(models.Model) :
     description = models.TextField()
     is_active = models.BooleanField(default=True)
     price = models.FloatField()
-    category = models.ForeignKey(Category,related_name='product')
+    category = models.ForeignKey(Category,related_name='products')

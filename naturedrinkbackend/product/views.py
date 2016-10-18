@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Category
-from .serializers import CategorySerializer
+from .models import Category,Product
+from .serializers import CategorySerializer,ProductSerializer
 from rest_framework import viewsets,renderers,status
 from rest_framework.response import Response
 from rest_framework.decorators import list_route,detail_route
@@ -39,3 +39,5 @@ class CategoryViewSet(viewsets.ModelViewSet) :
             category.save()
             return Response({"detail" : "Deactive successful"})
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+
+class ProductViewSet()
