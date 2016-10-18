@@ -21,10 +21,12 @@ class UserViewSet(viewsets.ModelViewSet) :
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
     def retrieve(self, request, pk=None):
-        if pk=='0':
-            return Response(UserSerializer(request.user,
-                context={'request':request}).data)
-        return super(UserViewSet, self).retrieve(request, pk)
+        if not request.user.is_anonymous :
+            if pk=='0':
+                return Response(UserSerializer(request.user).data)
+            if request.user.is_staff :
+                return super(UserViewSet, self).retrieve(request, pk)
+        return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
     @list_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
     def change_password(self,request) :
