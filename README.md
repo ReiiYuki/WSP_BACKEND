@@ -43,4 +43,6 @@ Category
 
 Method | URL | Token | JSON | Description  
 --- | --- | --- | --- | --- | ---
-POST | api/v1/u/category | Yes | { name,description} | Add new Category
+POST | api/v1/p/category/ | Yes | { name,description} | Add new Category
+GET | api/v1/p/category/ | No | No | List category
+GET | api/v1/p/category/ | No | No | Get category

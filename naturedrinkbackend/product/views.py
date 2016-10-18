@@ -8,10 +8,12 @@ from rest_framework.decorators import list_route,detail_route
 # Create your views here.
 PERMISSION_DENIED_CONTENT = { "detail" : "Permission denied."}
 
+'''Get and List OK '''
 class CategoryViewSet(viewsets.ModelViewSet) :
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
+    ''' Add (create) OK'''
     def create(self,request) :
         if request.user.is_staff :
             return super(CategoryViewSet,self).create(request)
