@@ -53,8 +53,30 @@ Product
 Method | URL | Token | JSON | Description  
 --- | --- | --- | --- | --- | ---
 POST | api/v1/p/product/ | Yes | {name,description,price,category} | Add new Product [Staff]
-GET | api/v1/p/product/ | No | No | List category [All(limit),Staff]
+GET | api/v1/p/product/ | No | No | List product [All(limit),Staff]
 GET | api/v1/p/product/pk/ | No | No | Get product
 PUT | api/v1/p/product/pk/ | Yes | {name,description,price,category} | Edit Product  [All(limit),Staff]
 DELETE | api/v1/p/product/pk/ | Yes | No | Deactive Product [Staff]
 PUT | api/v1/p/product/pk/reactive/ | Yes | No | Reactive Product [Staff]
+
+Product Option
+
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+POST | api/v1/p/option/ | Yes | {name,product} | Add new Product Option [Staff]
+GET | api/v1/p/option/ | No | No | List product option [All(limit),Staff]
+GET | api/v1/p/option/pk/ | No | No | Get product option
+PUT | api/v1/p/option/pk/ | Yes | {name,product} | Edit Product Option  [All(limit),Staff]
+DELETE | api/v1/p/option/pk/ | Yes | No | Deactive Product Option [Staff]
+PUT | api/v1/p/option/pk/reactive/ | Yes | No | Reactive Product Option [Staff]
+
+Product Choice
+
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+POST | api/v1/p/choice/ | Yes | {name,option} | Add new Product choice [Staff]
+GET | api/v1/p/choice/ | No | No | List product choice [All(limit),Staff]
+GET | api/v1/p/choice/pk/ | No | No | Get product choice
+PUT | api/v1/p/choice/pk/ | Yes | {name,option} | Edit Product choice  [All(limit),Staff]
+DELETE | api/v1/p/choice/pk/ | Yes | No | Deactive Product choice [Staff]
+PUT | api/v1/p/choice/pk/reactive/ | Yes | No | Reactive Product choice [Staff]

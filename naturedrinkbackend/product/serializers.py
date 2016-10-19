@@ -8,17 +8,15 @@ class ProductChoiceSerializer(serializers.ModelSerializer) :
         extra_kwargs = {'id':{'read_only':True},'is_active':{'read_only':True}}
 
 class ProductOptionSerializer(serializers.ModelSerializer) :
-    choices = ProductChoiceSerializer(many=True)
     class Meta :
         model = ProductOption
-        fields = ('id','name','is_active','product','choices')
-        extra_kwargs = {'id':{'read_only':True},'is_active':{'read_only':True},'choices':{'read_only':True}}
+        fields = ('id','name','is_active','product')
+        extra_kwargs = {'id':{'read_only':True},'is_active':{'read_only':True}}
 
 class ProductSerializer(serializers.ModelSerializer) :
-    options = ProductOptionSerializer(many=True)
     class Meta :
         model = Product
-        fields = ('id','name','description','price','is_active','category','options')
+        fields = ('id','name','description','price','is_active','category')
         extra_kwargs = {'id':{'read_only':True},'is_active':{'read_only':True}}
 
 class CategorySerializer(serializers.ModelSerializer) :
