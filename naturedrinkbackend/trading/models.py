@@ -15,6 +15,7 @@ class ItemProperty(models.Model) :
 
 class Order(models.Model) :
     method = models.ForeignKey(PaymentMethod)
+    address = models.ForeignKey(Address)
     create_date = models.DateField(auto_now_add=True)
     pay_date = models.DateField(default=None,blank=True,null=True)
     transfer_slip = models.ImageField(upload_to='images/slips',default=None)
@@ -36,5 +37,4 @@ class PostalTrack(models.Model) :
     tracking_number = models.CharField(max_length=13)
     upload_date = models.DateField(auto_now_add=True)
     update_date = models.DateField(auto_now_add=True)
-    address = models.ForeignKey(Address)
     is_active = models.BooleanField(default=True)
