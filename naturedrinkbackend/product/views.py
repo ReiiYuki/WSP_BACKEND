@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Category,Product
+from .models import Category,Product,ProductOption,ProductChoice
 from .serializers import CategorySerializer,ProductSerializer
 from rest_framework import viewsets,renderers,status
 from rest_framework.response import Response
@@ -58,7 +58,16 @@ class ProductViewSet(viewsets.ModelViewSet) :
     ''' Create OK '''
     def create(self,request) :
         if request.user.is_staff :
-            return super(ProductViewSet,self).create(request)
+            product = Product(name=request.data['name'],category=Category.objects.get(id=request.data['category']),description=request.data['description'],price=request.data['price'])
+            product.save()
+            options =  request.data['options']
+            for op in options :
+                option = ProductOption(name=op['name'],product=product)
+                option.save()
+                for ch in op['choices'] :
+                    choice = ProductChoice(name=ch['name'],option=option)
+                    choice.save()
+            return Response(ProductSerializer(product).data)
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
     ''' List OK '''

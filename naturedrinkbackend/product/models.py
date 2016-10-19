@@ -18,7 +18,7 @@ class ProductOption(models.Model) :
     product = models.ForeignKey(Product,related_name='options')
     is_active = models.BooleanField(default=True)
 
-class ProductChocie(models.Model) :
+class ProductChoice(models.Model) :
     name = models.CharField(max_length=30)
     option = models.ForeignKey(ProductOption,related_name='choices')
     is_active = models.BooleanField(default=True)
