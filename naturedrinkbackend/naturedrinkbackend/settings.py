@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'trading.apps.TradingConfig',
     'product.apps.ProductConfig',
     'user.apps.UserConfig',
     'corsheaders',
