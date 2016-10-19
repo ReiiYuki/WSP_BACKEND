@@ -3,6 +3,9 @@ from .serializers import PaymentMethodSerializer, ItemPropertySerializer,OrderSe
 from rest_framework import viewsets,renderers,status
 from rest_framework.response import Response
 from rest_framework.decorators import list_route,detail_route
+
+PERMISSION_DENIED_CONTENT = { "detail" : "Permission denied."}
+
 # Create your views here.
 class PaymentMethodViewSet(viewsets.ModelViewSet) :
     queryset = PaymentMethod.objects.all()
@@ -13,3 +16,9 @@ class PaymentMethodViewSet(viewsets.ModelViewSet) :
         if request.user.is_staff :
             return super(PaymentMethodViewSet,self).list(request)
         return Response(PaymentMethodSerializer(PaymentMethod.objects.filter(is_active=True)).data)
+
+    ''' Create OK '''
+    def create(self,request) :
+        if request.user.is_staff :
+            return super(PaymentMethodViewSet,self).create(request)
+        return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
