@@ -115,7 +115,6 @@ class ItemPropertyViewSet(viewsets.ModelViewSet) :
 class OrderViewSet(viewsets.ModelViewSet) :
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    parser_classes = (FileUploadParser, )
     def list(self,request) :
         if request.user.is_anonymous :
             return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
@@ -149,3 +148,7 @@ class OrderViewSet(viewsets.ModelViewSet) :
         order.is_active = False
         order.save()
         return Response({"detail" : "Deactive successful"})
+
+class PostalTrackViewSet(viewsets.ModelViewSet) :
+    queryset = PostalTrack.objects.all()
+    serializer_class = PostalTrackSerializer
