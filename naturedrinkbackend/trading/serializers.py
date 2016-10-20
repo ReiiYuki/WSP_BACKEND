@@ -10,8 +10,8 @@ class PaymentMethodSerializer(serializers.ModelSerializer) :
 class ItemPropertySerializer(serializers.ModelSerializer) :
     class Meta :
         model = ItemProperty
-        fields = ('id','choice','option','is_active')
-        extra_kwargs = {'id':{'read_only':True},'is_active':{'read_only':True}}
+        fields = ('id','choice','option')
+        extra_kwargs = {'id':{'read_only':True}}
 
 class OrderSerializer(serializers.ModelSerializer) :
     class Meta :
@@ -21,7 +21,7 @@ class OrderSerializer(serializers.ModelSerializer) :
 
 class ItemLineSerializer(serializers.ModelSerializer) :
     class Meta :
-        model = PaymentMethod
+        model = ItemLine
         fields = ('id','product','user','order','property','quantity','is_active')
         extra_kwargs = {'id':{'read_only':True},'is_active':{'read_only':True},'user':{'read_only':True},'order':{'read_only':True}}
 

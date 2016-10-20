@@ -11,7 +11,6 @@ class PaymentMethod(models.Model) :
 class ItemProperty(models.Model) :
     option = models.ForeignKey(ProductOption)
     choice = models.ForeignKey(ProductChoice)
-    is_active = models.BooleanField(default=True)
 
 class Order(models.Model) :
     method = models.ForeignKey(PaymentMethod)

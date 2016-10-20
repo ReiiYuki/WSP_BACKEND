@@ -48,3 +48,51 @@ class PaymentMethodViewSet(viewsets.ModelViewSet) :
             method.save()
             return Response({"detail" : "Reactive successful"})
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+
+''' Get OK'''
+class ItemLineViewSet(viewsets.ModelViewSet) :
+    queryset = ItemLine.objects.all()
+    serializer_class = ItemLineSerializer
+    ''' List Ok '''
+    def list(self,request) :
+        if request.user.is_anonymous :
+            return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+        return Response(ItemLineSerializer(ItemLine.objects.filter(user=request.user,is_active=True,order=None),many=True).data)
+    ''' Create OK '''
+    def create(self,request) :
+        if request.user.is_anonymous :
+            return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+        return super(ItemLineViewSet,self).create(request)
+
+    ''' Put OK '''
+    def update(self,request,pk) :
+        if request.user.is_anonymous :
+            return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+        return super(ItemLineViewSet,self).update(request)
+
+    ''' Deactive OK '''
+    def destroy(self,request,pk=None) :
+        if request.user.is_staff :
+            line = ItemLine.objects.get(id=pk)
+            line.is_active = False
+            line.save()
+            return Response({"detail" : "Deactive successful"})
+        return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+
+    def perform_create(self, serializer):
+        return serializer.save(user=self.request.user)
+
+class ItemPropertyViewSet(viewsets.ModelViewSet) :
+    queryset = ItemProperty.objects.all()
+    serializer_class = ItemPropertySerializer
+    ''' Create OK '''
+    def create(self,request) :
+        if request.user.is_anonymous :
+            return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+        return super(ItemPropertyViewSet,self).create(request)
+
+    def update(self,request) :
+        return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+
+    def destroy(self,request,pk=None) :
+        return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)

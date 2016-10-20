@@ -91,3 +91,19 @@ GET | api/v1/t/method/pk/ | No | No | Get Payment Method
 PUT | api/v1/t/method/pk/ | Yes | {name,type} | Edit Payment Method  [Staff]
 DELETE | api/v1/t/method/pk/ | Yes | No | Deactive Payment Method [Staff]
 PUT | api/v1/t/method/pk/reactive/ | Yes | No | Reactive Payment Method [Staff]
+
+Cart
+
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+POST | api/v1/t/cart/ | Yes | {product,property,quantity} | Add Item to cart  
+GET | api/v1/t/cart/ | Yes | No | View Cart list  
+PUT | api/v1/t/cart/pk/ | Yes | {product,property,quantity} | Edit Item in cart
+DELETE | api/v1/t/cart/pk/ | Yes | No | Delete item form cart
+
+Property
+
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+POST | api/v1/t/property/ | Yes | {option,choice} | Add option for line item  
+GET | api/v1/t/property/pk/ | Yes | Get property 
