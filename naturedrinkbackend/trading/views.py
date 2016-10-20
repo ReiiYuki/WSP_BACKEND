@@ -3,7 +3,7 @@ from .serializers import PaymentMethodSerializer, ItemPropertySerializer,OrderSe
 from rest_framework import viewsets,renderers,status
 from rest_framework.response import Response
 from rest_framework.decorators import list_route,detail_route
-
+from user.models import Address
 PERMISSION_DENIED_CONTENT = { "detail" : "Permission denied."}
 
 # Create your views here.
@@ -81,6 +81,20 @@ class ItemLineViewSet(viewsets.ModelViewSet) :
 
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
+
+    ''' Work '''
+    @list_route(methods=['post'],renderer_classes=[renderers.JSONRenderer])
+    def pay(self,request) :
+        if request.user.is_anonymous :
+            return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+        address = Address.objects.get(id=request.data['address'])
+        method = PaymentMethod.objects.get(id=request.data['method'])
+        order = Order(method=method,address=address,user=request.user)
+        order.save()
+        cart_item =  ItemLine.objects.filter(user=request.user)
+        for i in cart_item :
+            i.order = order
+        return Response(OrderSerializer(order).data)
 
 class ItemPropertyViewSet(viewsets.ModelViewSet) :
     queryset = ItemProperty.objects.all()

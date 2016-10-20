@@ -21,6 +21,7 @@ class Order(models.Model) :
     is_paid = models.BooleanField(default=False)
     is_shipped = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    user = models.ForeignKey(User)
 
 class ItemLine(models.Model) :
     product = models.ForeignKey(Product)
