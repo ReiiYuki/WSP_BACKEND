@@ -4,6 +4,7 @@ from rest_framework import viewsets,renderers,status
 from rest_framework.response import Response
 from rest_framework.decorators import list_route,detail_route
 from user.models import Address
+from datetime import date
 PERMISSION_DENIED_CONTENT = { "detail" : "Permission denied."}
 
 # Create your views here.
@@ -72,12 +73,12 @@ class ItemLineViewSet(viewsets.ModelViewSet) :
 
     ''' Deactive OK '''
     def destroy(self,request,pk=None) :
-        if request.user.is_staff :
-            line = ItemLine.objects.get(id=pk)
-            line.is_active = False
-            line.save()
-            return Response({"detail" : "Deactive successful"})
-        return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+        if request.user.is_anonymous :
+            return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+        line = ItemLine.objects.get(id=pk)
+        line.is_active = False
+        line.save()
+        return Response({"detail" : "Deactive successful"})
 
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
@@ -110,3 +111,41 @@ class ItemPropertyViewSet(viewsets.ModelViewSet) :
 
     def destroy(self,request,pk=None) :
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+
+class OrderViewSet(viewsets.ModelViewSet) :
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    parser_classes = (FileUploadParser, )
+    def list(self,request) :
+        if request.user.is_anonymous :
+            return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+        return Response(OrderSerializer(Order.objects.filter(user=request.user,is_active=True),many=True).data)
+
+    def create(self,request) :
+        return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+
+    def change_method(self,request,pk=None) :
+        if request.user.is_anonymous :
+            return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+        method = PaymentMethod.objects.get(id=request.data['method'])
+        order = Order.objects.get(id=pk)
+        order.method = method
+        order.save()
+        return Response(OrderSerializer(order).data)
+
+    # def upload_slip(self,request,pk=None) :
+    #     if request.user.is_anonymous :
+    #         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+    #     order = Order.objects.get(id=pk)
+    #     order.is_paid = True
+    #     order.pay_date = date.today()
+    #     order.transfer_slip = request.FILES['slip']
+    #     return Response(OrderSerializer(order).data)
+
+    def destroy(self,request,pk=None) :
+        if request.user.is_anonymous :
+            return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+        order = Order.objects.get(id=pk)
+        order.is_active = False
+        order.save()
+        return Response({"detail" : "Deactive successful"})
