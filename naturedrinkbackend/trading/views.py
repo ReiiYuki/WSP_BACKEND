@@ -112,6 +112,7 @@ class ItemPropertyViewSet(viewsets.ModelViewSet) :
     def destroy(self,request,pk=None) :
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
+''' Get OK'''
 class OrderViewSet(viewsets.ModelViewSet) :
     queryset = Order.objects.all()
     serializer_class = OrderSerializer

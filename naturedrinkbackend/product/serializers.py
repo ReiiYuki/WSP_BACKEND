@@ -20,8 +20,7 @@ class ProductSerializer(serializers.ModelSerializer) :
         extra_kwargs = {'id':{'read_only':True},'is_active':{'read_only':True}}
 
 class CategorySerializer(serializers.ModelSerializer) :
-    products = ProductSerializer(many=True)
     class Meta :
         model = Category
-        fields = ('id','name','description','is_active','products')
-        extra_kwargs = {'id':{'read_only':True},'is_active':{'read_only':True},'product':{'read_only':True}}
+        fields = ('id','name','description','is_active')
+        extra_kwargs = {'id':{'read_only':True},'is_active':{'read_only':True}}
