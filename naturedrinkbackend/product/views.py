@@ -49,6 +49,11 @@ class CategoryViewSet(viewsets.ModelViewSet) :
             category.save()
             return super(CategoryViewSet,self).retrieve(request,pk)
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+    ''' Get product OK '''
+    @detail_route(methods=['get'],renderer_classes=[renderers.JSONRenderer])
+    def product(self,request,pk=None) :
+        return Response(ProductSerializer(Product.objects.filter(category=pk),many=True).data)
+
 
 ''' Get OK '''
 class ProductViewSet(viewsets.ModelViewSet) :
@@ -91,6 +96,7 @@ class ProductViewSet(viewsets.ModelViewSet) :
             product.save()
             return super(ProductViewSet,self).retrieve(request,pk)
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+
 
 ''' Get OK '''
 class ProductOptionViewSet(viewsets.ModelViewSet) :
