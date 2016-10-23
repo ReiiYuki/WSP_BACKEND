@@ -76,6 +76,12 @@ class UserViewSet(viewsets.ModelViewSet) :
             return Response({"detail" : "Deactive successful"})
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
+    @list_route(renderer_classes=[renderers.JSONRenderer])
+    def is_admin(self,request) :
+        if request.user.is_superuser :
+            return Response({"detail":"True"})
+        return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+
 class AddressViewSet(viewsets.ModelViewSet) :
     queryset = Address.objects.all()
     serializer_class = AddressSerializer

@@ -22,6 +22,7 @@ Method | URL | Token | JSON | Description
 POST | api/v1/u/login/ | No | { username,password } | Login user and get token  
 POST | api/v1/u/user/ | No | { username,password,email,first_name,last_name } | Register new user  
 GET | api/v1/u/user/ | Yes | No | Get list of user [Staff Only]
+GET | api/v1/u/user/is_admin/ | Yes | No | True if admin [Admin Only]
 GET | api/v1/u/user/pk/ | Yes | No | Get user detail [Owner(Limit),Staff]
 DELETE | api/v1/u/user/pk/ | Yes | No | Deactive user [Staff(Only Not Staff),Admin]
 PUT | api/v1/u/user/change_password/ | Yes | { password,new_password } | Change password [Owner]
