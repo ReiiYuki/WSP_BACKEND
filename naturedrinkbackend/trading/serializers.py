@@ -22,7 +22,7 @@ class OrderSerializer(serializers.ModelSerializer) :
 class ItemLineSerializer(serializers.ModelSerializer) :
     class Meta :
         model = ItemLine
-        fields = ('id','product','user','order','property','quantity','is_active')
+        fields = ('id','product','user','order','quantity','is_active')
         extra_kwargs = {'id':{'read_only':True},'is_active':{'read_only':True},'user':{'read_only':True},'order':{'read_only':True}}
 
 class PostalTrackSerializer(serializers.ModelSerializer) :

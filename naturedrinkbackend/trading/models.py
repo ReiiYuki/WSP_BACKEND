@@ -27,7 +27,6 @@ class ItemLine(models.Model) :
     product = models.ForeignKey(Product)
     user = models.ForeignKey(User)
     order = models.ForeignKey(Order,default=None,null=True,blank=True)
-    property = models.ForeignKey(ItemProperty)
     quantity = models.PositiveIntegerField()
     is_active = models.BooleanField(default=True)
 
