@@ -61,7 +61,7 @@ PUT | api/v1/p/product/pk/ | Yes | {name,description,price,category} | Edit Prod
 DELETE | api/v1/p/product/pk/ | Yes | No | Deactive Product [Staff]
 PUT | api/v1/p/product/pk/reactive/ | Yes | No | Reactive Product [Staff]
 
-Product Option
+Product Option (Inactive)
 
 Method | URL | Token | JSON | Description  
 --- | --- | --- | --- | --- | ---
@@ -72,7 +72,7 @@ PUT | api/v1/p/option/pk/ | Yes | {name,product} | Edit Product Option  [Staff]
 DELETE | api/v1/p/option/pk/ | Yes | No | Deactive Product Option [Staff]
 PUT | api/v1/p/option/pk/reactive/ | Yes | No | Reactive Product Option [Staff]
 
-Product Choice
+Product Choice (Inactive)
 
 Method | URL | Token | JSON | Description  
 --- | --- | --- | --- | --- | ---
@@ -98,13 +98,13 @@ Cart
 
 Method | URL | Token | JSON | Description  
 --- | --- | --- | --- | --- | ---
-POST | api/v1/t/cart/ | Yes | {product,property,quantity} | Add Item to cart  
+POST | api/v1/t/cart/ | Yes | {product,quantity} | Add Item to cart  
 GET | api/v1/t/cart/ | Yes | No | View Cart list  
-PUT | api/v1/t/cart/pk/ | Yes | {product,property,quantity} | Edit Item in cart
+PUT | api/v1/t/cart/pk/ | Yes | {product,quantity} | Edit Item in cart
 DELETE | api/v1/t/cart/pk/ | Yes | No | Delete item form cart
 POST | api/v1/t/cart/pay/ | Yes | {address,method} | Pay item in cart
 
-Property
+Property (Inactive)
 
 Method | URL | Token | JSON | Description  
 --- | --- | --- | --- | --- | ---
