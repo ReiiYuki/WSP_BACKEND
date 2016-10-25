@@ -144,7 +144,7 @@ class OrderViewSet(viewsets.ModelViewSet) :
 
     @detail_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
     def update_track(self,request,pk=None) :
-        if !request.user.is_staff :
+        if not request.user.is_staff :
             return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
         order = Order.objects.get(id=pk)
         order.postal_track = request.data['postal_track']
@@ -154,7 +154,7 @@ class OrderViewSet(viewsets.ModelViewSet) :
 
     @detail_route(methods=['delete'],renderer_classes=[renderers.JSONRenderer])
     def delete_track(self,request,pk=None) :
-        if !request.user.is_staff :
+        if not request.user.is_staff :
             return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
         order = Order.objects.get(id=pk)
         order.postal_track = None
@@ -164,7 +164,7 @@ class OrderViewSet(viewsets.ModelViewSet) :
 
     @detail_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
     def confirm(self,request,pk=None) :
-        if !request.user.is_staff :
+        if not request.user.is_staff :
             return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
         order = Order.objects.get(id=pk)
         order.is_paid = True
@@ -173,7 +173,7 @@ class OrderViewSet(viewsets.ModelViewSet) :
 
     @detail_route(methods=['delete'],renderer_classes=[renderers.JSONRenderer])
     def deconfirm(self,request,pk=None) :
-        if !request.user.is_staff :
+        if not request.user.is_staff :
             return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
         order = Order.objects.get(id=pk)
         order.is_paid = False
