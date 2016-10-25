@@ -21,6 +21,7 @@ class Order(models.Model) :
     is_paid = models.BooleanField(default=False)
     is_shipped = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    postal_track = models.CharField(default=None,blank=True,null=True,max_length=13)
     user = models.ForeignKey(User)
 
 class ItemLine(models.Model) :

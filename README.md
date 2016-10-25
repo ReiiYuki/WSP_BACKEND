@@ -45,7 +45,7 @@ Method | URL | Token | JSON | Description
 POST | api/v1/p/category/ | Yes | { name,description} | Add new Category [Staff]
 GET | api/v1/p/category/ | No | No | List category [All(limit),Staff]
 GET | api/v1/p/category/pk/ | No | No | Get category
-GET | api/v1/p/category/pk/product | No | No | Get product in category
+GET | api/v1/p/category/pk/product/ | No | No | Get product in category
 PUT | api/v1/p/category/pk/ | Yes | { name,description } | Edit Category [Staff]
 DELETE | api/v1/p/category/pk/ | Yes | No | Deactive Category [Staff]
 PUT | api/v1/p/category/pk/reactive/ | Yes | No | Reactive Category [Staff]

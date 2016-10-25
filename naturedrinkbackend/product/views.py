@@ -52,7 +52,7 @@ class CategoryViewSet(viewsets.ModelViewSet) :
     ''' Get product OK '''
     @detail_route(methods=['get'],renderer_classes=[renderers.JSONRenderer])
     def product(self,request,pk=None) :
-        return Response(ProductSerializer(Product.objects.filter(category=pk),many=True).data)
+        return Response(ProductSerializer(Product.objects.filter(category=pk,is_active=True),many=True).data)
 
 
 ''' Get OK '''
