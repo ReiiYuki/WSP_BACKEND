@@ -16,7 +16,7 @@ class Order(models.Model) :
     method = models.ForeignKey(PaymentMethod)
     address = models.ForeignKey(Address)
     create_date = models.DateField(auto_now_add=True)
-    pay_date = models.DateField(default=None,blank=True,null=True)
+    last_update_date = models.DateField(default=None,blank=True,null=True)
     transfer_slip = models.ImageField(upload_to='images/slips',default=None)
     is_paid = models.BooleanField(default=False)
     is_shipped = models.BooleanField(default=False)
