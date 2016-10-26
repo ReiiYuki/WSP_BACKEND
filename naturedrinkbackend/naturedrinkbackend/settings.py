@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'admin.apps.AdminConfig',
     'trading.apps.TradingConfig',
     'product.apps.ProductConfig',
     'user.apps.UserConfig',
@@ -144,4 +145,4 @@ CORS_ORIGIN_ALLOW_ALL = True
 EXPIRING_TOKEN_LIFESPAN = datetime.timedelta(days=25)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'   
+MEDIA_URL = '/media/'
