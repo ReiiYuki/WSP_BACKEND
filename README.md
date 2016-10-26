@@ -174,3 +174,9 @@ DELETE | api/v1/t/order/pk/deconfirm | Yes | No | Unconfirm Payment
   Method | URL | Token | JSON | Description  
   --- | --- | --- | --- | --- | ---
   GET | api/v1/m/item_line/ | Yes | No | View itemline list  
+
+  Order
+
+  Method | URL | Token | JSON | Description  
+  --- | --- | --- | --- | --- | ---
+  GET | api/v1/m/order/ | Yes | No | View order list  
