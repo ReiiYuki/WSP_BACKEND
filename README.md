@@ -121,3 +121,16 @@ PUT | api/v1/t/order/pk/update_track/ | Yes | {postal_track} | Update Postal Tra
 DELETE | api/v1/t/order/pk/delete_track/ | Yes | No | Delete Postal Track
 PUT | api/v1/t/order/pk/confirm | Yes | No | Confirm Payment
 DELETE | api/v1/t/order/pk/deconfirm | Yes | No | Unconfirm Payment
+
+## Administrator API  
+
+  User
+
+  Method | URL | Token | JSON | Description  
+  --- | --- | --- | --- | --- | ---
+  GET | api/v1/m/user/ | Yes | No | Get list of user
+  GET | api/v1/m/user/pk/ | Yes | No | Get user info
+  POST | api/v1/m/user/ | Yes | {username,password,first_name,last_name,email,is_active,is_staff} | Create new user
+  PUT | api/v1/m/user/pk/ | Yes | {first_name,last_name,is_active,is_staff,email} | Update user
+
+  
