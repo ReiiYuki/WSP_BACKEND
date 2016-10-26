@@ -159,3 +159,18 @@ DELETE | api/v1/t/order/pk/deconfirm | Yes | No | Unconfirm Payment
   GET | api/v1/m/category/pk/ | Yes | No | Get category info
   POST | api/v1/m/category/ | Yes | {name,description,is_active} | Create category
   PUT | api/v1/m/category/pk/ | Yes | {name,description,is_active} | Update category
+
+  Payment Method
+
+  Method | URL | Token | JSON | Description  
+  --- | --- | --- | --- | --- | ---
+  POST | api/v1/m/method/ | Yes | {name,type,is_active} | Add new Payment Method
+  GET | api/v1/m/method/ | No | No | List Payment Method
+  GET | api/v1/m/method/pk/ | No | No | Get Payment Method
+  PUT | api/v1/m/method/pk/ | Yes | {name,type,is_active} | Edit Payment Method
+
+  Item Line
+
+  Method | URL | Token | JSON | Description  
+  --- | --- | --- | --- | --- | ---
+  GET | api/v1/m/item_line/ | Yes | No | View itemline list  

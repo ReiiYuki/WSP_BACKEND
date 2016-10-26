@@ -10,5 +10,5 @@ class ProductViewSet(viewsets.ModelViewSet) :
 
 class CategoryViewSet(viewsets.ModelViewSet) :
     queryset = Category.objects.all()
-    serializer_class = CategoryViewSet
+    serializer_class = CategorySerializer
     permission_classes = (isAdmin,)
