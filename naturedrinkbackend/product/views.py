@@ -21,8 +21,8 @@ class CategoryViewSet(viewsets.ModelViewSet) :
 
     ''' List OK '''
     def list(self,request) :
-        if request.user.is_staff :
-            return super(CategoryViewSet,self).list(request)
+        # if request.user.is_staff :
+        #     return super(CategoryViewSet,self).list(request)
         return Response(CategorySerializer(Category.objects.filter(is_active=True),many=True).data)
 
     ''' Edit (update) OK '''
@@ -68,8 +68,8 @@ class ProductViewSet(viewsets.ModelViewSet) :
 
     ''' List OK '''
     def list(self,request) :
-        if request.user.is_staff :
-            return super(ProductViewSet,self).list(request)
+        # if request.user.is_staff :
+        #     return super(ProductViewSet,self).list(request)
         return Response(ProductSerializer(Product.objects.filter(is_active=True),many=True).data)
 
     ''' Edit (update) OK '''
@@ -111,8 +111,8 @@ class ProductOptionViewSet(viewsets.ModelViewSet) :
 
     ''' List OK '''
     def list(self,request) :
-        if request.user.is_staff :
-            return super(ProductOptionViewSet,self).list(request)
+        # if request.user.is_staff :
+        #     return super(ProductOptionViewSet,self).list(request)
         return Response(ProductOptionSerializer(ProductOption.objects.filter(is_active=True),many=True).data)
 
     ''' Edit (update) OK '''
@@ -153,8 +153,8 @@ class ProductChoiceViewSet(viewsets.ModelViewSet) :
 
     ''' List OK '''
     def list(self,request) :
-        if request.user.is_staff :
-            return super(ProductChoiceViewSet,self).list(request)
+    #     if request.user.is_staff :
+    #         return super(ProductChoiceViewSet,self).list(request)
         return Response(ProductChoiceSerializer(ProductOption.objects.filter(is_active=True),many=True).data)
 
     ''' Edit (update) OK '''
