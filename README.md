@@ -140,4 +140,22 @@ DELETE | api/v1/t/order/pk/deconfirm | Yes | No | Unconfirm Payment
   GET | api/v1/m/address/ | Yes | No | Get List of address
   GET | api/v1/m/address/pk/ | Yes | No | Get address info
   POST | api/v1/m/address/ | Yes | {address_number,village,road,sub_distinct,distinct,province,country,zipcode,is_active,user} | Create Address
-  PUT | api/v1/u/address/ | Yes | {address_number,village,road,sub_distinct,distinct,province,country,zipcode,is_active,user} | Update Address
+  PUT | api/v1/m/address/pk/ | Yes | {address_number,village,road,sub_distinct,distinct,province,country,zipcode,is_active,user} | Update Address
+
+  Product
+
+  Method | URL | Token | JSON | Description  
+  --- | --- | --- | --- | --- | ---
+  GET | api/v1/m/product/ | Yes | No | Get List of product
+  GET | api/v1/m/product/pk/ | Yes | No | Get product info
+  POST | api/v1/m/product/ | Yes | {name,description,price,category,is_active} | Create product
+  PUT | api/v1/m/product/pk/ | Yes | {name,description,price,category,is_active} | Update product
+
+  Category
+
+  Method | URL | Token | JSON | Description  
+  --- | --- | --- | --- | --- | ---
+  GET | api/v1/m/category/ | Yes | No | Get List of category
+  GET | api/v1/m/category/pk/ | Yes | No | Get category info
+  POST | api/v1/m/category/ | Yes | {name,description,is_active} | Create category
+  PUT | api/v1/m/category/pk/ | Yes | {name,description,is_active} | Update category
