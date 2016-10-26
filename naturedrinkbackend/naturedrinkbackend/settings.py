@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'admin.apps.AdminConfig',
+    'managing.apps.ManagingConfig',
     'trading.apps.TradingConfig',
     'product.apps.ProductConfig',
     'user.apps.UserConfig',
