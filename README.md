@@ -133,4 +133,11 @@ DELETE | api/v1/t/order/pk/deconfirm | Yes | No | Unconfirm Payment
   POST | api/v1/m/user/ | Yes | {username,password,first_name,last_name,email,is_active,is_staff} | Create new user
   PUT | api/v1/m/user/pk/ | Yes | {first_name,last_name,is_active,is_staff,email} | Update user
 
-  
+  Address
+
+  Method | URL | Token | JSON | Description  
+  --- | --- | --- | --- | --- | ---
+  GET | api/v1/m/address/ | Yes | No | Get List of address
+  GET | api/v1/m/address/pk/ | Yes | No | Get address info
+  POST | api/v1/m/address/ | Yes | {address_number,village,road,sub_distinct,distinct,province,country,zipcode,is_active,user} | Create Address
+  PUT | api/v1/u/address/ | Yes | {address_number,village,road,sub_distinct,distinct,province,country,zipcode,is_active,user} | Update Address

@@ -20,3 +20,9 @@ class UserSerializer(serializers.ModelSerializer) :
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+class AddressSerializer(serializers.ModelSerializer) :
+    class Meta :
+        model = Address
+        fields = ('id','address_number','village','road','sub_distinct','distinct','province','country','zipcode','is_active','user')
+        extra_kwargs = {'id':{'read_only':True}}

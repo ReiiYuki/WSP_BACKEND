@@ -1,1 +1,1 @@
-from .user_service.views import UserViewSet
+from .user_service.views import UserViewSet,AddressViewSet
