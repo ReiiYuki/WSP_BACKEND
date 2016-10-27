@@ -23,6 +23,20 @@ class Order(models.Model) :
     is_active = models.BooleanField(default=True)
     postal_track = models.CharField(default=None,blank=True,null=True,max_length=13)
     user = models.ForeignKey(User)
+    @property
+    def status(self) :
+        print (self.transfer_slip)
+        if self.transfer_slip == "" :
+            return "Wait for slip"
+        if self.is_paid and not order.is_shipped:
+            return "Upload Recieved"
+        if self.is_shipped :
+            header = {"aftership-api-key": "9442c41d-f380-482e-954c-2a1c996f1815","Content-Type": "application/json"}
+            url = "https://api.aftership.com/v4/last_checkpoint/thailand-post/"+self.postal_track
+            data = requests.get(url,header).json()
+            status = data['data']['tag']+' '+data['data']['checkpoint']['city']+','+data['data']['checkpoint']['country_name']
+            return status
+        return ""
 
 class ItemLine(models.Model) :
     product = models.ForeignKey(Product)

@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import list_route,detail_route
 from user.models import Address
 from datetime import date
+import requests
 PERMISSION_DENIED_CONTENT = { "detail" : "Permission denied."}
 
 # Create your views here.
@@ -187,6 +188,20 @@ class OrderViewSet(viewsets.ModelViewSet) :
         order.is_active = False
         order.save()
         return Response({"detail" : "Deactive successful"})
+
+    def status(self,request,pk=None) :
+        order = Order.objects.get(id=pk)
+        if order.transfer_slip == None :
+            return "Wait for slip"
+        if order.is_paid and not order.is_shipped:
+            return "Upload Recieved"
+        if order.is_shipped :
+            header = {"aftership-api-key": "9442c41d-f380-482e-954c-2a1c996f1815","Content-Type": "application/json"}
+            url = "https://api.aftership.com/v4/last_checkpoint/thailand-post/"+order.postal_track
+            data = requests.get(url,header).json()
+            status = data['data']['tag']+' '+data['data']['checkpoint']['city']+','+data['data']['checkpoint']['country_name']
+            return status
+
 
 class PostalTrackViewSet(viewsets.ModelViewSet) :
     queryset = PostalTrack.objects.all()
