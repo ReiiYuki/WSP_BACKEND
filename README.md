@@ -100,6 +100,7 @@ Method | URL | Token | JSON | Description
 --- | --- | --- | --- | --- | ---
 POST | api/v1/t/cart/ | Yes | {product,quantity} | Add Item to cart  
 GET | api/v1/t/cart/ | Yes | No | View Cart list  
+GET | api/v1/t/cart/lines/ | Yes | No | View all of item line 
 PUT | api/v1/t/cart/pk/ | Yes | {product,quantity} | Edit Item in cart
 DELETE | api/v1/t/cart/pk/ | Yes | No | Delete item form cart
 POST | api/v1/t/cart/pay/ | Yes | {address,method} | Pay item in cart

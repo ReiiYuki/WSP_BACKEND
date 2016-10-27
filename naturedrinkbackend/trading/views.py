@@ -60,6 +60,11 @@ class ItemLineViewSet(viewsets.ModelViewSet) :
         if request.user.is_anonymous :
             return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
         return Response(ItemLineSerializer(ItemLine.objects.filter(user=request.user,is_active=True,order=None),many=True).data)
+
+    @list_route(methods=['get'],renderer_classes=[renderers.JSONRenderer])
+    def lines(self,request) :
+        return  Response(ItemLineSerializer(ItemLine.objects.filter(user=request.user,is_active=True),many=True).data)
+
     ''' Create OK '''
     def create(self,request) :
         if request.user.is_anonymous :
@@ -97,6 +102,8 @@ class ItemLineViewSet(viewsets.ModelViewSet) :
         for i in cart_item :
             i.order = order
         return Response(OrderSerializer(order).data)
+
+
 
 class ItemPropertyViewSet(viewsets.ModelViewSet) :
     queryset = ItemProperty.objects.all()
