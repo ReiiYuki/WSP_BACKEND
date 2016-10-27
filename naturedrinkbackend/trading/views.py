@@ -63,6 +63,8 @@ class ItemLineViewSet(viewsets.ModelViewSet) :
 
     @list_route(methods=['get'],renderer_classes=[renderers.JSONRenderer])
     def lines(self,request) :
+        if request.user.is_anonymous :
+            return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
         return  Response(ItemLineSerializer(ItemLine.objects.filter(user=request.user,is_active=True),many=True).data)
 
     ''' Create OK '''
