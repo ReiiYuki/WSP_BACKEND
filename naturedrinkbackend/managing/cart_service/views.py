@@ -12,3 +12,15 @@ class PaymentMethodViewSet(viewsets.ModelViewSet) :
     queryset = PaymentMethod.objects.all()
     serializer_class = PaymentMethodSerializer
     permission_classes = (isAdmin,)
+    def destroy(self,request,pk=None) :
+        method = PaymentMethod.objects.get(id=pk)
+        method.is_active = False
+        method.save()
+        return Response({"detail" : "Deactive successful"})
+
+    @detail_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
+    def reactive(self,request,pk=None) :
+        method = PaymentMethod.objects.get(id=pk)
+        method.is_active = True
+        method.save()
+        return Response({"detail" : "Reactive successful"})

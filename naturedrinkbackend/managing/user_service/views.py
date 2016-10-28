@@ -8,6 +8,18 @@ class UserViewSet(viewsets.ModelViewSet) :
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (isAdmin,)
+    def destroy(self,request,pk=None) :
+        user = User.objects.get(id=pk)
+        user.is_active = False
+        user.save()
+        return Response({"detail" : "Deactive successful"})
+
+    @detail_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
+    def reactive(self,request,pk=None) :
+        user = User.objects.get(id=pk)
+        user.is_active = True
+        user.save()
+        return Response({"detail" : "Reactive successful"})
 
 class AddressViewSet(viewsets.ModelViewSet) :
     queryset = Address.objects.all()

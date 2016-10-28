@@ -133,6 +133,8 @@ DELETE | api/v1/t/order/pk/deconfirm | Yes | No | Unconfirm Payment
   GET | api/v1/m/user/pk/ | Yes | No | Get user info
   POST | api/v1/m/user/ | Yes | {username,password,first_name,last_name,email,is_active,is_staff} | Create new user
   PUT | api/v1/m/user/pk/ | Yes | {first_name,last_name,is_active,is_staff,email} | Update user
+  DELETE | api/v1/m/user/pk/ | Yes | No | Deactive User
+  PUT | api/v1/m/user/pk/reactive | Yes | No | Reactive User
 
   Address
 
@@ -151,6 +153,8 @@ DELETE | api/v1/t/order/pk/deconfirm | Yes | No | Unconfirm Payment
   GET | api/v1/m/product/pk/ | Yes | No | Get product info
   POST | api/v1/m/product/ | Yes | {name,description,price,category,is_active} | Create product
   PUT | api/v1/m/product/pk/ | Yes | {name,description,price,category,is_active} | Update product
+  DELETE | api/v1/m/product/pk/ | Yes | No | Deactive product
+  PUT | api/v1/m/product/pk/reactive | Yes | No | Reactive product
 
   Category
 
@@ -160,6 +164,8 @@ DELETE | api/v1/t/order/pk/deconfirm | Yes | No | Unconfirm Payment
   GET | api/v1/m/category/pk/ | Yes | No | Get category info
   POST | api/v1/m/category/ | Yes | {name,description,is_active} | Create category
   PUT | api/v1/m/category/pk/ | Yes | {name,description,is_active} | Update category
+  DELETE | api/v1/m/category/pk/ | Yes | No | Deactive Category
+  PUT | api/v1/m/category/pk/reactive | Yes | No | Reactive Category
 
   Payment Method
 
@@ -169,6 +175,8 @@ DELETE | api/v1/t/order/pk/deconfirm | Yes | No | Unconfirm Payment
   GET | api/v1/m/method/ | No | No | List Payment Method
   GET | api/v1/m/method/pk/ | No | No | Get Payment Method
   PUT | api/v1/m/method/pk/ | Yes | {name,type,is_active} | Edit Payment Method
+  DELETE | api/v1/m/method/pk/ | Yes | No | Deactive Payment Method
+  PUT | api/v1/m/method/pk/reactive | Yes | No | Reactive Payment Method
 
   Item Line
 
@@ -182,4 +190,4 @@ DELETE | api/v1/t/order/pk/deconfirm | Yes | No | Unconfirm Payment
   --- | --- | --- | --- | --- | ---
   GET | api/v1/m/order/ | Yes | No | View order list  
   PUT | api/v1/m/order/pk/confirmPayment/ | Yes | No | Confirm paymentation of order
-  PUT | api/v1/m/order/pk/updateTrack/ | Yes | No | update postal track of order
+  PUT | api/v1/m/order/pk/updateTrack/ | Yes | {track} | update postal track of order
