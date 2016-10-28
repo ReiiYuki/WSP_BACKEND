@@ -4,7 +4,7 @@ from rest_framework import viewsets,renderers,status
 from rest_framework.response import Response
 from rest_framework.decorators import list_route,detail_route
 from user.models import Address
-from datetime import date
+import datetime
 import requests
 PERMISSION_DENIED_CONTENT = { "detail" : "Permission denied."}
 
@@ -99,7 +99,9 @@ class ItemLineViewSet(viewsets.ModelViewSet) :
         address = Address.objects.get(id=request.data['address'])
         method = PaymentMethod.objects.get(id=request.data['method'])
         order = Order(method=method,address=address,user=request.user)
+        order.last_upate_date = datetime.datetime.now()
         order.save()
+        print(order.last_upate_date)
         cart_item =  ItemLine.objects.filter(user=request.user,order=None)
         for i in cart_item :
             i.order = order
