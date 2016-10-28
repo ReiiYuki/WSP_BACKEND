@@ -23,6 +23,20 @@ class UserViewSet(viewsets.ModelViewSet) :
         user.save()
         return Response({"detail" : "Reactive successful"})
 
+    @detail_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
+    def assign_staff(self,request,pk=None):
+        user = User.objects.get(id=pk)
+        user.is_staff = True
+        user.save()
+        return Response({"detail" : "Staff Assigned!"})
+
+    @detail_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
+    def fire_staff(self,request,pk=None):
+        user = User.objects.get(id=pk)
+        user.is_staff = False
+        user.save()
+        return Response({"detail" : "Staff Fire!"})
+
 class AddressViewSet(viewsets.ModelViewSet) :
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
