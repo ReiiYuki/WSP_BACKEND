@@ -100,7 +100,7 @@ Method | URL | Token | JSON | Description
 --- | --- | --- | --- | --- | ---
 POST | api/v1/t/cart/ | Yes | {product,quantity} | Add Item to cart  
 GET | api/v1/t/cart/ | Yes | No | View Cart list  
-GET | api/v1/t/cart/lines/ | Yes | No | View all of item line 
+GET | api/v1/t/cart/lines/ | Yes | No | View all of item line
 PUT | api/v1/t/cart/pk/ | Yes | {product,quantity} | Edit Item in cart
 DELETE | api/v1/t/cart/pk/ | Yes | No | Delete item form cart
 POST | api/v1/t/cart/pay/ | Yes | {address,method} | Pay item in cart
@@ -181,3 +181,5 @@ DELETE | api/v1/t/order/pk/deconfirm | Yes | No | Unconfirm Payment
   Method | URL | Token | JSON | Description  
   --- | --- | --- | --- | --- | ---
   GET | api/v1/m/order/ | Yes | No | View order list  
+  PUT | api/v1/m/order/pk/confirmPayment/ | Yes | No | Confirm paymentation of order
+  PUT | api/v1/m/order/pk/updateTrack/ | Yes | No | update postal track of order
