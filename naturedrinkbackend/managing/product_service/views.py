@@ -1,7 +1,8 @@
 from product.models import Product,Category
 from ..permissions import isAdmin
 from .serializers import CategorySerializer,ProductSerializer
-from rest_framework import viewsets
+from rest_framework import viewsets,renderers
+from rest_framework.decorators import detail_route
 
 class ProductViewSet(viewsets.ModelViewSet) :
     queryset = Product.objects.all()

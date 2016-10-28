@@ -1,7 +1,8 @@
 from trading.models import ItemLine,PaymentMethod
 from ..permissions import isAdmin
 from .serializers import ItemLineSerializer,PaymentMethodSerializer
-from rest_framework import viewsets
+from rest_framework import viewsets,renderers
+from rest_framework.decorators import detail_route
 
 class ItemLineViewSet(viewsets.ModelViewSet) :
     queryset = ItemLine.objects.all()

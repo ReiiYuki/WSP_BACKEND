@@ -2,7 +2,8 @@ from django.contrib.auth.models import User
 from user.models import Address
 from .serializers import UserSerializer,AddressSerializer
 from ..permissions import isAdmin
-from rest_framework import viewsets
+from rest_framework import viewsets,renderers
+from rest_framework.decorators import detail_route
 
 class UserViewSet(viewsets.ModelViewSet) :
     queryset = User.objects.all()
