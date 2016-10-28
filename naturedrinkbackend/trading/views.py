@@ -103,6 +103,7 @@ class ItemLineViewSet(viewsets.ModelViewSet) :
         cart_item =  ItemLine.objects.filter(user=request.user)
         for i in cart_item :
             i.order = order
+            i.save()
         return Response(OrderSerializer(order).data)
 
 
