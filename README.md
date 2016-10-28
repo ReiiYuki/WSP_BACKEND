@@ -135,7 +135,9 @@ PUT | api/v1/t/order/pk/upload_slip/ | Yes | {transfer_slip} | Upload Slip
   POST | api/v1/m/user/ | Yes | {username,password,first_name,last_name,email,is_active,is_staff} | Create new user
   PUT | api/v1/m/user/pk/ | Yes | {first_name,last_name,is_active,is_staff,email} | Update user
   DELETE | api/v1/m/user/pk/ | Yes | No | Deactive User
-  PUT | api/v1/m/user/pk/reactive | Yes | No | Reactive User
+  PUT | api/v1/m/user/pk/reactive/ | Yes | No | Reactive User
+  PUT | api/v1/m/user/pk/assign_staff/ | Yes |No | Assign Staff
+  PUT | api/v1/m/user/pk/fire_staff/ | Yes | No Fire Staff
 
   Address
 
@@ -155,7 +157,7 @@ PUT | api/v1/t/order/pk/upload_slip/ | Yes | {transfer_slip} | Upload Slip
   POST | api/v1/m/product/ | Yes | {name,description,price,category,is_active} | Create product
   PUT | api/v1/m/product/pk/ | Yes | {name,description,price,category,is_active} | Update product
   DELETE | api/v1/m/product/pk/ | Yes | No | Deactive product
-  PUT | api/v1/m/product/pk/reactive | Yes | No | Reactive product
+  PUT | api/v1/m/product/pk/reactive/ | Yes | No | Reactive product
 
   Category
 
@@ -166,7 +168,7 @@ PUT | api/v1/t/order/pk/upload_slip/ | Yes | {transfer_slip} | Upload Slip
   POST | api/v1/m/category/ | Yes | {name,description,is_active} | Create category
   PUT | api/v1/m/category/pk/ | Yes | {name,description,is_active} | Update category
   DELETE | api/v1/m/category/pk/ | Yes | No | Deactive Category
-  PUT | api/v1/m/category/pk/reactive | Yes | No | Reactive Category
+  PUT | api/v1/m/category/pk/reactive/ | Yes | No | Reactive Category
 
   Payment Method
 
@@ -177,7 +179,7 @@ PUT | api/v1/t/order/pk/upload_slip/ | Yes | {transfer_slip} | Upload Slip
   GET | api/v1/m/method/pk/ | No | No | Get Payment Method
   PUT | api/v1/m/method/pk/ | Yes | {name,type,is_active} | Edit Payment Method
   DELETE | api/v1/m/method/pk/ | Yes | No | Deactive Payment Method
-  PUT | api/v1/m/method/pk/reactive | Yes | No | Reactive Payment Method
+  PUT | api/v1/m/method/pk/reactive/ | Yes | No | Reactive Payment Method
 
   Item Line
 
