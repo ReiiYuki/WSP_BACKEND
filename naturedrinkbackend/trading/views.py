@@ -100,7 +100,7 @@ class ItemLineViewSet(viewsets.ModelViewSet) :
         method = PaymentMethod.objects.get(id=request.data['method'])
         order = Order(method=method,address=address,user=request.user)
         order.save()
-        cart_item =  ItemLine.objects.filter(user=request.user)
+        cart_item =  ItemLine.objects.filter(user=request.user,order=None)
         for i in cart_item :
             i.order = order
             i.save()
