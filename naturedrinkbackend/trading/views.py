@@ -149,9 +149,18 @@ class OrderViewSet(viewsets.ModelViewSet) :
         if request.user.is_anonymous :
             return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
         order = Order.objects.get(id=pk)
-        order.is_paid = True
         order.pay_date = datetime.datetime.today()
         order.transfer_slip = request.data['transfer_slip']
+        order.save()
+        return Response(OrderSerializer(order).data)
+
+    @detail_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
+    def delete_slip(self,request,pk=None) :
+        if request.user.is_anonymous :
+            return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+        order = Order.objects.get(id=pk)
+        order.pay_date = datetime.datetime.today()
+        order.transfer_slip = ""
         order.save()
         return Response(OrderSerializer(order).data)
 
