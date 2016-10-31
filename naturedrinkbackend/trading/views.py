@@ -144,7 +144,7 @@ class OrderViewSet(viewsets.ModelViewSet) :
         order.method = method
         order.save()
         return Response(OrderSerializer(order).data)
-
+    @detail_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
     def upload_slip(self,request,pk=None) :
         if request.user.is_anonymous :
             return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
