@@ -17,6 +17,17 @@ class OrderViewSet(viewsets.ModelViewSet) :
         order.last_upate_date = datetime.datetime.now()
         order.save()
         return Response(OrderSerializer(order).data)
+
+    @detail_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
+    def unconfirmPayment(self,request,pk=None) :
+        order=Order.objects.get(id=pk)
+        order.is_paid = False
+        order.postal_track=''
+        order.is_shipped=False
+        order.last_upate_date = datetime.datetime.now()
+        order.save()
+        return Response(OrderSerializer(order).data)
+
     @detail_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
     def updateTrack(self,request,pk=None) :
         track=request.data['track']
