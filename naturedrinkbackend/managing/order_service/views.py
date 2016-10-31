@@ -37,3 +37,13 @@ class OrderViewSet(viewsets.ModelViewSet) :
         order.is_shipped=True
         order.save()
         return Response(OrderSerializer(order).data)
+
+    @detail_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
+    def deleteTrack(self,request,pk=None) :
+        track=""
+        order=Order.objects.get(id=pk)
+        order.last_upate_date = datetime.datetime.now()
+        order.postal_track=track
+        order.is_shipped=False
+        order.save()
+        return Response(OrderSerializer(order).data)

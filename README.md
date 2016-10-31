@@ -194,4 +194,5 @@ PUT | api/v1/t/order/pk/upload_slip/ | Yes | {transfer_slip} | Upload Slip
   GET | api/v1/m/order/ | Yes | No | View order list  
   PUT | api/v1/m/order/pk/confirmPayment/ | Yes | No | Confirm paymentation of order
   PUT | api/v1/m/order/pk/updateTrack/ | Yes | {track} | update postal track of order
+  PUT | api/v1/m/order/pk/deleteTrack/ | Yes | No | delete postal track of order
   PUT | api/v1/m/order/pk/unconfirmPayment/ | Yes | No | Unconfirm paymentation of order
