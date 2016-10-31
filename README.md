@@ -123,6 +123,7 @@ DELETE | api/v1/t/order/pk/delete_track/ | Yes | No | Delete Postal Track
 PUT | api/v1/t/order/pk/confirm | Yes | No | Confirm Payment
 DELETE | api/v1/t/order/pk/deconfirm | Yes | No | Unconfirm Payment
 PUT | api/v1/t/order/pk/upload_slip/ | Yes | {transfer_slip} | Upload Slip
+PUT | api/v1/t/order/pk/delete_slip/ | Yes | No | Delete Slip
 
 ## Administrator API  
 
