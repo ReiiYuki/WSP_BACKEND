@@ -3,7 +3,6 @@ from product.models import Product,ProductOption,ProductChoice
 from django.contrib.auth.models import User
 from user.models import Address
 from . import thai_posttracking
-import aftership
 # Create your models here.
 class PaymentMethod(models.Model) :
     type = models.CharField(max_length=1)
@@ -33,14 +32,10 @@ class Order(models.Model) :
         if self.is_paid and not self.is_shipped:
             return "Upload Recieved"
         if self.is_shipped :
-            # header = { 'Content-Type' : 'application/json' , 'aftership-api-key' : '9442c41d-f380-482e-954c-2a1c996f1815'}
-            # url = "https://api.aftership.com/v4/last_checkpoint/thailand-post/"+self.postal_track
-            # print (url,header)
-            # data = requests.get(url,header).json()
-            # print (data)
-            print ("aaaa")
             data = thai_posttracking.check_tracking(self.postal_track)
             print(data)
+            if len(data['tracking']['checkpoints'])<=0 :
+                return "Pending"
             status = data['tracking']['checkpoints'][0]['message']+' '+data['tracking']['checkpoints'][0]['location']+','+data['tracking']['checkpoints'][0]['country_iso3']
             print ("status",status)
             return status

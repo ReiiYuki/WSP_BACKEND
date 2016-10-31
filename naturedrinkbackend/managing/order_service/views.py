@@ -31,13 +31,8 @@ class OrderViewSet(viewsets.ModelViewSet) :
     @detail_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
     def updateTrack(self,request,pk=None) :
         track=request.data['track']
-        header = {"aftership-api-key": "9442c41d-f380-482e-954c-2a1c996f1815","Content-Type": "application/json"}
-        url = "https://api.aftership.com/v4/trackings"
-        r = requests.post(url,headers=header,json={"slug":"thailand-post","tracking":{"tracking_number":track}})
-        print (r.json())
-        url = url+"/thailand-post/"+track
-        r = requests.get(url,headers=header)
-        print (r.json())
+        r = thai_posttracking.add_tracking(track)
+        print(r)
         order=Order.objects.get(id=pk)
         order.last_upate_date = datetime.datetime.now()
         order.postal_track=track
@@ -47,13 +42,11 @@ class OrderViewSet(viewsets.ModelViewSet) :
 
     @detail_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
     def deleteTrack(self,request,pk=None) :
-        header = {"aftership-api-key": "9442c41d-f380-482e-954c-2a1c996f1815","Content-Type": "application/json"}
-        url = "https://api.aftership.com/v4/trackings/thailand-post/"+order.postal_track
-        r = requests.delete(url,header)
-        print (r.json())
         track=""
         order=Order.objects.get(id=pk)
         order.last_upate_date = datetime.datetime.now()
+        r = thai_posttracking.delete_tracking(order.postal_track)
+        print(r)
         order.postal_track=track
         order.is_shipped=False
         order.save()
