@@ -101,7 +101,6 @@ class ItemLineViewSet(viewsets.ModelViewSet) :
         order = Order(method=method,address=address,user=request.user)
         order.last_upate_date = datetime.datetime.now()
         order.save()
-        print(order.last_upate_date)
         cart_item =  ItemLine.objects.filter(user=request.user,order=None)
         for i in cart_item :
             i.order = order

@@ -32,7 +32,6 @@ class OrderViewSet(viewsets.ModelViewSet) :
     def updateTrack(self,request,pk=None) :
         track=request.data['track']
         r = thai_posttracking.add_tracking(track)
-        print(r)
         order=Order.objects.get(id=pk)
         order.last_upate_date = datetime.datetime.now()
         order.postal_track=track
@@ -46,7 +45,6 @@ class OrderViewSet(viewsets.ModelViewSet) :
         order=Order.objects.get(id=pk)
         order.last_upate_date = datetime.datetime.now()
         r = thai_posttracking.delete_tracking(order.postal_track)
-        print(r)
         order.postal_track=track
         order.is_shipped=False
         order.save()

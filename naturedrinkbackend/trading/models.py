@@ -33,11 +33,9 @@ class Order(models.Model) :
             return "Upload Recieved"
         if self.is_shipped :
             data = thai_posttracking.check_tracking(self.postal_track)
-            print(data)
             if len(data['tracking']['checkpoints'])<=0 :
-                return "Pending"
+                return "Pending Postal"
             status = data['tracking']['checkpoints'][0]['message']+' '+data['tracking']['checkpoints'][0]['location']+','+data['tracking']['checkpoints'][0]['country_iso3']
-            print ("status",status)
             return status
         return ""
 
