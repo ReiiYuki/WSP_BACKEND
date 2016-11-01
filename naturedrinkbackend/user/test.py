@@ -31,3 +31,7 @@ class UserTest(APITestCase) :
         data={"username":"test","password":""}
         response = self.client.post('/api/v1/u/login/',data,format="json")
         self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
+
+    def test_get_user_anonymous(self):
+        response = self.client.get('/api/v1/u/user/0/')
+        self.assertEqual(response.status_code,status.HTTP_401_UNAUTHORIZED)

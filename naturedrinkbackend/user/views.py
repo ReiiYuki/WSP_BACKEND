@@ -16,8 +16,6 @@ class UserViewSet(viewsets.ModelViewSet) :
 
     '''List Ok '''
     def list(self,request) :
-        # if request.user.is_staff :
-        #     return super(UserViewSet, self).list(request)
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
     '''User Detail OK'''
@@ -25,8 +23,6 @@ class UserViewSet(viewsets.ModelViewSet) :
         if not request.user.is_anonymous :
             if pk=='0' or pk==str(request.user.id):
                 return Response(UserSerializer(request.user).data)
-            # if request.user.is_staff :
-            #     return super(UserViewSet, self).retrieve(request, pk)
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
     ''' Change password OK '''
