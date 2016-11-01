@@ -160,3 +160,9 @@ class AddressTest(APITestCase):
         id = response.data['id']
         response = self.anonymous_client.get('/api/v1/u/address/'+str(id)+'/')
         self.assertEqual(response.status_code,status.HTTP_401_UNAUTHORIZED)
+
+    def test_list_address_anonymous(self) :
+        data = {"address_number":"57/138","village":"Thiptanee","road":"Latphrao","sub_distinct":"Chandrasem","distinct":"Chatujak","province":"Bangokok","country":"Thailand","zipcode":"10900"}
+        response = self.client.post('/api/v1/u/address/',data,format="json")
+        response = self.anonymous_client.get('/api/v1/u/address/')
+        self.assertEqual(response.status_code,status.HTTP_401_UNAUTHORIZED)
