@@ -134,3 +134,20 @@ class AddressTest(APITestCase):
         data = {"address_number":"57/138","road":"Latphrao","sub_distinct":"Chandrasem","distinct":"Chatujak","province":"Bangokok","country":"Thailand"}
         response = self.client.post('/api/v1/u/address/',data,format="json")
         self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
+
+    def test_get_list_address(self) :
+        data = {"address_number":"57/138","village":"Thiptanee","road":"Latphrao","sub_distinct":"Chandrasem","distinct":"Chatujak","province":"Bangokok","country":"Thailand","zipcode":"10900"}
+        response = self.client.post('/api/v1/u/address/',data,format="json")
+        id = response.data['id']
+        response = self.client.get('/api/v1/u/address/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data,[
+        {"id":id,"address_number":"57/138","village":"Thiptanee","road":"Latphrao","sub_distinct":"Chandrasem","distinct":"Chatujak","province":"Bangokok","country":"Thailand","zipcode":"10900","is_active":True}
+        ])
+
+    def test_get_address(self) :
+        data = {"address_number":"57/138","village":"Thiptanee","road":"Latphrao","sub_distinct":"Chandrasem","distinct":"Chatujak","province":"Bangokok","country":"Thailand","zipcode":"10900"}
+        response = self.client.post('/api/v1/u/address/',data,format="json")
+        id = response.data['id']
+        response = self.client.get('/api/v1/u/address/'+str(id)+'/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
