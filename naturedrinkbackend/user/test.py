@@ -151,3 +151,4 @@ class AddressTest(APITestCase):
         id = response.data['id']
         response = self.client.get('/api/v1/u/address/'+str(id)+'/')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data,{"id":id,"address_number":"57/138","village":"Thiptanee","road":"Latphrao","sub_distinct":"Chandrasem","distinct":"Chatujak","province":"Bangokok","country":"Thailand","zipcode":"10900","is_active":True})
