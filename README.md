@@ -54,10 +54,10 @@ Product
 
 Method | URL | Token | JSON | Description  
 --- | --- | --- | --- | --- | ---
-POST | api/v1/p/product/ | Yes | {name,description,price,category} | Add new Product [Staff]
+POST | api/v1/p/product/ | Yes | {name,description,price,category,image} | Add new Product [Staff]
 GET | api/v1/p/product/ | No | No | List product [All(limit),Staff]
 GET | api/v1/p/product/pk/ | No | No | Get product
-PUT | api/v1/p/product/pk/ | Yes | {name,description,price,category} | Edit Product  [Staff]
+PUT | api/v1/p/product/pk/ | Yes | {name,description,price,category,image} | Edit Product  [Staff]
 DELETE | api/v1/p/product/pk/ | Yes | No | Deactive Product [Staff]
 PUT | api/v1/p/product/pk/reactive/ | Yes | No | Reactive Product [Staff]
 
@@ -155,8 +155,8 @@ PUT | api/v1/t/order/pk/delete_slip/ | Yes | No | Delete Slip
   --- | --- | --- | --- | --- | ---
   GET | api/v1/m/product/ | Yes | No | Get List of product
   GET | api/v1/m/product/pk/ | Yes | No | Get product info
-  POST | api/v1/m/product/ | Yes | {name,description,price,category,is_active} | Create product
-  PUT | api/v1/m/product/pk/ | Yes | {name,description,price,category,is_active} | Update product
+  POST | api/v1/m/product/ | Yes | {image,name,description,price,category,is_active} | Create product
+  PUT | api/v1/m/product/pk/ | Yes | {name,image,description,price,category,is_active} | Update product
   DELETE | api/v1/m/product/pk/ | Yes | No | Deactive product
   PUT | api/v1/m/product/pk/reactive/ | Yes | No | Reactive product
 

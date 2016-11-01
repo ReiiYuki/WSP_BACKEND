@@ -16,7 +16,7 @@ class ProductOptionSerializer(serializers.ModelSerializer) :
 class ProductSerializer(serializers.ModelSerializer) :
     class Meta :
         model = Product
-        fields = ('id','name','description','price','is_active','category')
+        fields = ('id','name','description','price','is_active','category','image')
         extra_kwargs = {'id':{'read_only':True},'is_active':{'read_only':True}}
 
 class CategorySerializer(serializers.ModelSerializer) :
