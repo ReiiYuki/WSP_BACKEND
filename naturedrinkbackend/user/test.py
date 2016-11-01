@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
 class UserTest(APITestCase) :
-    
+
     def test_register_user(self):
         data = {"username":"test","password":"test","first_name":"test","last_name":"test","email":"test@test.test"}
         response = self.client.post('/api/v1/u/user/',data,format="json")
@@ -26,3 +26,8 @@ class UserTest(APITestCase) :
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         token = Token.objects.get(user__username='test')
         self.assertEqual(response.data['token'],token.key)
+
+    def test_login_fail_user(self):
+        data={"username":"test","password":""}
+        response = self.client.post('/api/v1/u/login/',data,format="json")
+        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
