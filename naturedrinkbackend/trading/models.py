@@ -29,8 +29,10 @@ class Order(models.Model) :
         print (self.transfer_slip)
         if self.transfer_slip == "" and not self.is_paid:
             return "Wait for slip"
-        if self.is_paid and not self.is_shipped:
+        if self.transfer_slip is not "" and not self.is_paid and not self.is_shipped:
             return "Upload Recieved"
+        if self.is_paid :
+            return "Payment Comfirmed"
         if self.is_shipped :
             data = thai_posttracking.check_tracking(self.postal_track)
             if len(data['tracking']['checkpoints'])<=0 :
