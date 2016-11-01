@@ -42,3 +42,13 @@ class CartTest(APITestCase) :
             'is_active' : True
         }
         ])
+
+    def test_delete_item_in_cart(self) :
+        data = {"product":self.product.id,"quantity":10}
+        response = self.client.post('/api/v1/t/cart/',data,format="json")
+        response = self.client.get('/api/v1/t/cart/')
+        id = response.data[0]['id']
+        response = self.client.delete('/api/v1/t/cart/'+str(id)+'/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        response = self.client.get('/api/v1/t/cart/')
+        self.assertEqual(response.data,[])
