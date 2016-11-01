@@ -4,9 +4,7 @@ from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
 class UserTest(APITestCase) :
-    def setUp(self):
-        self.user = User.objects.create(username="A",password="B")
-        self.token = "Token "+Token.objects.get(user__username=self.user.username).key
+    
     def test_register_user(self):
         data = {"username":"test","password":"test","first_name":"test","last_name":"test","email":"test@test.test"}
         response = self.client.post('/api/v1/u/user/',data,format="json")
@@ -26,5 +24,5 @@ class UserTest(APITestCase) :
         data={"username":"test","password":"test"}
         response = self.client.post('/api/v1/u/login/',data,format="json")
         self.assertEqual(response.status_code,status.HTTP_200_OK)
-
-    
+        token = Token.objects.get(user__username='test')
+        self.assertEqual(response.data['token'],token.key)
