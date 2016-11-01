@@ -166,3 +166,13 @@ class AddressTest(APITestCase):
         response = self.client.post('/api/v1/u/address/',data,format="json")
         response = self.anonymous_client.get('/api/v1/u/address/')
         self.assertEqual(response.status_code,status.HTTP_401_UNAUTHORIZED)
+
+    def test_update_address(self) :
+        data = {"address_number":"57/138","village":"Thiptanee","road":"Latphrao","sub_distinct":"Chandrasem","distinct":"Chatujak","province":"Bangokok","country":"Thailand","zipcode":"10900"}
+        response = self.client.post('/api/v1/u/address/',data,format="json")
+        id = response.data['id']
+        self.assertEqual(response.data,{"id":id,"address_number":"57/138","village":"Thiptanee","road":"Latphrao","sub_distinct":"Chandrasem","distinct":"Chatujak","province":"Bangokok","country":"Thailand","zipcode":"10900","is_active":True})
+        data = {"address_number":"57","village":"Thip","road":"Lat","sub_distinct":"Chan","distinct":"Cha","province":"Ban","country":"Tha","zipcode":"10"}
+        response = self.client.put('/api/v1/u/address/'+str(id)+'/',data,format="json")
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data,{"address_number":"57","village":"Thip","road":"Lat","sub_distinct":"Chan","distinct":"Cha","province":"Ban","country":"Tha","zipcode":"10","is_active":True,"id":id})
