@@ -48,28 +48,10 @@ class UserViewSet(viewsets.ModelViewSet) :
                 request.user.email = request.data['email']
                 request.user.save()
                 return super(UserViewSet, self).retrieve(request,request.user.id)
-            # if request.user.is_staff :
-            #     user = User.objects.get(id=pk)
-            #     if user.is_staff :
-            #         if not request.user.is_superuser :
-            #             return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
-                user.first_name = request.data['first_name']
-                user.last_name = request.data['last_name']
-                user.email = request.data['email']
-                user.save()
-                return super(UserViewSet, self).retrieve(request,pk)
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
     ''' Delete (destroy) OK '''
     def destroy(self,request,pk=None) :
-        # if request.user.is_staff:
-        #     user = User.objects.get(id=pk)
-        #     if user.is_staff :
-        #         if not request.user.is_superuser :
-        #             return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
-            # user.is_active = False
-            # user.save()
-            # return Response({"detail" : "Deactive successful"})
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
     @list_route(renderer_classes=[renderers.JSONRenderer])
