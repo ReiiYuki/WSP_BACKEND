@@ -108,3 +108,29 @@ class AddressTest(APITestCase):
         data = {"address_number":"57/138","village":"Thiptanee","road":"Latphrao","sub_distinct":"Chandrasem","distinct":"Chatujak","province":"Bangokok","country":"Thailand","zipcode":"10900"}
         response = self.client.post('/api/v1/u/address/',data,format="json")
         self.assertEqual(response.status_code,status.HTTP_201_CREATED)
+
+    def test_fail_add_address(self) :
+        data = {"village":"Thiptanee","road":"Latphrao","sub_distinct":"Chandrasem","distinct":"Chatujak","province":"Bangokok","country":"Thailand","zipcode":"10900"}
+        response = self.client.post('/api/v1/u/address/',data,format="json")
+        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
+        data = {"address_number":"57/138","road":"Latphrao","sub_distinct":"Chandrasem","distinct":"Chatujak","province":"Bangokok","country":"Thailand","zipcode":"10900"}
+        response = self.client.post('/api/v1/u/address/',data,format="json")
+        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
+        data = {"address_number":"57/138","village":"Thiptanee","sub_distinct":"Chandrasem","distinct":"Chatujak","province":"Bangokok","country":"Thailand","zipcode":"10900"}
+        response = self.client.post('/api/v1/u/address/',data,format="json")
+        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
+        data = {"address_number":"57/138","village":"Thiptanee","road":"Latphrao","distinct":"Chatujak","province":"Bangokok","country":"Thailand","zipcode":"10900"}
+        response = self.client.post('/api/v1/u/address/',data,format="json")
+        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
+        data = {"address_number":"57/138","village":"Thiptanee","road":"Latphrao","sub_distinct":"Chandrasem","province":"Bangokok","country":"Thailand","zipcode":"10900"}
+        response = self.client.post('/api/v1/u/address/',data,format="json")
+        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
+        data = {"address_number":"57/138","road":"Latphrao","sub_distinct":"Chandrasem","distinct":"Chatujak","country":"Thailand","zipcode":"10900"}
+        response = self.client.post('/api/v1/u/address/',data,format="json")
+        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
+        data = {"address_number":"57/138","road":"Latphrao","sub_distinct":"Chandrasem","distinct":"Chatujak","province":"Bangokok","zipcode":"10900"}
+        response = self.client.post('/api/v1/u/address/',data,format="json")
+        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
+        data = {"address_number":"57/138","road":"Latphrao","sub_distinct":"Chandrasem","distinct":"Chatujak","province":"Bangokok","country":"Thailand"}
+        response = self.client.post('/api/v1/u/address/',data,format="json")
+        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
