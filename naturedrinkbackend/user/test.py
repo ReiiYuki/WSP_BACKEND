@@ -2,7 +2,7 @@ from rest_framework.test import APITestCase
 from rest_framework import status
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
-
+from .models import Address
 class UserTest(APITestCase) :
 
     def test_register_user(self):
@@ -96,3 +96,15 @@ class UserTest(APITestCase) :
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
         response = self.client.get('/api/v1/u/user/is_admin/')
         self.assertEqual(response.status_code,status.HTTP_401_UNAUTHORIZED)
+
+class AddressTest(APITestCase):
+
+    def setUp(self) :
+        self.user = User.objects.create(username="a",password="b")
+        self.token = "Token "+Token.objects.get(user__username='a').key
+        self.client.credentials(HTTP_AUTHORIZATION=self.token)
+
+    def test_add_address(self) :
+        data = {"address_number":"57/138","village":"Thiptanee","road":"Latphrao","sub_distinct":"Chandrasem","distinct":"Chatujak","province":"Bangokok","country":"Thailand","zipcode":"10900"}
+        response = self.client.post('/api/v1/u/address/',data,format="json")
+        self.assertEqual(response.status_code,status.HTTP_201_CREATED)
