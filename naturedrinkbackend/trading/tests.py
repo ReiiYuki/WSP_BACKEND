@@ -52,3 +52,26 @@ class CartTest(APITestCase) :
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response = self.client.get('/api/v1/t/cart/')
         self.assertEqual(response.data,[])
+
+    def test_update_item_in_cart(self) :
+        data = {"product":self.product.id,"quantity":10}
+        response = self.client.post('/api/v1/t/cart/',data,format="json")
+        response = self.client.get('/api/v1/t/cart/')
+        id = response.data[0]['id']
+        data = {
+        "product":response.data[0]['product'],
+        "quantity" : 100
+        }
+        response = self.client.put('/api/v1/t/cart/'+str(id)+'/',data,format="json")
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        response = self.client.get('/api/v1/t/cart/')
+        self.assertEqual(response.data,[
+        {
+            'id': response.data[0]['id'],
+            'product' : self.product.id,
+            'user' : self.user.id,
+            'order' : None,
+            'quantity' : 100,
+            'is_active' : True
+        }
+        ])
