@@ -20,6 +20,15 @@ class ProductTest(APITestCase) :
 
 class Category(APITestCase) :
 
+    def setUp(self) :
+        self.category = models.Category.objects.create(name='Sample',description='Sample')
+
     def test_list_category(self) :
         response = self.client.get('/api/v1/p/category/')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data,[{'id':self.category.id,'name':'Sample','description':'Sample','is_active':True}])
+
+    def test_get_category(self) :
+        response = self.client.get('/api/v1/p/category/'+str(self.category.id)+'/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data,{'id':self.category.id,'name':'Sample','description':'Sample','is_active':True})
