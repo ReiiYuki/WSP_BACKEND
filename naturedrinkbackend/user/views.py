@@ -8,7 +8,6 @@ from rest_framework.decorators import list_route,detail_route
 from django.contrib.auth import authenticate
 
 PERMISSION_DENIED_CONTENT = { "detail" : "Permission denied."}
-# Create your views here.
 ''' Register OK (create)'''
 class UserViewSet(viewsets.ModelViewSet) :
     queryset = User.objects.all()
@@ -69,8 +68,6 @@ class AddressViewSet(viewsets.ModelViewSet) :
     def list(self,request) :
         if request.user.is_anonymous :
             return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
-        # if request.user.is_staff :
-        #     return super(AddressViewSet,self).list(request)
         return Response(AddressSerializer(Address.objects.filter(user=request.user,is_active=True),many=True).data)
 
     ''' Create OK '''

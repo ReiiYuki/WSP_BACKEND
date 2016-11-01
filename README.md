@@ -33,7 +33,6 @@ Method | URL | Token | JSON | Description
 POST | api/v1/u/address/ | Yes | {address_number,village,road,sub_distinct,distinct,province,country,zipcode} | Create Address
 GET | api/v1/u/address/pk/ | Yes | No | Get address
 PUT | api/v1/u/address/pk/ | Yes | {address_number,village,road,sub_distinct,distinct,province,country,zipcode} |  Edit address
-DELETE | api/v1/u/address/pk/ | Yes | No | Deactive address
 
 Category
 
