@@ -1,14 +1,16 @@
 from rest_framework.test import APITestCase
 from rest_framework import status
 from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
 
 class UserTest(APITestCase) :
+    def setUp(self):
+        self.user = User.objects.create(username="A",password="B")
+        self.token = "Token "+Token.objects.get(user__username=self.user.username).key
     def test_register_user(self):
         data = {"username":"test","password":"test","first_name":"test","last_name":"test","email":"test@test.test"}
         response = self.client.post('/api/v1/u/user/',data,format="json")
         self.assertEqual(response.status_code,status.HTTP_201_CREATED)
-        self.assertEqual(User.objects.count(),1)
-        self.assertEqual(User.objects.get().first_name,'test')
 
     def test_incomplete_register_user(self):
         data = {"password":"test","first_name":"test","last_name":"test","email":"test@test.test"}
@@ -17,4 +19,12 @@ class UserTest(APITestCase) :
         data = {"username":"test","first_name":"test","last_name":"test","email":"test@test.test"}
         response = self.client.post('/api/v1/u/user/',data,format="json")
         self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
+
+    def test_login_user(self):
+        data = {"username":"test","password":"test","first_name":"test","last_name":"test","email":"test@test.test"}
+        response = self.client.post('/api/v1/u/user/',data,format="json")
+        data={"username":"test","password":"test"}
+        response = self.client.post('/api/v1/u/login/',data,format="json")
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+
     
