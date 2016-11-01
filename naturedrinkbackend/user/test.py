@@ -1,4 +1,4 @@
-from rest_framework.test import APITestCase
+from rest_framework.test import APITestCase,APIClient
 from rest_framework import status
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
@@ -103,6 +103,7 @@ class AddressTest(APITestCase):
         self.user = User.objects.create(username="a",password="b")
         self.token = "Token "+Token.objects.get(user__username='a').key
         self.client.credentials(HTTP_AUTHORIZATION=self.token)
+        self.anonymous_client = APIClient()
 
     def test_add_address(self) :
         data = {"address_number":"57/138","village":"Thiptanee","road":"Latphrao","sub_distinct":"Chandrasem","distinct":"Chatujak","province":"Bangokok","country":"Thailand","zipcode":"10900"}
@@ -152,3 +153,10 @@ class AddressTest(APITestCase):
         response = self.client.get('/api/v1/u/address/'+str(id)+'/')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         self.assertEqual(response.data,{"id":id,"address_number":"57/138","village":"Thiptanee","road":"Latphrao","sub_distinct":"Chandrasem","distinct":"Chatujak","province":"Bangokok","country":"Thailand","zipcode":"10900","is_active":True})
+
+    def test_get_address_anonymous(self) :
+        data = {"address_number":"57/138","village":"Thiptanee","road":"Latphrao","sub_distinct":"Chandrasem","distinct":"Chatujak","province":"Bangokok","country":"Thailand","zipcode":"10900"}
+        response = self.client.post('/api/v1/u/address/',data,format="json")
+        id = response.data['id']
+        response = self.anonymous_client.get('/api/v1/u/address/'+str(id)+'/')
+        self.assertEqual(response.status_code,status.HTTP_401_UNAUTHORIZED)
