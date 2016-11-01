@@ -79,3 +79,20 @@ class UserTest(APITestCase) :
         self.assertEqual(response.data['first_name'],"A")
         self.assertEqual(response.data['last_name'],"B")
         self.assertEqual(response.data['email'],"A@B.C")
+
+    def test_is_admin_user(self) :
+        user = User.objects.create(username="a",password="b",is_staff=True,is_superuser=True)
+        token = Token.objects.get(user__username='a')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = self.client.get('/api/v1/u/user/is_admin/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+
+    def test_is_not_admin(self):
+        data = {"username":"test","password":"test","first_name":"test","last_name":"test","email":"test@test.test"}
+        response = self.client.post('/api/v1/u/user/',data,format="json")
+        data={"username":"test","password":"test"}
+        response = self.client.post('/api/v1/u/login/',data,format="json")
+        token = response.data['token']
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
+        response = self.client.get('/api/v1/u/user/is_admin/')
+        self.assertEqual(response.status_code,status.HTTP_401_UNAUTHORIZED)

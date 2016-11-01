@@ -60,12 +60,6 @@ class UserViewSet(viewsets.ModelViewSet) :
             return Response({"detail":"True"})
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
-    @list_route(renderer_classes=[renderers.JSONRenderer])
-    def admin_mode(self,request) :
-        if request.user.is_anonymous :
-            return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
-        request.session['admin_mode'] = True
-        return Response({"detail" : "Administrator mode activated!"})
 
 class AddressViewSet(viewsets.ModelViewSet) :
     queryset = Address.objects.all()
