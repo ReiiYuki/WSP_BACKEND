@@ -79,3 +79,12 @@ class PaymentMethodTest(APITestCase):
         response = self.client.get('/api/v1/m/method/'+str(id)+'/')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         self.assertEqual(response.data['is_active'],True)
+
+class ItemLineTest(APITestCase) :
+    def setUp(self) :
+        self.user = User.objects.create(username='admin',password='admin',is_staff=True)
+        self.client.credentials(HTTP_AUTHORIZATION="Token "+Token.objects.get(user__username='admin').key)
+
+    def test_get_itemline(self) :
+        response = self.client.get('/api/v1/m/item_line/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
