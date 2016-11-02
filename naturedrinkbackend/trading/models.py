@@ -34,7 +34,7 @@ class Order(models.Model) :
             return "Payment Comfirmed"
         if self.is_shipped :
             data = thai_posttracking.check_tracking(self.postal_track)
-            if len(data['tracking']['checkpoints'])<=0 :
+            if len(data)==0 or len(data['tracking']['checkpoints'])<=0 :
                 return "Pending Postal"
             status = data['tracking']['checkpoints'][len(data['tracking']['checkpoints'])-1]['message']+' '+data['tracking']['checkpoints'][len(data['tracking']['checkpoints'])-1]['location']+','+data['tracking']['checkpoints'][len(data['tracking']['checkpoints'])-1]['country_iso3']
             return status

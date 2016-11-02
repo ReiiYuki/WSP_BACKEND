@@ -44,7 +44,10 @@ class OrderViewSet(viewsets.ModelViewSet) :
         track=""
         order=Order.objects.get(id=pk)
         order.last_upate_date = datetime.datetime.now()
-        r = thai_posttracking.delete_tracking(order.postal_track)
+        try :
+            r = thai_posttracking.delete_tracking(order.postal_track)
+        except KeyError :
+            pass
         order.postal_track=track
         order.is_shipped=False
         order.save()
