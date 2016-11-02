@@ -22,3 +22,7 @@ class CategoryTest(APITestCase) :
         response = self.client.put('/api/v1/m/category/'+str(response.data['id'])+'/',data,format="json")
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         self.assertEqual(response.data['name'],'Water')
+
+    def test_get_category(self):
+        response = self.client.get('/api/v1/m/category/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
