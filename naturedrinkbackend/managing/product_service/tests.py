@@ -105,3 +105,22 @@ class ProductTest(APITestCase) :
     def test_get_product(self):
         response=self.client.get('/api/v1/m/product/')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
+
+    def test_deactive(self):
+        data = {
+            'image':'dummy.jpg',
+            'name':'AAA',
+            'description':'BBB',
+            'price':100,
+            'category': self.category.id,
+            'is_active':True
+        }
+        response = self.client.post('/api/v1/m/product/',data,format='json')
+        self.assertEqual(response.status_code,status.HTTP_201_CREATED)
+        self.assertEqual(response.status_code,status.HTTP_201_CREATED)
+        id = response.data['id']
+        response = self.client.delete('/api/v1/m/product/'+str(id)+'/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        response=self.client.get('/api/v1/m/product/'+str(id)+'/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data['is_active'],False)
