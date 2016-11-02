@@ -101,3 +101,7 @@ class ProductTest(APITestCase) :
         response = self.client.put('/api/v1/m/product/'+str(id)+'/',data,format="json")
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         self.assertEqual(response.data['name'],'avvvdvdvd')
+
+    def test_get_product(self):
+        response=self.client.get('/api/v1/m/product/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
