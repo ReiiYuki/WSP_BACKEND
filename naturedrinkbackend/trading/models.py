@@ -30,13 +30,13 @@ class Order(models.Model) :
             return "Wait for slip"
         if self.transfer_slip is not "" and not self.is_paid and not self.is_shipped:
             return "Upload Recieved"
-        if self.is_paid :
+        if self.is_paid and not self.is_shipped:
             return "Payment Comfirmed"
         if self.is_shipped :
             data = thai_posttracking.check_tracking(self.postal_track)
             if len(data['tracking']['checkpoints'])<=0 :
                 return "Pending Postal"
-            status = data['tracking']['checkpoints'][0]['message']+' '+data['tracking']['checkpoints'][0]['location']+','+data['tracking']['checkpoints'][0]['country_iso3']
+            status = data['tracking']['checkpoints'][len(data['tracking']['checkpoints'])-1]['message']+' '+data['tracking']['checkpoints'][len(data['tracking']['checkpoints'])-1]['location']+','+data['tracking']['checkpoints'][len(data['tracking']['checkpoints'])-1]['country_iso3']
             return status
         return ""
 
