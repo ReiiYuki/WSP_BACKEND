@@ -59,3 +59,23 @@ class PaymentMethodTest(APITestCase):
         response = self.client.get('/api/v1/m/method/'+str(id)+'/')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         self.assertEqual(response.data['is_active'],False)
+
+    def test_reactive_method(self):
+        data = {
+            "name" : "1103702001392",
+            "type" : "B",
+            "is_active" : True
+        }
+        response = self.client.post('/api/v1/m/method/',data,format="json")
+        self.assertEqual(response.status_code,status.HTTP_201_CREATED)
+        id = response.data['id']
+        response = self.client.delete('/api/v1/m/method/'+str(id)+'/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        response = self.client.get('/api/v1/m/method/'+str(id)+'/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data['is_active'],False)
+        response = self.client.put('/api/v1/m/method/'+str(id)+'/reactive/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        response = self.client.get('/api/v1/m/method/'+str(id)+'/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data['is_active'],True)
