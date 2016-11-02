@@ -107,3 +107,12 @@ class OrderTest(APITestCase) :
         response = self.client.get('/api/v1/t/order/')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         self.assertEqual(response.data,[{'method':self.paymentMethod.id,'id':response.data[0]['id'],'address':self.address.id,'create_date':response.data[0]['create_date'],'last_update_date':response.data[0]['last_update_date'],'transfer_slip':response.data[0]['transfer_slip'],'is_paid':False,'is_shipped':False,'user':self.user.id,'is_active':True,'postal_track':response.data[0]['postal_track'],'status':'Wait for slip'}])
+
+    def test_get_order(self):
+        data = {"product":self.product.id,"quantity":10}
+        response = self.client.post('/api/v1/t/cart/',data,format="json")
+        data = {"method":self.paymentMethod.id,"address":self.address.id}
+        response = self.client.post('/api/v1/t/cart/pay/',data,format="json")
+        response = self.client.get('/api/v1/t/order/'+response.data['id']+'/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data,{'method':self.paymentMethod.id,'id':response.data[0]['id'],'address':self.address.id,'create_date':response.data[0]['create_date'],'last_update_date':response.data[0]['last_update_date'],'transfer_slip':response.data[0]['transfer_slip'],'is_paid':False,'is_shipped':False,'user':self.user.id,'is_active':True,'postal_track':response.data[0]['postal_track'],'status':'Wait for slip'})
