@@ -13,3 +13,12 @@ class CategoryTest(APITestCase) :
         data={"name":"Drink","description":"Small Molecule"}
         response = self.client.post('/api/v1/m/category/',data,format="json")
         self.assertEqual(response.status_code,status.HTTP_201_CREATED)
+
+    def test_put_category(self) :
+        data={"name":"Drink","description":"Small Molecule"}
+        response = self.client.post('/api/v1/m/category/',data,format="json")
+        self.assertEqual(response.status_code,status.HTTP_201_CREATED)
+        data={"name":"Water","description":"Small Molecule","is_active":True}
+        response = self.client.put('/api/v1/m/category/'+str(response.data['id'])+'/',data,format="json")
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data['name'],'Water')
