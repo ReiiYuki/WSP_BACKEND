@@ -87,3 +87,23 @@ class CartTest(APITestCase) :
         data = {"method":self.paymentMethod.id,"address":self.address.id}
         response = self.client.post('/api/v1/t/cart/pay/',data,format="json")
         self.assertEqual(response.status_code,status.HTTP_200_OK)
+
+class OrderTest(APITestCase) :
+    def setUp(self):
+        self.user=User.objects.create(username="A",password="B")
+        self.client.credentials(HTTP_AUTHORIZATION="Token "+Token.objects.get(user__username='A').key)
+        self.category = models.Category.objects.create(name='Sample',description='Sample')
+        self.product = models.Product.objects.create(name='P',description='PP',price=9,category=self.category)
+        self.paymentMethod = PaymentMethod.objects.create(type="B",name="1103702001392")
+        self.address = Address.objects.create(
+        user=self.user,address_number="57/138",village="Thiptanee",road="Latphrao",sub_distinct="Chandrasem",distinct="Chatujak",province="Bangokok",country="Thailand",zipcode="10900"
+        )
+
+    def test_get_list_of_order(self) :
+        data = {"product":self.product.id,"quantity":10}
+        response = self.client.post('/api/v1/t/cart/',data,format="json")
+        data = {"method":self.paymentMethod.id,"address":self.address.id}
+        response = self.client.post('/api/v1/t/cart/pay/',data,format="json")
+        response = self.client.get('/api/v1/t/order/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data,[{'method':self.paymentMethod.id,'id':response.data[0]['id'],'address':self.address.id,'create_date':response.data[0]['create_date'],'last_update_date':response.data[0]['last_update_date'],'transfer_slip':response.data[0]['transfer_slip'],'is_paid':False,'is_shipped':False,'user':self.user.id,'is_active':True,'postal_track':response.data[0]['postal_track'],'status':'Wait for slip'}])
