@@ -76,4 +76,28 @@ class ProductTest(APITestCase) :
         }
         response = self.client.post('/api/v1/m/product/',data,format='json')
         self.assertEqual(response.status_code,status.HTTP_201_CREATED)
-    
+
+    def test_update_product(self):
+        data = {
+            'image':'dummy.jpg',
+            'name':'AAA',
+            'description':'BBB',
+            'price':100,
+            'category': self.category.id,
+            'is_active':True
+        }
+        response = self.client.post('/api/v1/m/product/',data,format='json')
+        self.assertEqual(response.status_code,status.HTTP_201_CREATED)
+        self.assertEqual(response.status_code,status.HTTP_201_CREATED)
+        id = response.data['id']
+        data = {
+            'image':'ssadsadsadsa.jpg',
+            'name':'avvvdvdvd',
+            'description':'BBB',
+            'price':100,
+            'category': self.category.id,
+            'is_active':True
+        }
+        response = self.client.put('/api/v1/m/product/'+str(id)+'/',data,format="json")
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data['name'],'avvvdvdvd')
