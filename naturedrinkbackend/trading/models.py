@@ -26,7 +26,6 @@ class Order(models.Model) :
     user = models.ForeignKey(User)
     @property
     def status(self) :
-        print (self.transfer_slip)
         if self.transfer_slip == "" and not self.is_paid:
             return "Wait for slip"
         if self.transfer_slip is not "" and not self.is_paid and not self.is_shipped:

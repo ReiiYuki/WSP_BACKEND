@@ -14,41 +14,21 @@ class PaymentMethodViewSet(viewsets.ModelViewSet) :
     queryset = PaymentMethod.objects.all()
     serializer_class = PaymentMethodSerializer
 
-    # ''' List OK '''
-    # def list(self,request) :
-    #     # if request.user.is_staff :
-    #     #     return super(PaymentMethodViewSet,self).list(request)
-    #     return Response(PaymentMethodSerializer(PaymentMethod.objects.all,many=True).data)
-
     ''' Create OK '''
     def create(self,request) :
-        # if request.user.is_staff :
-        #     return super(PaymentMethodViewSet,self).create(request)
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
     ''' Update OK '''
     def update(self,request,pk=None) :
-        # if request.user.is_staff :
-        #     return super(PaymentMethodViewSet,self).update(request)
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
     ''' Deactive OK '''
     def destroy(self,request,pk=None) :
-        # if request.user.is_staff :
-        #     method = PaymentMethod.objects.get(id=pk)
-        #     method.is_active = False
-        #     method.save()
-        #     return Response({"detail" : "Deactive successful"})
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
     ''' Reactive OK '''
     @detail_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
     def reactive(self,request,pk=None) :
-        # if request.user.is_staff :
-        #     method = PaymentMethod.objects.get(id=pk)
-        #     method.is_active = True
-        #     method.save()
-        #     return Response({"detail" : "Reactive successful"})
         return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
 ''' Get OK'''
@@ -210,18 +190,6 @@ class OrderViewSet(viewsets.ModelViewSet) :
         order.save()
         return Response({"detail" : "Deactive successful"})
 
-    def status(self,request,pk=None) :
-        order = Order.objects.get(id=pk)
-        if order.transfer_slip == None :
-            return "Wait for slip"
-        if order.is_paid and not order.is_shipped:
-            return "Upload Recieved"
-        if order.is_shipped :
-            header = {"aftership-api-key": "9442c41d-f380-482e-954c-2a1c996f1815","Content-Type": "application/json"}
-            url = "https://api.aftership.com/v4/last_checkpoint/thailand-post/"+order.postal_track
-            data = requests.get(url,header).json()
-            status = data['data']['tag']+' '+data['data']['checkpoint']['city']+','+data['data']['checkpoint']['country_name']
-            return status
 
 
 class PostalTrackViewSet(viewsets.ModelViewSet) :
