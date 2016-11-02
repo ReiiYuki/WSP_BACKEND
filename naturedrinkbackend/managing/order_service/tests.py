@@ -16,3 +16,10 @@ class OrderTest(APITestCase) :
     def test_get_order(self) :
         response=self.client.get('/api/v1/m/order/')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
+    def test_confirm_order(self) :
+        order = Order.objects.create(user=self.user,address=self.address,method=self.method)
+        response = self.client.put('/api/v1/m/order/'+str(order.id)+'/confirmPayment/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        response=self.client.get('/api/v1/m/order/'+str(order.id)+'/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data['is_paid'],True)
