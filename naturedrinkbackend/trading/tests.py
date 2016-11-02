@@ -116,3 +116,14 @@ class OrderTest(APITestCase) :
         response = self.client.get('/api/v1/t/order/'+str(response.data['id'])+'/')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         self.assertEqual(response.data,{'method':self.paymentMethod.id,'id':response.data['id'],'address':self.address.id,'create_date':response.data['create_date'],'last_update_date':response.data['last_update_date'],'transfer_slip':response.data['transfer_slip'],'is_paid':False,'is_shipped':False,'user':self.user.id,'is_active':True,'postal_track':response.data['postal_track'],'status':'Wait for slip'})
+
+    def test_upload_slip(self) :
+        data = {"product":self.product.id,"quantity":10}
+        response = self.client.post('/api/v1/t/cart/',data,format="json")
+        data = {"method":self.paymentMethod.id,"address":self.address.id}
+        response = self.client.post('/api/v1/t/cart/pay/',data,format="json")
+        response = self.client.get('/api/v1/t/order/'+str(response.data['id'])+'/')
+        data = {'transfer_slip':'slip1.jpg'}
+        response = self.client.put('/api/v1/t/order/'+str(response.data['id'])+'/upload_slip/',data,format="json")
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data['transfer_slip'],data['transfer_slip'])
