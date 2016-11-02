@@ -57,3 +57,23 @@ class CategoryTest(APITestCase) :
         response = self.client.get('/api/v1/m/category/'+id+'/')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         self.assertEqual(response.data['is_active'],True)
+
+class ProductTest(APITestCase) :
+
+    def setUp(self) :
+        self.user = User.objects.create(username='admin',password='admin',is_staff=True)
+        self.client.credentials(HTTP_AUTHORIZATION="Token "+Token.objects.get(user__username='admin').key)
+        self.category = models.Category.objects.create(name="D",description="B")
+
+    def test_create_product(self) :
+        data = {
+            'image':'dummy.jpg',
+            'name':'AAA',
+            'description':'BBB',
+            'price':100,
+            'category': self.category.id,
+            'is_active':True
+        }
+        response = self.client.post('/api/v1/m/product/',data,format='json')
+        self.assertEqual(response.status_code,status.HTTP_201_CREATED)
+    
