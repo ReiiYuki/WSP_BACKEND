@@ -39,3 +39,21 @@ class CategoryTest(APITestCase) :
         response = self.client.get('/api/v1/m/category/'+id+'/')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         self.assertEqual(response.data['is_active'],False)
+
+    def test_reactive_category(self):
+        data={"name":"Drink","description":"Small Molecule"}
+        response = self.client.post('/api/v1/m/category/',data,format="json")
+        self.assertEqual(response.status_code,status.HTTP_201_CREATED)
+        response = self.client.get('/api/v1/m/category/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        id = str(response.data[0]['id'])
+        response = self.client.delete('/api/v1/m/category/'+str(response.data[0]['id'])+'/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        response = self.client.get('/api/v1/m/category/'+id+'/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data['is_active'],False)
+        response = self.client.put('/api/v1/m/category/'+id+'/reactive/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        response = self.client.get('/api/v1/m/category/'+id+'/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data['is_active'],True)
