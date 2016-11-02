@@ -72,10 +72,6 @@ Method | URL | Token | JSON | Description
 --- | --- | --- | --- | --- | ---
 GET | api/v1/t/order/ | Yes | No | Get list of order
 GET | api/v1/t/order/pk | Yes | No | Get order
-PUT | api/v1/t/order/pk/update_track/ | Yes | {postal_track} | Update Postal Track
-DELETE | api/v1/t/order/pk/delete_track/ | Yes | No | Delete Postal Track
-PUT | api/v1/t/order/pk/confirm | Yes | No | Confirm Payment
-DELETE | api/v1/t/order/pk/deconfirm | Yes | No | Unconfirm Payment
 PUT | api/v1/t/order/pk/upload_slip/ | Yes | {transfer_slip} | Upload Slip
 PUT | api/v1/t/order/pk/delete_slip/ | Yes | No | Delete Slip
 
