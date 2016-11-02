@@ -37,3 +37,14 @@ class UserTest(APITestCase) :
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response = self.client.get('/api/v1/m/user/'+str(user.id)+'/')
         self.assertEqual(response.data['is_active'],False)
+
+    def test_reactive_user(self) :
+        user = User.objects.create(username="A",password="B")
+        response = self.client.delete('/api/v1/m/user/'+str(user.id)+'/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        response = self.client.get('/api/v1/m/user/'+str(user.id)+'/')
+        self.assertEqual(response.data['is_active'],False)
+        response = self.client.put('/api/v1/m/user/'+str(user.id)+'/reactive/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        response = self.client.get('/api/v1/m/user/'+str(user.id)+'/')
+        self.assertEqual(response.data['is_active'],True)
