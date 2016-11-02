@@ -123,7 +123,25 @@ class OrderTest(APITestCase) :
         data = {"method":self.paymentMethod.id,"address":self.address.id}
         response = self.client.post('/api/v1/t/cart/pay/',data,format="json")
         response = self.client.get('/api/v1/t/order/'+str(response.data['id'])+'/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
         data = {'transfer_slip':'slip1.jpg'}
+        self.assertEqual(response.data['transfer_slip'],'')
         response = self.client.put('/api/v1/t/order/'+str(response.data['id'])+'/upload_slip/',data,format="json")
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         self.assertEqual(response.data['transfer_slip'],data['transfer_slip'])
+
+    def test_delete_slip(self) :
+        data = {"product":self.product.id,"quantity":10}
+        response = self.client.post('/api/v1/t/cart/',data,format="json")
+        data = {"method":self.paymentMethod.id,"address":self.address.id}
+        response = self.client.post('/api/v1/t/cart/pay/',data,format="json")
+        response = self.client.get('/api/v1/t/order/'+str(response.data['id'])+'/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        data = {'transfer_slip':'slip1.jpg'}
+        self.assertEqual(response.data['transfer_slip'],'')
+        response = self.client.put('/api/v1/t/order/'+str(response.data['id'])+'/upload_slip/',data,format="json")
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data['transfer_slip'],data['transfer_slip'])
+        response = self.client.put('/api/v1/t/order/'+str(response.data['id'])+'/delete_slip/')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.data['transfer_slip'],'')
