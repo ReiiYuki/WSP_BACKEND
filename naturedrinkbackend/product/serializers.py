@@ -1,17 +1,6 @@
 from rest_framework import serializers
-from .models import Category,Product,ProductOption,ProductChoice
+from .models import Category,Product
 
-class ProductChoiceSerializer(serializers.ModelSerializer) :
-    class Meta :
-        model = ProductChoice
-        fields = ('id','name','is_active','option')
-        extra_kwargs = {'id':{'read_only':True},'is_active':{'read_only':True}}
-
-class ProductOptionSerializer(serializers.ModelSerializer) :
-    class Meta :
-        model = ProductOption
-        fields = ('id','name','is_active','product')
-        extra_kwargs = {'id':{'read_only':True},'is_active':{'read_only':True}}
 
 class ProductSerializer(serializers.ModelSerializer) :
     class Meta :

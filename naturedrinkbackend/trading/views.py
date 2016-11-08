@@ -1,5 +1,5 @@
-from .models import PaymentMethod , ItemProperty , Order , ItemLine , PostalTrack
-from .serializers import PaymentMethodSerializer, ItemPropertySerializer,OrderSerializer,ItemLineSerializer,PostalTrackSerializer
+from .models import PaymentMethod  , Order , ItemLine
+from .serializers import PaymentMethodSerializer,OrderSerializer,ItemLineSerializer
 from rest_framework import viewsets,renderers,status
 from rest_framework.response import Response
 from rest_framework.decorators import list_route,detail_route
@@ -79,30 +79,12 @@ class ItemLineViewSet(viewsets.ModelViewSet) :
         address = Address.objects.get(id=request.data['address'])
         method = PaymentMethod.objects.get(id=request.data['method'])
         order = Order(method=method,address=address,user=request.user)
-        order.last_upate_date = datetime.datetime.now()
         order.save()
         cart_item =  ItemLine.objects.filter(user=request.user,order=None)
         for i in cart_item :
             i.order = order
             i.save()
         return Response(OrderSerializer(order).data)
-
-
-
-class ItemPropertyViewSet(viewsets.ModelViewSet) :
-    queryset = ItemProperty.objects.all()
-    serializer_class = ItemPropertySerializer
-    ''' Create OK '''
-    def create(self,request) :
-        if request.user.is_anonymous :
-            return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
-        return super(ItemPropertyViewSet,self).create(request)
-
-    def update(self,request) :
-        return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
-
-    def destroy(self,request,pk=None) :
-        return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
 
 ''' Get OK'''
 class OrderViewSet(viewsets.ModelViewSet) :
@@ -129,7 +111,6 @@ class OrderViewSet(viewsets.ModelViewSet) :
         if request.user.is_anonymous :
             return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
         order = Order.objects.get(id=pk)
-        order.pay_date = datetime.datetime.today()
         order.transfer_slip = request.data['transfer_slip']
         order.save()
         return Response(OrderSerializer(order).data)
@@ -139,7 +120,6 @@ class OrderViewSet(viewsets.ModelViewSet) :
         if request.user.is_anonymous :
             return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
         order = Order.objects.get(id=pk)
-        order.pay_date = datetime.datetime.today()
         order.transfer_slip = ""
         order.save()
         return Response(OrderSerializer(order).data)
@@ -189,9 +169,3 @@ class OrderViewSet(viewsets.ModelViewSet) :
         order.is_active = False
         order.save()
         return Response({"detail" : "Deactive successful"})
-
-
-
-class PostalTrackViewSet(viewsets.ModelViewSet) :
-    queryset = PostalTrack.objects.all()
-    serializer_class = PostalTrackSerializer

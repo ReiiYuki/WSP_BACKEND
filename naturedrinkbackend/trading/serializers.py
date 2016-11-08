@@ -1,17 +1,11 @@
 from rest_framework import serializers
-from .models import PaymentMethod , ItemProperty , Order , ItemLine , PostalTrack
+from .models import PaymentMethod  , Order , ItemLine
 
 class PaymentMethodSerializer(serializers.ModelSerializer) :
     class Meta :
         model = PaymentMethod
         fields = ('id','type','name','is_active')
         extra_kwargs = {'id':{'read_only':True},'is_active':{'read_only':True}}
-
-class ItemPropertySerializer(serializers.ModelSerializer) :
-    class Meta :
-        model = ItemProperty
-        fields = ('id','choice','option')
-        extra_kwargs = {'id':{'read_only':True}}
 
 class OrderSerializer(serializers.ModelSerializer) :
     status = serializers.ReadOnlyField()
@@ -25,9 +19,3 @@ class ItemLineSerializer(serializers.ModelSerializer) :
         model = ItemLine
         fields = ('id','product','user','order','quantity','is_active')
         extra_kwargs = {'id':{'read_only':True},'is_active':{'read_only':True},'user':{'read_only':True},'order':{'read_only':True}}
-
-class PostalTrackSerializer(serializers.ModelSerializer) :
-    class Meta :
-        model = PaymentMethod
-        fields = ('id','order','tracking_number','upload_date','update_date','is_active')
-        extra_kwargs = {'id':{'read_only':True},'is_active':{'read_only':True},'upload_date':{'read_only':True},'update_date':{'read_only':True}}

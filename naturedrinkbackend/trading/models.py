@@ -1,5 +1,5 @@
 from django.db import models
-from product.models import Product,ProductOption,ProductChoice
+from product.models import Product
 from django.contrib.auth.models import User
 from user.models import Address
 from . import thai_posttracking
@@ -9,15 +9,10 @@ class PaymentMethod(models.Model) :
     name = models.CharField(max_length=13)
     is_active = models.BooleanField(default=True)
 
-class ItemProperty(models.Model) :
-    option = models.ForeignKey(ProductOption)
-    choice = models.ForeignKey(ProductChoice)
-
 class Order(models.Model) :
     method = models.ForeignKey(PaymentMethod)
     address = models.ForeignKey(Address)
     create_date = models.DateField(auto_now_add=True)
-    last_update_date = models.DateField(default=None,blank=True,null=True)
     transfer_slip = models.CharField(max_length=500)
     is_paid = models.BooleanField(default=False)
     is_shipped = models.BooleanField(default=False)
@@ -45,12 +40,4 @@ class ItemLine(models.Model) :
     user = models.ForeignKey(User)
     order = models.ForeignKey(Order,default=None,null=True,blank=True)
     quantity = models.PositiveIntegerField()
-    is_active = models.BooleanField(default=True)
-
-class PostalTrack(models.Model) :
-    order = models.ForeignKey(Order)
-    is_active = models.BooleanField(default=True)
-    tracking_number = models.CharField(max_length=13)
-    upload_date = models.DateField(auto_now_add=True)
-    update_date = models.DateField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
