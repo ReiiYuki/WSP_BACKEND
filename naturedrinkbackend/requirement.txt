@@ -1,3 +1,4 @@
+aftership==0.2
 Django==1.10.2
 django-cors-headers==1.2.1
 django-cors-middleware==1.3.1
@@ -5,5 +6,15 @@ django-postgresql==0.0.3
 django-rest==0.0.1
 djangorestframework==3.4.6
 djangorestframework-expiring-authtoken==0.1.4
+get==0.0.0
+mysqlclient==1.3.7
 Pillow==3.4.1
+post==0.0.0
 psycopg2==2.6.2
+public==0.0.0
+python-dateutil==2.5.3
+query-string==0.0.0
+requests==2.11.1
+setupfiles==0.0.13
+simplejson==3.9.0
+six==1.10.0
