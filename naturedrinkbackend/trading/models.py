@@ -6,7 +6,7 @@ from . import thai_posttracking
 # Create your models here.
 class PaymentMethod(models.Model) :
     type = models.CharField(max_length=1)
-    name = models.CharField(max_length=13)
+    name = models.CharField(max_length=100)
     is_active = models.BooleanField(default=True)
 
 class Order(models.Model) :
