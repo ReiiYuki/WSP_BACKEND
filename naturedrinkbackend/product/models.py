@@ -1,5 +1,5 @@
 from django.db import models
-
+from design.models import DesignBottle
 # Create your models here.
 class Category(models.Model) :
     name = models.CharField(max_length=50)
@@ -15,5 +15,6 @@ class Product(models.Model) :
     price = models.FloatField()
     image = models.CharField(max_length=500)
     category = models.ForeignKey(Category,related_name='products')
+    design = models.ForeignKey(DesignBottle,null=True,default=None,blank=True)
     def __str__(self)  :
         return self.name
