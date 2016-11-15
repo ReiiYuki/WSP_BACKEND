@@ -7,10 +7,5 @@ class DesignBottle(models.Model) :
     image = models.CharField(max_length=1000)
     user = models.ForeignKey(User)
     is_active = models.BooleanField(default=True)
-
-class DesignRequest(models.Model) :
-    bottle = models.ForeignKey(DesignBottle)
+    is_request = models.BooleanField(default=False)
     is_confirm = models.BooleanField(default=False)
-    price = models.FloatField(default=None,null=True)
-    is_active = models.BooleanField(default=True)
-    user = models.ForeignKey(User)
