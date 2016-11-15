@@ -75,6 +75,16 @@ GET | api/v1/t/order/pk | Yes | No | Get order
 PUT | api/v1/t/order/pk/upload_slip/ | Yes | {transfer_slip} | Upload Slip
 PUT | api/v1/t/order/pk/delete_slip/ | Yes | No | Delete Slip
 
+Design
+
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+POST | api/v1/d/design/ | Yes | {'name','description','image'} | Add Design  
+GET | api/v1/d/design/ | Yes | No | View Design list  
+DELETE | api/v1/t/design/pk/ | Yes | No | Delete design
+POST | api/v1/t/design/submit/ | Yes | | Submit Design Request
+
+
 ## Administrator API  
 
   User

@@ -40,3 +40,5 @@ class DesignBottleViewSet(viewsets.ModelViewSet) :
         design.is_request = True
         design.save()
         return Response(DesignBottleSerializer(design).data)
+    def perform_create(self, serializer):
+        return serializer.save(user=self.request.user)
