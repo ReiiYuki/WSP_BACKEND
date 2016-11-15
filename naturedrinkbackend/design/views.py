@@ -32,7 +32,11 @@ class DesignBottleViewSet(viewsets.ModelViewSet) :
         design.save()
         return Response(DesignBottleSerializer(design).data)
 
+    @detail_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
     def submit(self,request,pk=None) :
         design = DesignBottle.objects.get(id=pk)
         if request.user  is not design.user :
              return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+        design.is_request = True
+        design.save()
+        return Response(DesignBottleSerializer(design).data)
