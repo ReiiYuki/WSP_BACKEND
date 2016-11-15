@@ -31,3 +31,29 @@ class DesignBottleViewSet(viewsets.ModelViewSet) :
         design.is_active = False
         design.save()
         return Response(DesignBottleSerializer(design).data)
+
+class DesignRequestViewSet(viewsets.ModelViewSet) :
+    queryset = DesignRequest.objects.all()
+    serializer_class = DesignRequestSerializer
+
+    def list(self,request) :
+        if request.user.is_anonymous :
+             return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+        return Response(DesignRequestSerializer(DesignRequest.objects.filter(user=request.user,is_active=True),many=True).data)
+
+    def retrieve(self,request,pk=None) :
+        design = DesignRequest.objects.get(id=pk)
+        if request.user not == design.user and design.is_active:
+             return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+        return Response(DesignRequestSerializer(design).data)
+
+    def update(self,request,pk=None) :
+        return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+
+    def destroy(self,request,pk=None) :
+        design = DesignRequest.objects.get(id=pk)
+        if request.user not == design.user :
+             return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
+        design.is_active = False
+        design.save()
+        return Response(DesignRequestSerializer(design).data)
