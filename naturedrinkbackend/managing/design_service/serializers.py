@@ -1,4 +1,4 @@
-from .models import DesignBottle
+from design.models import DesignBottle
 from rest_framework import serializers
 
 class DesignBottleSerializer(serializers.ModelSerializer) :

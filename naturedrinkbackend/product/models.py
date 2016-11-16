@@ -14,7 +14,7 @@ class Product(models.Model) :
     is_active = models.BooleanField(default=True)
     price = models.FloatField()
     image = models.CharField(max_length=500)
-    category = models.ForeignKey(Category,related_name='products')
+    category = models.ForeignKey(Category,related_name='products',null=True)
     design = models.ForeignKey(DesignBottle,null=True,default=None,blank=True)
     def __str__(self)  :
         return self.name
