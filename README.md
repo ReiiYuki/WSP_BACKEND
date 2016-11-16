@@ -6,19 +6,19 @@ https://github.com/b5710546232/WSP_FRONTEND
 
 ## DATABASE INFORMATION   
 
-  ```
-  'ENGINE': 'django.db.backends.postgresql',
-  'NAME': 'naturedrink',
-  'USER' : 'postgres',
-  'PASSWORD' : 'root1234',
-  'HOST' : 'localhost',
-  'PORT' : '5432'
-  ```
+```
+'ENGINE': 'django.db.backends.postgresql',
+'NAME': 'naturedrink',
+'USER' : 'postgres',
+'PASSWORD' : 'root1234',
+'HOST' : 'localhost',
+'PORT' : '5432'
+```
 
 ## User API
 
-  `api/v1/` - prefix API.
-  `Authorization` - `Token auth-token`
+`api/v1/` - prefix API.
+`Authorization` - `Token auth-token`
 
 User
 
@@ -88,77 +88,85 @@ POST | api/v1/d/design/ | Yes | {'name','description','image'} | Add Design
 GET | api/v1/d/design/ | Yes | No | View Design list  
 DELETE | api/v1/t/design/pk/ | Yes | No | Delete design
 POST | api/v1/t/design/submit/ | Yes | | Submit Design Request
+POST | api/v1/t/design/desubmit/ | Yes | | DeSubmit Design Request
 
 
 ## Administrator API  
 
-  User
+User
 
-  Method | URL | Token | JSON | Description  
-  --- | --- | --- | --- | --- | ---
-  GET | api/v1/m/user/ | Yes | No | Get list of user
-  GET | api/v1/m/user/pk/ | Yes | No | Get user info
-  POST | api/v1/m/user/ | Yes | {username,password,first_name,last_name,email,is_active,is_staff} | Create new user
-  PUT | api/v1/m/user/pk/ | Yes | {first_name,last_name,is_active,is_staff,email} | Update user
-  DELETE | api/v1/m/user/pk/ | Yes | No | Deactive User
-  PUT | api/v1/m/user/pk/reactive/ | Yes | No | Reactive User
-  PUT | api/v1/m/user/pk/assign_staff/ | Yes |No | Assign Staff
-  PUT | api/v1/m/user/pk/fire_staff/ | Yes | No Fire Staff
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+GET | api/v1/m/user/ | Yes | No | Get list of user
+GET | api/v1/m/user/pk/ | Yes | No | Get user info
+POST | api/v1/m/user/ | Yes | {username,password,first_name,last_name,email,is_active,is_staff} | Create new user
+PUT | api/v1/m/user/pk/ | Yes | {first_name,last_name,is_active,is_staff,email} | Update user
+DELETE | api/v1/m/user/pk/ | Yes | No | Deactive User
+PUT | api/v1/m/user/pk/reactive/ | Yes | No | Reactive User
+PUT | api/v1/m/user/pk/assign_staff/ | Yes |No | Assign Staff
+PUT | api/v1/m/user/pk/fire_staff/ | Yes | No Fire Staff
 
-  Address
+Address
 
-  Method | URL | Token | JSON | Description  
-  --- | --- | --- | --- | --- | ---
-  GET | api/v1/m/address/ | Yes | No | Get List of address
-  GET | api/v1/m/address/pk/ | Yes | No | Get address info
-  POST | api/v1/m/address/ | Yes | {address_number,village,road,sub_distinct,distinct,province,country,zipcode,is_active,user} | Create Address
-  PUT | api/v1/m/address/pk/ | Yes | {address_number,village,road,sub_distinct,distinct,province,country,zipcode,is_active,user} | Update Address
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+GET | api/v1/m/address/ | Yes | No | Get List of address
+GET | api/v1/m/address/pk/ | Yes | No | Get address info
+POST | api/v1/m/address/ | Yes | {address_number,village,road,sub_distinct,distinct,province,country,zipcode,is_active,user} | Create Address
+PUT | api/v1/m/address/pk/ | Yes | {address_number,village,road,sub_distinct,distinct,province,country,zipcode,is_active,user} | Update Address
 
-  Product
+Product
 
-  Method | URL | Token | JSON | Description  
-  --- | --- | --- | --- | --- | ---
-  GET | api/v1/m/product/ | Yes | No | Get List of product
-  GET | api/v1/m/product/pk/ | Yes | No | Get product info
-  POST | api/v1/m/product/ | Yes | {image,name,description,price,category,is_active} | Create product
-  PUT | api/v1/m/product/pk/ | Yes | {name,image,description,price,category,is_active} | Update product
-  DELETE | api/v1/m/product/pk/ | Yes | No | Deactive product
-  PUT | api/v1/m/product/pk/reactive/ | Yes | No | Reactive product
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+GET | api/v1/m/product/ | Yes | No | Get List of product
+GET | api/v1/m/product/pk/ | Yes | No | Get product info
+POST | api/v1/m/product/ | Yes | {image,name,description,price,category,is_active} | Create product
+PUT | api/v1/m/product/pk/ | Yes | {name,image,description,price,category,is_active} | Update product
+DELETE | api/v1/m/product/pk/ | Yes | No | Deactive product
+PUT | api/v1/m/product/pk/reactive/ | Yes | No | Reactive product
 
-  Category
+Category
 
-  Method | URL | Token | JSON | Description  
-  --- | --- | --- | --- | --- | ---
-  GET | api/v1/m/category/ | Yes | No | Get List of category
-  GET | api/v1/m/category/pk/ | Yes | No | Get category info
-  POST | api/v1/m/category/ | Yes | {name,description,is_active} | Create category
-  PUT | api/v1/m/category/pk/ | Yes | {name,description,is_active} | Update category
-  DELETE | api/v1/m/category/pk/ | Yes | No | Deactive Category
-  PUT | api/v1/m/category/pk/reactive/ | Yes | No | Reactive Category
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+GET | api/v1/m/category/ | Yes | No | Get List of category
+GET | api/v1/m/category/pk/ | Yes | No | Get category info
+POST | api/v1/m/category/ | Yes | {name,description,is_active} | Create category
+PUT | api/v1/m/category/pk/ | Yes | {name,description,is_active} | Update category
+DELETE | api/v1/m/category/pk/ | Yes | No | Deactive Category
+PUT | api/v1/m/category/pk/reactive/ | Yes | No | Reactive Category
 
-  Payment Method
+Payment Method
 
-  Method | URL | Token | JSON | Description  
-  --- | --- | --- | --- | --- | ---
-  POST | api/v1/m/method/ | Yes | {name,type,is_active} | Add new Payment Method
-  GET | api/v1/m/method/ | No | No | List Payment Method
-  GET | api/v1/m/method/pk/ | No | No | Get Payment Method
-  PUT | api/v1/m/method/pk/ | Yes | {name,type,is_active} | Edit Payment Method
-  DELETE | api/v1/m/method/pk/ | Yes | No | Deactive Payment Method
-  PUT | api/v1/m/method/pk/reactive/ | Yes | No | Reactive Payment Method
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+POST | api/v1/m/method/ | Yes | {name,type,is_active} | Add new Payment Method
+GET | api/v1/m/method/ | No | No | List Payment Method
+GET | api/v1/m/method/pk/ | No | No | Get Payment Method
+PUT | api/v1/m/method/pk/ | Yes | {name,type,is_active} | Edit Payment Method
+DELETE | api/v1/m/method/pk/ | Yes | No | Deactive Payment Method
+PUT | api/v1/m/method/pk/reactive/ | Yes | No | Reactive Payment Method
 
-  Item Line
+Item Line
 
-  Method | URL | Token | JSON | Description  
-  --- | --- | --- | --- | --- | ---
-  GET | api/v1/m/item_line/ | Yes | No | View itemline list  
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+GET | api/v1/m/item_line/ | Yes | No | View itemline list  
 
-  Order
+Order
 
-  Method | URL | Token | JSON | Description  
-  --- | --- | --- | --- | --- | ---
-  GET | api/v1/m/order/ | Yes | No | View order list  
-  PUT | api/v1/m/order/pk/confirmPayment/ | Yes | No | Confirm paymentation of order
-  PUT | api/v1/m/order/pk/updateTrack/ | Yes | {track} | update postal track of order
-  PUT | api/v1/m/order/pk/deleteTrack/ | Yes | No | delete postal track of order
-  PUT | api/v1/m/order/pk/unconfirmPayment/ | Yes | No | Unconfirm paymentation of order
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+GET | api/v1/m/order/ | Yes | No | View order list  
+PUT | api/v1/m/order/pk/confirmPayment/ | Yes | No | Confirm paymentation of order
+PUT | api/v1/m/order/pk/updateTrack/ | Yes | {track} | update postal track of order
+PUT | api/v1/m/order/pk/deleteTrack/ | Yes | No | delete postal track of order
+PUT | api/v1/m/order/pk/unconfirmPayment/ | Yes | No | Unconfirm paymentation of order
+
+Design
+
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+POST | api/v1/t/design/deconfirm/ | Yes | | deconfirm Design Request
+POST | api/v1/t/design/confirm/ | Yes | | confirm Design Request
