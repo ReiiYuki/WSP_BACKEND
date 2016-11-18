@@ -90,6 +90,23 @@ DELETE | api/v1/t/design/pk/ | Yes | No | Delete design
 POST | api/v1/t/design/submit/ | Yes | | Submit Design Request
 POST | api/v1/t/design/desubmit/ | Yes | | DeSubmit Design Request
 
+Bottle
+
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+GET | api/v1/d/bottle/ | Yes | No | View Bottle for design list  
+
+Logo
+
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+GET | api/v1/d/logo/ | Yes | No | View Logo for design list  
+
+Bottle
+
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+GET | api/v1/d/bottle/ | Yes | No | View Bottle for design list  
 
 ## Administrator API  
 
@@ -170,3 +187,36 @@ Method | URL | Token | JSON | Description
 --- | --- | --- | --- | --- | ---
 POST | api/v1/t/design/deconfirm/ | Yes | | deconfirm Design Request
 POST | api/v1/t/design/confirm/ | Yes | | confirm Design Request
+
+ฺBottle
+
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+POST | api/v1/m/bottle/ | Yes | {name,img,is_active} | Add new ฺBottle
+GET | api/v1/m/bottle/ | No | No | List ฺBottle
+GET | api/v1/m/bottle/pk/ | No | No | Get ฺBottle
+PUT | api/v1/m/bottle/pk/ | Yes | {name,img,is_active} | Edit ฺBottle
+DELETE | api/v1/m/bottle/pk/ | Yes | No | Deactive ฺBottle
+PUT | api/v1/m/bottle/pk/reactive/ | Yes | No | Reactive ฺBottle
+
+Logo
+
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+POST | api/v1/m/logo/ | Yes | {name,img,is_active} | Add new Logo
+GET | api/v1/m/logo/ | No | No | List Logo
+GET | api/v1/m/logo/pk/ | No | No | Get Logo
+PUT | api/v1/m/logo/pk/ | Yes | {name,img,is_active} | Edit Logo
+DELETE | api/v1/m/logo/pk/ | Yes | No | Deactive Logo
+PUT | api/v1/m/logo/pk/reactive/ | Yes | No | Reactive Logo
+
+Banner
+
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+POST | api/v1/m/banner/ | Yes | {name,img,is_active,bottle} | Add new Banner
+GET | api/v1/m/banner/ | No | No | List Banner
+GET | api/v1/m/banner/pk/ | No | No | Get Banner
+PUT | api/v1/m/banner/pk/ | Yes | {name,img,is_active,bottle} | Edit Banner
+DELETE | api/v1/m/banner/pk/ | Yes | No | Deactive Banner
+PUT | api/v1/m/banner/pk/reactive/ | Yes | No | Reactive Banner
