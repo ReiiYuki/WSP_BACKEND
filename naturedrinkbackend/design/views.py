@@ -1,10 +1,22 @@
-from .models import DesignBottle
-from .serializers import DesignBottleSerializer
+from .models import DesignBottle,Bottle,Banner,Logo
+from .serializers import DesignBottleSerializer,BottleSerializer,BannerSerializer,LogoSerializer
 from rest_framework import viewsets,renderers,status
 from rest_framework.response import Response
 from rest_framework.decorators import list_route,detail_route
 
 PERMISSION_DENIED_CONTENT = { "detail" : "Permission denied."}
+
+class BottleViewSet(viewsets.ReadOnlyModelViewSet) :
+    queryset = Bottle.objects.filter(is_active=True)
+    serializer_class = BottleSerializer
+
+class BannerViewSet(viewsets.ReadOnlyModelViewSet) :
+    queryset = Banner.objects.filter(is_active=True)
+    serializer_class = BannerSerializer
+
+class LogoViewSet(viewsets.ReadOnlyModelViewSet) :
+    queryset = Logo.objects.filter(is_active=True)
+    serializer_class = LogoSerializer
 
 class DesignBottleViewSet(viewsets.ModelViewSet) :
     queryset = DesignBottle.objects.all()

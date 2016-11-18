@@ -10,6 +10,10 @@ router.register(r'category',views.CategoryViewSet)
 router.register(r'item_line',views.ItemLineViewSet)
 router.register(r'method',views.PaymentMethodViewSet)
 router.register(r'order',views.OrderViewSet)
+router.register(r'design',views.DesignBottleViewSet)
+router.register(r'bottle',views.BottleViewSet)
+router.register(r'banner',views.BannerViewSet)
+router.register(r'logo',views.LogoViewSet)
 urlpatterns = [
     url(r'^', include(router.urls)),
 ]
