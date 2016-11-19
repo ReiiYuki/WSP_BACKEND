@@ -222,6 +222,7 @@ DELETE | api/v1/m/banner/pk/ | Yes | No | Deactive Banner
 PUT | api/v1/m/banner/pk/reactive/ | Yes | No | Reactive Banner
 
 Stat   
+
 Method | URL | Token | JSON | Description  
 --- | --- | --- | --- | --- | ---
 GET | api/v1/m/stat/product | No |  | Stat of Amount Product
