@@ -29,7 +29,7 @@ class DesignBottleViewSet(viewsets.ModelViewSet) :
 
     def retrieve(self,request,pk=None) :
         design = DesignBottle.objects.get(id=pk)
-        if request.user  is not design.user and design.is_active:
+        if request.user  != design.user and design.is_active:
              return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
         return Response(DesignBottleSerializer(design).data)
 
@@ -38,7 +38,7 @@ class DesignBottleViewSet(viewsets.ModelViewSet) :
 
     def destroy(self,request,pk=None) :
         design = DesignBottle.objects.get(id=pk)
-        if request.user is not design.user :
+        if request.user != design.user :
              return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
         design.is_active = False
         design.save()
@@ -47,7 +47,7 @@ class DesignBottleViewSet(viewsets.ModelViewSet) :
     @detail_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
     def submit(self,request,pk=None) :
         design = DesignBottle.objects.get(id=pk)
-        if request.user  is not design.user :
+        if request.user  != design.user :
              return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
         design.is_request = True
         design.save()
@@ -56,7 +56,7 @@ class DesignBottleViewSet(viewsets.ModelViewSet) :
     @detail_route(methods=['put'],renderer_classes=[renderers.JSONRenderer])
     def desubmit(self,request,pk=None) :
         design = DesignBottle.objects.get(id=pk)
-        if request.user  is not design.user :
+        if request.user  != design.user :
              return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
         design.is_request = False
         design.is_confirm = False
