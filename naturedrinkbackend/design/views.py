@@ -25,7 +25,7 @@ class DesignBottleViewSet(viewsets.ModelViewSet) :
     def list(self,request) :
         if request.user.is_anonymous :
              return Response(PERMISSION_DENIED_CONTENT,status=status.HTTP_401_UNAUTHORIZED)
-        return Response(DesignBottleSerializer(DesignBottle.objects.filter(user=request.user,is_active=True),many=True).data)
+        return Response(DesignBottleSerializer(DesignBottle.objects.filter(user=request.user),many=True).data)
 
     def retrieve(self,request,pk=None) :
         design = DesignBottle.objects.get(id=pk)
