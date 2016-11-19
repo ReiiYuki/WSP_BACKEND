@@ -16,4 +16,12 @@ router.register(r'banner',views.BannerViewSet)
 router.register(r'logo',views.LogoViewSet)
 urlpatterns = [
     url(r'^', include(router.urls)),
+    url(r'^stat/product',views.stat_product),
+    url(r'^stat/category',views.stat_category),
+    url(r'^stat/money',views.stat_money),
+    url(r'^stat/user/payment',views.stat_user_pay),
+    url(r'^stat/user/order',views.stat_user_order),
+    url(r'^stat/user/shipping',views.stat_user_shipping),
+    url(r'^stat/address',views.stat_address),
+
 ]

@@ -220,3 +220,14 @@ GET | api/v1/m/banner/pk/ | No | No | Get Banner
 PUT | api/v1/m/banner/pk/ | Yes | {name,img,is_active,bottle} | Edit Banner
 DELETE | api/v1/m/banner/pk/ | Yes | No | Deactive Banner
 PUT | api/v1/m/banner/pk/reactive/ | Yes | No | Reactive Banner
+
+Stat   
+Method | URL | Token | JSON | Description  
+--- | --- | --- | --- | --- | ---
+GET | api/v1/m/stat/product | No |  | Stat of Amount Product
+GET | api/v1/m/stat/category | No |  | Stat of Amount category
+GET | api/v1/m/stat/money | No |  | Stat of Money Product
+GET | api/v1/m/stat/user/payment | No |  | Stat of Amount payment Product of user
+GET | api/v1/m/stat/user/order | No |  | Stat of Amount Order of user
+GET | api/v1/m/stat/user/shipping | No |  | Stat of Amount shipped order of user
+GET | api/v1/m/stat/address | No |  | Stat of Amount Address
