@@ -10,7 +10,7 @@ from trading.models import ItemLine
 PERMISSION_DENIED_CONTENT = { "detail" : "Permission denied."}
 
 class BottleViewSet(viewsets.ModelViewSet) :
-    queryset = Bottle.objects.filter(is_active=True)
+    queryset = Bottle.objects.all()
     serializer_class = BottleSerializer
     permission_classes = (isAdmin,)
 
@@ -28,7 +28,7 @@ class BottleViewSet(viewsets.ModelViewSet) :
         return Response(BottleSerializer(bottle).data)
 
 class BannerViewSet(viewsets.ModelViewSet) :
-    queryset = Banner.objects.filter(is_active=True)
+    queryset = Banner.objects.all()
     serializer_class = BannerSerializer
     permission_classes = (isAdmin,)
 
@@ -46,7 +46,7 @@ class BannerViewSet(viewsets.ModelViewSet) :
         return Response(BannerSerializer(banner).data)
 
 class LogoViewSet(viewsets.ModelViewSet) :
-    queryset = Logo.objects.filter(is_active=True)
+    queryset = Logo.objects.all()
     serializer_class = LogoSerializer
     permission_classes = (isAdmin,)
     def destroy(self,request,pk=None) :
@@ -73,7 +73,7 @@ class DesignBottleViewSet(viewsets.ModelViewSet) :
         design = DesignBottle.objects.get(id=pk)
         design.is_confirm = True
         design.save()
-        product = Product.objects.create(name=design.name,description=design.description,price=price,image=design.image,design=design)
+        product = Product.objects.create(name=design.name,description=design.description,price=float(price),image=design.image,design=design)
         product.save()
         user = design.user
         itemLine = ItemLine.objects.create(user=user,product=product,quantity=1)
@@ -87,6 +87,6 @@ class DesignBottleViewSet(viewsets.ModelViewSet) :
         design.save()
         product = Product.objects.get(design=design)
         itemLine= ItemLine.objects.get(product=product,user=design.user)
-        itemLine.remove()
-        product.remove()
+        itemLine.delete()
+        product.delete()
         return Response({"status":"Deconfirm Success"})
