@@ -11,8 +11,8 @@ class AddressSerializer(serializers.ModelSerializer) :
 class UserSerializer(serializers.ModelSerializer) :
     class Meta:
         model = User
-        fields = ('email', 'username', 'password','first_name','last_name','id','is_active')
-        extra_kwargs = {'password': {'write_only': True},'id':{'read_only':True},'is_active':{'read_only':True}}
+        fields = ('email', 'username', 'password','first_name','last_name','id','is_active','is_staff')
+        extra_kwargs = {'password': {'write_only': True},'id':{'read_only':True},'is_active':{'read_only':True},'is_staff':{'read_only':True}}
 
     def create(self, validated_data):
         user = User(
