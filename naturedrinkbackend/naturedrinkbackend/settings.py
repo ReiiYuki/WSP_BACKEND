@@ -148,7 +148,7 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
-
+ALLOWED_HOSTS = ['*']
 EXPIRING_TOKEN_LIFESPAN = datetime.timedelta(days=25)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
