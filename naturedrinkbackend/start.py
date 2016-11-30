@@ -1,5 +1,5 @@
 import os
-cmd = "python manage.py test"
+cmd = "python3 manage.py test"
 os.system(cmd)
-cmd = "python manage.py runserver"
+cmd = "python3 manage.py runserver 0.0.0.0:8000"
 os.system(cmd)
